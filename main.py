@@ -1,3 +1,4 @@
+import eventos
 from venPrincipal import *
 import sys
 import var
@@ -7,6 +8,14 @@ class Main(QtWidgets.QMainWindow):
         super(Main, self).__init__()
         var.ui = Ui_venPrincipal()
         var.ui.setupUi(self)
+
+        '''
+        zona de eventos del menubar
+        '''
+
+        var.ui.actionSalir.triggered.connect(eventos.Eventos.mensajeSalir)
+
+
 
 
 
