@@ -7,7 +7,7 @@ class Eventos():
     def mensajeSalir(self=None):
         mbox = QtWidgets.QMessageBox()
         mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
-        mbox.setWindowIcon(QtGui.QIcon('./img/1486505259-estate-home-house-building-property-real_81428.svg'))
+        mbox.setWindowIcon(QtGui.QIcon('./img/icono.svg'))
         mbox.setText("¿Desea salir?")
 
         mbox.setWindowTitle('Salir')
