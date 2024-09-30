@@ -1,0 +1,28 @@
+/*--------- Estilo para QMainWindow -----*/
+
+
+QMainWindow {
+    background-color: #d7eff6;
+}
+
+/* Estilo para QTabWidget -----*/
+
+QTabWidget {
+    background-color: none;
+}
+
+/* Estilo QMenuBar */
+
+QMenuBar{
+    background-color: whitesmoke;
+}
+
+/*Estilo botones   */
+
+QPushButton{
+    background-color: #0ea2ae;
+    font-weight: bold;
+    color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+}

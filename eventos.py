@@ -1,5 +1,6 @@
 import sys
-
+import conexion
+import var
 from PyQt6 import QtWidgets, QtGui
 
 
@@ -21,3 +22,7 @@ class Eventos():
         else:
             mbox.hide()
 
+    def cargarProv(self):
+        var.ui.cmbProvcli.clear()
+        listado = conexion.Conexion.listaProv(self)
+        var.ui.cmbProvcli.addItems(listado)
