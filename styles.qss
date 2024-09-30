@@ -2,27 +2,42 @@
 
 
 QMainWindow {
-    background-color: #d7eff6;
+    background-color: #FCE5D1;
 }
 
-/* Estilo para QTabWidget -----*/
+/*----    Estilo para QTabWidget       -----*/
 
 QTabWidget {
-    background-color: none;
+    background-color: #E0E0E0;
 }
 
-/* Estilo QMenuBar */
+/*----    Estilo para QMenuBar       -----*/
 
 QMenuBar{
-    background-color: whitesmoke;
+    background-color: #E0E0E0;
 }
 
-/*Estilo botones   */
+/*----    Estilo para botones       -----*/
 
 QPushButton{
-    background-color: #0ea2ae;
+    background-color: #F28C40;
     font-weight: bold;
     color: white;
     border: 1px solid black;
     border-radius: 5px;
+}
+
+/*----    Estilo para botones al pasar el ratón      -----*/
+QPushButton:hover{
+    background-color: #F6AC51;
+}
+
+/*----    Estilo para botones al presionarlos    -----*/
+QPushButton:pressed{
+    background-color: #D47930;
+}
+
+/*----    Estilo para cuadros de texto al pasar el ratón    -----*/
+QLineEdit:hover{
+    background-color: #F5F5F5;
 }
