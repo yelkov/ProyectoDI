@@ -62,6 +62,6 @@ class Eventos():
 
     @staticmethod
     def cargarTick():
-        pixmap = QPixmap("img/tick.ico")
+        pixmap = QPixmap("img/tick.svg")
         return pixmap
 
