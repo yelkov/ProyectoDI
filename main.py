@@ -14,6 +14,7 @@ class Main(QtWidgets.QMainWindow):
         conexion.Conexion.db_conexion()
         self.setStyleSheet(styles.load_stylesheet())
         eventos.Eventos.cargarProv()
+        eventos.Eventos.cargarMunicipio(var.ui.cmbProvcli.currentText())
 
         '''
         zona de eventos del menubar
@@ -29,6 +30,11 @@ class Main(QtWidgets.QMainWindow):
         zona de eventos de cajas de texto
         '''
         var.ui.txtDnicli.editingFinished.connect(lambda: clientes.Clientes.checkDni(var.ui.txtDnicli.text()))
+        '''
+        zona eventos comboBox
+        '''
+        var.ui.cmbProvcli.currentIndexChanged.connect(lambda : eventos.Eventos.cargarMunicipio(var.ui.cmbProvcli.currentText()))
+
 
 
 if __name__ == '__main__':
