@@ -16,10 +16,19 @@ class Clientes:
             var.ui.txtDnicli.setText(str(dni))
             check = eventos.Eventos.validarDNI(dni)
             if check:
-                var.ui.txtDnicli.setStyleSheet('background-color:#BEEEBA;')
+                var.ui.txtDnicli.setStyleSheet('border: 1px solid #41AD48;')
+                Clientes.cargarTickcli()
             else:
-                var.ui.txtDnicli.setStyleSheet('background-color:#FFC0CB; border: 2px solid #de6767; border-radius : 5px')  # y si no un aspa en color rojo
+                var.ui.txtDnicli.setStyleSheet('background-color:#FFC0CB; border: 1px solid #de6767;')
                 var.ui.txtDnicli.setText(None)
                 var.ui.txtDnicli.setFocus()
+                var.ui.lblTickcli.clear()
+
         except Exception as e:
             print("Error check clientes" + e)
+
+    @staticmethod
+    def cargarTickcli():
+        pixmap = eventos.Eventos.cargarTick()
+        var.ui.lblTickcli.setPixmap(pixmap)
+        var.ui.lblTickcli.setScaledContents(True)

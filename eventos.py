@@ -1,4 +1,7 @@
 import sys
+
+from PyQt6.QtGui import QPixmap
+
 import conexion
 import var
 from PyQt6 import QtWidgets, QtGui
@@ -56,4 +59,9 @@ class Eventos():
 
         except Exception as error:
             print("error en validar dni ", error)
+
+    @staticmethod
+    def cargarTick():
+        pixmap = QPixmap("img/tick.ico")
+        return pixmap
 
