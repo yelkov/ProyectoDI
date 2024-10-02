@@ -11,9 +11,9 @@ class Main(QtWidgets.QMainWindow):
         super(Main, self).__init__()
         var.ui = Ui_venPrincipal()
         var.ui.setupUi(self)
-        conexion.Conexion.db_conexion(self)
+        conexion.Conexion.db_conexion()
         self.setStyleSheet(styles.load_stylesheet())
-        eventos.Eventos.cargarProv(self)
+        eventos.Eventos.cargarProv()
 
         '''
         zona de eventos del menubar

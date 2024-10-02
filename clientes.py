@@ -4,10 +4,12 @@ import eventos
 import var
 
 class Clientes:
-    def altaCliente(self):
+    @staticmethod
+    def altaCliente():
         dni = var.ui.txtDnicli.text()
         print(dni)
 
+    @staticmethod
     def checkDni(dni):
         try:
             dni = str(dni).upper()

@@ -4,7 +4,8 @@ import var
 from PyQt6 import QtWidgets, QtGui
 
 class Eventos():
-    def mensajeSalir(self=None):
+    @staticmethod
+    def mensajeSalir():
         mbox = QtWidgets.QMessageBox()
         mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
         mbox.setWindowIcon(QtGui.QIcon('./img/icono.svg'))
@@ -21,11 +22,13 @@ class Eventos():
         else:
             mbox.hide()
 
-    def cargarProv(self):
+    @staticmethod
+    def cargarProv():
         var.ui.cmbProvcli.clear()
-        listado = conexion.Conexion.listaProv(self)
+        listado = conexion.Conexion.listaProv()
         var.ui.cmbProvcli.addItems(listado)
 
+    @staticmethod
     def validarDNI(dni):
         try:
             dni = str(dni).upper()
