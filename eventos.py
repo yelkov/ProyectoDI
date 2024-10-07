@@ -33,7 +33,7 @@ class Eventos():
         var.ui.cmbProvcli.addItems(listado)
 
     @staticmethod
-    def cargarMunicipio(provincia):
+    def cargaMunicli(provincia):
         var.ui.cmbMunicli.clear()
         listado = conexion.Conexion.listaMunicipio(provincia)
         var.ui.cmbMunicli.addItems(listado)
