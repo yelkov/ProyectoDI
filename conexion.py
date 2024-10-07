@@ -50,12 +50,15 @@ class Conexion:
 
     @staticmethod
     def listaMunicipio(provincia):
-        listamunicipio = []
-        query = QtSql.QSqlQuery()
-        query.prepare("SELECT * FROM municipios WHERE idprov = (SELECT idprov FROM provincias WHERE provincia = ?)")
-        query.bindValue(0, provincia)
-        if query.exec():
-            while query.next():
-                listamunicipio.append(query.value(1))
-        return listamunicipio
+        try:
+            listamunicipio = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM municipios WHERE idprov = (SELECT idprov FROM provincias WHERE provincia = ?)")
+            query.bindValue(0, provincia)
+            if query.exec():
+                while query.next():
+                    listamunicipio.append(query.value(1))
+            return listamunicipio
+        except Exception as e:
+            print("error al cargar municipios")
 
