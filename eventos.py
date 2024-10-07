@@ -1,4 +1,5 @@
 import sys
+import time
 
 from PyQt6.QtGui import QPixmap
 
@@ -65,3 +66,22 @@ class Eventos():
         pixmap = QPixmap("img/tick.svg")
         return pixmap
 
+    @staticmethod
+    def abrirCalendar(op):
+        try:
+            var.panel = op
+            var.uicalendar.show()
+        except Exception as error:
+            print("error en abrir calendar ", error)
+
+    @staticmethod
+    def cargaFecha(qDate):
+        try:
+            data = ('{:02d}/{:02d}/{:4d}'.format(qDate.day(), qDate.month(), qDate.year()))
+            if var.panel == var.ui.panPrincipal.currentIndex():
+                var.ui.txtAltacli.setText(str(data))
+            time.sleep(0.5)
+            var.uicalendar.hide()
+            return data
+        except Exception as error:
+            print("error en cargar fecha: ", error)

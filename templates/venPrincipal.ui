@@ -382,7 +382,7 @@
            </widget>
           </item>
           <item row="0" column="6">
-           <widget class="QPushButton" name="btnCalendarcli">
+           <widget class="QPushButton" name="btnAltacli">
             <property name="minimumSize">
              <size>
               <width>20</width>
@@ -723,7 +723,7 @@
   <tabstop>btnModifcli</tabstop>
   <tabstop>btnDelcli</tabstop>
   <tabstop>tabClientes</tabstop>
-  <tabstop>btnCalendarcli</tabstop>
+  <tabstop>btnAltacli</tabstop>
  </tabstops>
  <resources/>
  <connections/>
