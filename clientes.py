@@ -38,7 +38,7 @@ class Clientes:
         try:
             mail = str(var.ui.txtEmailcli.text())
             if eventos.Eventos.validarMail(mail):
-                var.ui.txtEmailcli.setStyleSheet('background-color: rgb(255, 255, 255);')
+                var.ui.txtEmailcli.setStyleSheet('background-color: rgb(254, 255, 210);')
                 var.ui.txtEmailcli.setText(mail.lower())
 
             else:

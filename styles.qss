@@ -2,19 +2,19 @@
 
 
 QMainWindow {
-    background-color: #FCE5D1;
+    background-color: #FEEAD9;
 }
 
 /*----    Estilo para QTabWidget       -----*/
 
 QTabWidget {
-    background-color: #E0E0E0;
+    background-color: #EFEFEF;
 }
 
 /*----    Estilo para QMenuBar       -----*/
 
 QMenuBar{
-    background-color: #E0E0E0;
+    background-color: #EFEFEF;
 }
 
 /*----    Estilo para botones       -----*/
