@@ -450,7 +450,7 @@
            </spacer>
           </item>
           <item row="1" column="2">
-           <widget class="QLineEdit" name="txtLineEditcli_2">
+           <widget class="QLineEdit" name="txtApelcli">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -711,7 +711,7 @@
   <tabstop>panPrincipal</tabstop>
   <tabstop>txtDnicli</tabstop>
   <tabstop>txtAltacli</tabstop>
-  <tabstop>txtLineEditcli_2</tabstop>
+  <tabstop>txtApelcli</tabstop>
   <tabstop>txtNomcli</tabstop>
   <tabstop>chkHistoriacli</tabstop>
   <tabstop>txtEmailcli</tabstop>

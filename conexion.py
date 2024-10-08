@@ -1,5 +1,7 @@
 import os
 from PyQt6 import QtSql, QtWidgets
+from PyQt6.uic.properties import QtGui
+
 
 class Conexion:
 
@@ -61,4 +63,37 @@ class Conexion:
             return listamunicipio
         except Exception as e:
             print("error al cargar municipios")
+
+    @staticmethod
+    def altaCliente(nuevocli):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("INSERT into clientes (dnicli, altacli, apelcli, nomecli, emailcli, movilcli, dircli, provcli, municli) values (:dnicli, :altacli, :apelcli, :nomecli, :emailcli, :movilcli, :dircli, :provcli, :municli)")
+            query.bindValue(":dnicli", str(nuevocli[0]))
+            query.bindValue(":altacli", str(nuevocli[1]))
+            query.bindValue(":apelcli", str(nuevocli[2]))
+            query.bindValue(":nomecli", str(nuevocli[3]))
+            query.bindValue(":emailcli", str(nuevocli[4]))
+            query.bindValue(":movilcli", str(nuevocli[5]))
+            query.bindValue(":dircli", str(nuevocli[6]))
+            query.bindValue(":provcli", str(nuevocli[7]))
+            query.bindValue(":municli", str(nuevocli[8]))
+
+            if query.exec():
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowIcon(QtGui.QIcon('./img/icono.svg'))
+                mbox.setWindowTitle('Aviso')
+                mbox.setText("Cliente Alta en Base de Datos")
+
+                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+
+            else:
+                QtWidgets.QMessageBox.critical(None, 'Error', 'Error al grabar cliente.',
+                                               QtWidgets.QMessageBox.StandardButton.Cancel)
+
+        except Exception as e:
+            print("error alta cliente", e)
 

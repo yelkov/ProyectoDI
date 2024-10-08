@@ -1,13 +1,14 @@
 from PyQt6 import QtWidgets
 
+import conexion
 import eventos
 import var
 
 class Clientes:
     @staticmethod
     def altaCliente():
-        dni = var.ui.txtDnicli.text()
-        print(dni)
+        nuevoCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),var.ui.cmbMunicli.currentText()]
+        conexion.Conexion.altaCliente(nuevoCli)
 
     @staticmethod
     def checkDniCli(dni):
@@ -16,10 +17,10 @@ class Clientes:
             var.ui.txtDnicli.setText(str(dni))
             check = eventos.Eventos.validarDNI(dni)
             if check:
-                var.ui.txtDnicli.setStyleSheet('border: 1px solid #41AD48;')
+                var.ui.txtDnicli.setStyleSheet('border: 1px solid #41AD48; border-radius: 5px;')
                 Clientes.cargarTickcli()
             else:
-                var.ui.txtDnicli.setStyleSheet('background-color:#FFC0CB; border: 1px solid #de6767;')
+                var.ui.txtDnicli.setStyleSheet('background-color:#FFC0CB; border: 1px solid #de6767; border-radius: 5px;')
                 var.ui.txtDnicli.setText(None)
                 var.ui.txtDnicli.setFocus()
                 var.ui.lblTickcli.clear()
