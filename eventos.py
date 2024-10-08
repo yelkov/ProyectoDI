@@ -1,5 +1,6 @@
 import sys
 import time
+import re
 
 from PyQt6.QtGui import QPixmap
 
@@ -85,3 +86,12 @@ class Eventos():
             return data
         except Exception as error:
             print("error en cargar fecha: ", error)
+
+    @staticmethod
+    def validarMail(mail):
+        mail = mail.lower()
+        regex = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$'
+        if re.match(regex, mail):
+            return True
+        else:
+            return False

@@ -32,7 +32,8 @@ class Main(QtWidgets.QMainWindow):
         '''
         zona de eventos de cajas de texto
         '''
-        var.ui.txtDnicli.editingFinished.connect(lambda: clientes.Clientes.checkDni(var.ui.txtDnicli.text()))
+        var.ui.txtDnicli.editingFinished.connect(lambda: clientes.Clientes.checkDniCli(var.ui.txtDnicli.text()))
+        var.ui.txtEmailcli.editingFinished.connect(lambda : clientes.Clientes.checkEmailCli(var.ui.txtEmailcli.text()))
         '''
         zona eventos comboBox
         '''

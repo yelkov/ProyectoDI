@@ -10,7 +10,7 @@ class Clientes:
         print(dni)
 
     @staticmethod
-    def checkDni(dni):
+    def checkDniCli(dni):
         try:
             dni = str(dni).upper()
             var.ui.txtDnicli.setText(str(dni))
@@ -32,3 +32,20 @@ class Clientes:
         pixmap = eventos.Eventos.cargarTick()
         var.ui.lblTickcli.setPixmap(pixmap)
         var.ui.lblTickcli.setScaledContents(True)
+
+    @staticmethod
+    def checkEmailCli(mail):
+        try:
+            mail = str(var.ui.txtEmailcli.text())
+            if eventos.Eventos.validarMail(mail):
+                var.ui.txtEmailcli.setStyleSheet('background-color: rgb(255, 255, 255);')
+                var.ui.txtEmailcli.setText(mail.lower())
+
+            else:
+                var.ui.txtEmailcli.setStyleSheet('background-color:#FFC0CB; font-style: italic;')
+                var.ui.txtEmailcli.setText(None)
+                var.ui.txtEmailcli.setText("correo no válido")
+                var.ui.txtEmailcli.setFocus()
+
+        except Exception as error:
+            print("error check cliente", error)
