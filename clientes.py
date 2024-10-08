@@ -17,7 +17,7 @@ class Clientes:
             var.ui.txtDnicli.setText(str(dni))
             check = eventos.Eventos.validarDNI(dni)
             if check:
-                var.ui.txtDnicli.setStyleSheet('border: 1px solid #41AD48; border-radius: 5px;')
+                var.ui.txtDnicli.setStyleSheet('border: 1px solid #41AD48; border-radius: 5px;background-color: rgb(254, 255, 210)')
                 Clientes.cargarTickcli()
             else:
                 var.ui.txtDnicli.setStyleSheet('background-color:#FFC0CB; border: 1px solid #de6767; border-radius: 5px;')
@@ -39,7 +39,7 @@ class Clientes:
         try:
             mail = str(var.ui.txtEmailcli.text())
             if eventos.Eventos.validarMail(mail):
-                var.ui.txtEmailcli.setStyleSheet('background-color: rgb(254, 255, 210);')
+                var.ui.txtEmailcli.setStyleSheet('background-color: rgb(255, 255, 255);')
                 var.ui.txtEmailcli.setText(mail.lower())
 
             else:

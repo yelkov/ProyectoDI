@@ -1,6 +1,5 @@
 import os
-from PyQt6 import QtSql, QtWidgets
-from PyQt6.uic.properties import QtGui
+from PyQt6 import QtSql, QtWidgets, QtGui
 
 
 class Conexion:
@@ -89,6 +88,7 @@ class Conexion:
                 mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox.exec()
 
             else:
                 QtWidgets.QMessageBox.critical(None, 'Error', 'Error al grabar cliente.',
