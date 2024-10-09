@@ -79,20 +79,9 @@ class Conexion:
             query.bindValue(":municli", str(nuevocli[8]))
 
             if query.exec():
-                mbox = QtWidgets.QMessageBox()
-                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                mbox.setWindowIcon(QtGui.QIcon('./img/icono.svg'))
-                mbox.setWindowTitle('Aviso')
-                mbox.setText("Cliente Alta en Base de Datos")
-
-                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
-                mbox.exec()
-
+                return True
             else:
-                QtWidgets.QMessageBox.critical(None, 'Error', 'Error al grabar cliente.',
-                                               QtWidgets.QMessageBox.StandardButton.Cancel)
+                return False
 
         except Exception as e:
             print("error alta cliente", e)

@@ -1,4 +1,4 @@
-from PyQt6 import QtWidgets
+from PyQt6 import QtWidgets, QtGui
 
 import conexion
 import eventos
@@ -7,8 +7,25 @@ import var
 class Clientes:
     @staticmethod
     def altaCliente():
-        nuevoCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),var.ui.cmbMunicli.currentText()]
-        conexion.Conexion.altaCliente(nuevoCli)
+        try:
+            nuevoCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),var.ui.cmbMunicli.currentText()]
+
+            if conexion.Conexion.altaCliente(nuevoCli):
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
+                mbox.setWindowTitle('Aviso')
+                mbox.setText("Cliente Alta en Base de Datos")
+
+                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox.exec()
+            else:
+                QtWidgets.QMessageBox.critical(None, 'Error', 'Error al grabar cliente.',
+                                               QtWidgets.QMessageBox.StandardButton.Cancel)
+        except Exception as e:
+            print("error alta cliente", e)
 
     @staticmethod
     def checkDniCli(dni):
