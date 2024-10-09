@@ -10,7 +10,7 @@ class Clientes:
         try:
             nuevoCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),var.ui.cmbMunicli.currentText()]
 
-            if conexion.Conexion.altaCliente(nuevoCli):
+            if Clientes.checkDatosVaciosCli(nuevoCli) and conexion.Conexion.altaCliente(nuevoCli):
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                 mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
@@ -21,6 +21,10 @@ class Clientes:
                 mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
+
+            elif not Clientes.checkDatosVaciosCli(nuevoCli):
+                QtWidgets.QMessageBox.critical(None, 'Error', 'Algunos campos deben ser cubiertos.',
+                                               QtWidgets.QMessageBox.StandardButton.Cancel)
             else:
                 QtWidgets.QMessageBox.critical(None, 'Error', 'Error al grabar cliente.',
                                                QtWidgets.QMessageBox.StandardButton.Cancel)
@@ -34,13 +38,13 @@ class Clientes:
             var.ui.txtDnicli.setText(str(dni))
             check = eventos.Eventos.validarDNI(dni)
             if check:
-                var.ui.txtDnicli.setStyleSheet('border: 1px solid #41AD48; border-radius: 5px;background-color: rgb(254, 255, 210)')
+                var.ui.txtDnicli.setStyleSheet('border: 1px solid #41AD48; border-radius: 5px; background-color: rgb(254, 255, 210)')
                 Clientes.cargarTickcli()
             else:
-                var.ui.txtDnicli.setStyleSheet('background-color:#FFC0CB; border: 1px solid #de6767; border-radius: 5px;')
+                var.ui.txtDnicli.setStyleSheet('border: 1px solid #de6767; border-radius: 5px; background-color: rgb(254, 255, 210)')
                 var.ui.txtDnicli.setText(None)
                 var.ui.txtDnicli.setFocus()
-                var.ui.lblTickcli.clear()
+                Clientes.cargarCruzcli()
 
         except Exception as e:
             print("Error check clientes" + e)
@@ -48,6 +52,12 @@ class Clientes:
     @staticmethod
     def cargarTickcli():
         pixmap = eventos.Eventos.cargarTick()
+        var.ui.lblTickcli.setPixmap(pixmap)
+        var.ui.lblTickcli.setScaledContents(True)
+
+    @staticmethod
+    def cargarCruzcli():
+        pixmap = eventos.Eventos.cargarCruz()
         var.ui.lblTickcli.setPixmap(pixmap)
         var.ui.lblTickcli.setScaledContents(True)
 
@@ -60,10 +70,21 @@ class Clientes:
                 var.ui.txtEmailcli.setText(mail.lower())
 
             else:
-                var.ui.txtEmailcli.setStyleSheet('background-color:#FFC0CB; font-style: italic;')
+                var.ui.txtEmailcli.setStyleSheet('border: 1px solid #de6767; border-radius: 5px; font-style: italic;')
                 var.ui.txtEmailcli.setText(None)
                 var.ui.txtEmailcli.setText("correo no válido")
                 var.ui.txtEmailcli.setFocus()
 
         except Exception as error:
             print("error check cliente", error)
+
+
+    @staticmethod
+    def checkDatosVaciosCli(datosClientes):
+        datos = datosClientes[:]
+        emailCli = datos.pop(4)
+        for dato in datos:
+            if dato == "" or dato == None:
+                return False
+        return True
+

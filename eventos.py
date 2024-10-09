@@ -68,6 +68,11 @@ class Eventos():
         return pixmap
 
     @staticmethod
+    def cargarCruz():
+        pixmap = QPixmap("img/cruz.svg")
+        return pixmap
+
+    @staticmethod
     def abrirCalendar(op):
         try:
             var.panel = op
