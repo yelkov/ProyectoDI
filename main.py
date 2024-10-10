@@ -17,6 +17,8 @@ class Main(QtWidgets.QMainWindow):
         self.setStyleSheet(styles.load_stylesheet())
         eventos.Eventos.cargarProv()
         eventos.Eventos.cargaMunicli(var.ui.cmbProvcli.currentText())
+        clientes.Clientes.cargaTablaClientes()
+        eventos.Eventos.resizeTablaClientes()
 
         '''
         zona de eventos del menubar

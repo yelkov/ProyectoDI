@@ -3,6 +3,7 @@ import time
 import re
 
 from PyQt6.QtGui import QPixmap
+from PyQt6.QtWidgets import QHeaderView
 
 import conexion
 import var
@@ -100,3 +101,21 @@ class Eventos():
             return True
         else:
             return False
+
+    @staticmethod
+    def resizeTablaClientes():
+        try:
+            header = var.ui.tablaClientes.horizontalHeader()
+            for i in range(header.count()):
+                if i not in (2,5):
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                else:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+
+                header_items = var.ui.tablaClientes.horizontalHeaderItem(i)
+                font = header_items.font()
+                font.setBold(True)
+                header_items.setFont(font)
+
+        except Exception as e:
+            print("error en resize tabla clientes ", e)
