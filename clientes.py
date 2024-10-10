@@ -21,6 +21,7 @@ class Clientes:
                 mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
+                Clientes.cargaTablaClientes()
 
             elif not Clientes.checkDatosVaciosCli(nuevoCli):
                 QtWidgets.QMessageBox.critical(None, 'Error', 'Algunos campos deben ser cubiertos.',

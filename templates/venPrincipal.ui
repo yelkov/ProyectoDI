@@ -735,12 +735,30 @@
     </property>
     <addaction name="actionSalir"/>
    </widget>
+   <widget class="QMenu" name="menuHerramientas">
+    <property name="title">
+     <string>Herramientas</string>
+    </property>
+    <addaction name="actionCrear_backup"/>
+    <addaction name="actionRestaurar_backup"/>
+   </widget>
    <addaction name="menuArchivo"/>
+   <addaction name="menuHerramientas"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionSalir">
    <property name="text">
     <string>Salir</string>
+   </property>
+  </action>
+  <action name="actionCrear_backup">
+   <property name="text">
+    <string>Crear backup</string>
+   </property>
+  </action>
+  <action name="actionRestaurar_backup">
+   <property name="text">
+    <string>Restaurar backup</string>
    </property>
   </action>
  </widget>
