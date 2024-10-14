@@ -1,13 +1,28 @@
+import os
 import sys
 import time
 import re
+from datetime import datetime
 
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QHeaderView
 
+import locale
+
+import clientes
 import conexion
+import conexionserver
+import eventos
 import var
 from PyQt6 import QtWidgets, QtGui
+import zipfile
+import shutil
+
+
+#Establecer configuracion regional
+
+locale.setlocale(locale.LC_TIME,'es_ES.UTF-8')
+locale.setlocale(locale.LC_MONETARY,'es_ES.UTF-8')
 
 class Eventos():
     @staticmethod
@@ -32,12 +47,14 @@ class Eventos():
     def cargarProv():
         var.ui.cmbProvcli.clear()
         listado = conexion.Conexion.listaProv()
+        #listado = conexionserver.ConexionServer.listaProv()
         var.ui.cmbProvcli.addItems(listado)
 
     @staticmethod
     def cargaMunicli(provincia):
         var.ui.cmbMunicli.clear()
         listado = conexion.Conexion.listaMunicipio(provincia)
+        #listado = conexionserver.ConexionServer.listaMuniProv(provincia)
         var.ui.cmbMunicli.addItems(listado)
 
     @staticmethod
@@ -119,3 +136,52 @@ class Eventos():
 
         except Exception as e:
             print("error en resize tabla clientes ", e)
+
+    @staticmethod
+    def crearBackup():
+        try:
+            fecha = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+            copia = str(fecha)+'_backup.zip'
+            directorio, fichero = var.dlgAbrir.getSaveFileName(None, "Guardar Copia Seguridad", copia, '.zip')
+            if var.dlgAbrir.accept and fichero:
+                fichzip = zipfile.ZipFile(fichero, 'w')
+                fichzip.write("bbdd.sqlite",os.path.basename("bbdd.sqlite"),zipfile.ZIP_DEFLATED)
+                fichzip.close()
+                shutil.move(fichero, directorio)
+
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
+                mbox.setWindowTitle('Copia de seguridad')
+                mbox.setText("Copia de seguridad creada.")
+                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox.exec()
+
+        except Exception as error:
+            print("error en crear backup: ", error)
+
+    @staticmethod
+    def restaurarBackup():
+        try:
+            filename= var.dlgAbrir.getOpenFileName(None, "Restaurar Copia Seguridad","","*.zip;;All Files (*)")
+            file = filename[0]
+            if file:
+                with zipfile.ZipFile(file, 'r') as bbdd:
+                    bbdd.extractall(pwd=None)
+                bbdd.close()
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
+                mbox.setWindowTitle('Copia de seguridad')
+                mbox.setText("Copia de seguridad restaurada.")
+                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox.exec()
+                conexion.Conexion.db_conexion()
+                eventos.Eventos.cargarProv()
+                clientes.Clientes.cargaTablaClientes()
+        except Exception as error:
+            print("error en restaurar backup: ", error)

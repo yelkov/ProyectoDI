@@ -1,5 +1,6 @@
 import clientes
 import conexion
+import conexionserver
 import eventos
 import styles
 from venAux import *
@@ -13,17 +14,24 @@ class Main(QtWidgets.QMainWindow):
         var.ui = Ui_venPrincipal()
         var.ui.setupUi(self)
         var.uicalendar = Calendar()
+        var.dlgAbrir = FileDialogAbrir()
+
         conexion.Conexion.db_conexion()
+        #conexionserver.ConexionServer.crear_conexion()
+
         self.setStyleSheet(styles.load_stylesheet())
         eventos.Eventos.cargarProv()
         eventos.Eventos.cargaMunicli(var.ui.cmbProvcli.currentText())
         clientes.Clientes.cargaTablaClientes()
         eventos.Eventos.resizeTablaClientes()
 
+
         '''
         zona de eventos del menubar
         '''
         var.ui.actionSalir.triggered.connect(eventos.Eventos.mensajeSalir)
+        var.ui.actionCrear_backup.triggered.connect(eventos.Eventos.crearBackup)
+        var.ui.actionRestaurar_backup.triggered.connect(eventos.Eventos.restaurarBackup)
 
         '''
         zona de eventos de botones
