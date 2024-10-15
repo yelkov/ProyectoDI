@@ -1,5 +1,6 @@
 from PyQt6 import QtWidgets, QtGui, QtCore
 
+import clientes
 import conexion
 import conexionserver
 import eventos
@@ -9,7 +10,8 @@ class Clientes:
     @staticmethod
     def altaCliente():
         try:
-            nuevoCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),var.ui.cmbMunicli.currentText()]
+            nuevoCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(),
+                        var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),var.ui.cmbMunicli.currentText()]
 
             if Clientes.checkDatosVaciosCli(nuevoCli) and conexion.Conexion.altaCliente(nuevoCli):
                 mbox = QtWidgets.QMessageBox()
@@ -98,20 +100,65 @@ class Clientes:
             index = 0
             for registro in listado:
                 var.ui.tablaClientes.setRowCount(index + 1)
-                var.ui.tablaClientes.setItem(index, 0, QtWidgets.QTableWidgetItem(registro[2])) #apellido
-                var.ui.tablaClientes.setItem(index, 1, QtWidgets.QTableWidgetItem(registro[3])) #nombre
-                var.ui.tablaClientes.setItem(index, 2, QtWidgets.QTableWidgetItem("  " + registro[5] + "  ")) #movil
-                var.ui.tablaClientes.setItem(index, 3, QtWidgets.QTableWidgetItem(registro[7])) #provincia
-                var.ui.tablaClientes.setItem(index, 4, QtWidgets.QTableWidgetItem(registro[8])) #municipio
-                var.ui.tablaClientes.setItem(index, 5, QtWidgets.QTableWidgetItem(registro[9])) #baja
+                var.ui.tablaClientes.setItem(index, 0, QtWidgets.QTableWidgetItem(registro[0])) #dni
+                var.ui.tablaClientes.setItem(index, 1, QtWidgets.QTableWidgetItem(registro[2])) #apellido
+                var.ui.tablaClientes.setItem(index, 2, QtWidgets.QTableWidgetItem(registro[3])) #nombre
+                var.ui.tablaClientes.setItem(index, 3, QtWidgets.QTableWidgetItem("  " + registro[5] + "  ")) #movil
+                var.ui.tablaClientes.setItem(index, 4, QtWidgets.QTableWidgetItem(registro[7])) #provincia
+                var.ui.tablaClientes.setItem(index, 5, QtWidgets.QTableWidgetItem(registro[8])) #municipio
+                var.ui.tablaClientes.setItem(index, 6, QtWidgets.QTableWidgetItem(registro[9])) #baja
                 var.ui.tablaClientes.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
                 var.ui.tablaClientes.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
                 var.ui.tablaClientes.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaClientes.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
                 var.ui.tablaClientes.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
                 var.ui.tablaClientes.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaClientes.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
 
 
         except Exception as e:
             print("Error cargaClientes", e)
+
+    @staticmethod
+    def cargaOneCliente():
+        try:
+            fila = var.ui.tablaClientes.selectedItems()
+            datos = [dato.text() for dato in fila]
+            registro = conexion.Conexion.datosOneCliente(str(datos[0]))
+            listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,
+                       var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli,var.ui.cmbMunicli]
+            for i in range(len(listado)):
+                if i in (7,8):
+                    listado[i].setCurrentText(registro[i])
+                else:
+                    listado[i].setText(registro[i])
+                    if i == 0:
+                        var.ui.lblTickcli.clear()
+            #Clientes.cargarCliente(registro)
+
+        except Exception as e:
+            print("Error cargaClientes", e)
+
+    @staticmethod
+    def modifCliente():
+        try:
+            modifcli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(),
+                        var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),
+                        var.ui.cmbMunicli.currentText()]
+            if conexion.Conexion.modifCliente(modifcli):
+                mbox = QtWidgets.QMessageBox()
+                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+                mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
+                mbox.setWindowTitle('Aviso')
+                mbox.setText("El cliente fue modificado correctamente en la base de datos")
+                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox.exec()
+                Clientes.cargaTablaClientes()
+            else:
+                QtWidgets.QMessageBox.critical(None, 'Error', 'Error al modificar cliente.',
+                                               QtWidgets.QMessageBox.StandardButton.Cancel)
+        except Exception as e:
+            print("Error en modifCliente", e)
