@@ -16,6 +16,12 @@ QTabWidget {
 QMenuBar{
     background-color: #EFEFEF;
 }
+/*----    Estilo para QToolBar       -----*/
+
+QToolBar{
+    background-color: #EEE;
+}
+
 
 /*----    Estilo para botones       -----*/
 

@@ -8,3 +8,4 @@ global ui
 global uicalendar
 global panel
 global dlgAbrir
+global btn

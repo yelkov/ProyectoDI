@@ -84,7 +84,7 @@ class Conexion:
                 return False
 
         except Exception as e:
-            print("error alta cliente", e)
+            print("Error alta cliente", e)
 
     @staticmethod
     def listadoClientes():
@@ -98,7 +98,7 @@ class Conexion:
                     listado.append(fila)
             return listado
         except Exception as e:
-            print("error al listar clientes")
+            print("Error al listar clientes")
 
     @staticmethod
     def datosOneCliente(dni):
@@ -113,7 +113,7 @@ class Conexion:
                         registro.append(str(query.value(i)))
             return registro
         except Exception as e:
-            print("error al cargar un cliente.", e)
+            print("Error al cargar UN cliente en la tabla.", e)
 
     @staticmethod
     def modifCliente(registro):
@@ -134,4 +134,20 @@ class Conexion:
             else:
                 return False
         except Exception as e:
-            print("error al modificar un cliente en conexion.", e)
+            print("Error al modificar un cliente en conexion.", e)
+
+
+    @staticmethod
+    def bajaCliente(datos):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("UPDATE clientes SET bajacli = :bajacli WHERE dnicli = :dni")
+            query.bindValue(":bajacli", str(datos[0]))
+            query.bindValue(":dni", str(datos[1]))
+            if query.exec():
+                return True
+            else:
+                return False
+
+        except Exception as e:
+            print("Error en la conexión al dar de baja cliente", e)
