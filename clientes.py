@@ -80,7 +80,20 @@ class Clientes:
                 var.ui.txtEmailcli.setFocus()
 
         except Exception as error:
-            print("error check cliente", error)
+            print("error check email", error)
+
+    @staticmethod
+    def checkMovilCli(movil):
+        try:
+            if eventos.Eventos.validarMovil(movil):
+                var.ui.txtMovilcli.setStyleSheet('background-color: rgb(255, 255, 255);')
+            else:
+                var.ui.txtMovilcli.setStyleSheet('border: 1px solid #de6767; border-radius: 5px; font-style: italic;')
+                var.ui.txtMovilcli.setText(None)
+                var.ui.txtMovilcli.setText("móvil no válido")
+                var.ui.txtMovilcli.setFocus()
+        except Exception as e:
+            print("error check movil", e)
 
 
     @staticmethod
@@ -127,7 +140,7 @@ class Clientes:
             datos = [dato.text() for dato in fila]
             registro = conexion.Conexion.datosOneCliente(str(datos[0]))
             listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,
-                       var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli,var.ui.cmbMunicli]
+                       var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli,var.ui.cmbMunicli,var.ui.txtBajacli]
             for i in range(len(listado)):
                 if i in (7,8):
                     listado[i].setCurrentText(registro[i])
@@ -145,8 +158,8 @@ class Clientes:
         try:
             modifcli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(),
                         var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),
-                        var.ui.cmbMunicli.currentText()]
-            if conexion.Conexion.modifCliente(modifcli):
+                        var.ui.cmbMunicli.currentText(),var.ui.txtBajacli.text()]
+            if clientes.Clientes.checkDatosVaciosCli(modifcli) and conexion.Conexion.modifCliente(modifcli):
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                 mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
@@ -157,6 +170,9 @@ class Clientes:
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
                 Clientes.cargaTablaClientes()
+            elif not clientes.Clientes.checkDatosVaciosCli(modifcli):
+                QtWidgets.QMessageBox.critical(None, 'Error', 'Algunos campos deben ser cubiertos.',
+                                               QtWidgets.QMessageBox.StandardButton.Cancel)
             else:
                 QtWidgets.QMessageBox.critical(None, 'Error', 'Error al modificar cliente.',
                                                QtWidgets.QMessageBox.StandardButton.Cancel)
@@ -168,7 +184,7 @@ class Clientes:
         try:
 
             datos = [var.ui.txtBajacli.text(),var.ui.txtDnicli.text()]
-            if conexion.Conexion.bajaCliente(datos):
+            if datos[0] != "" and conexion.Conexion.bajaCliente(datos):
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                 mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
@@ -179,6 +195,9 @@ class Clientes:
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
                 Clientes.cargaTablaClientes()
+            elif datos[0] == "" or datos[0] == None:
+                QtWidgets.QMessageBox.critical(None, 'Error', 'El campo fecha de baja debe ser cubierto.',
+                                               QtWidgets.QMessageBox.StandardButton.Cancel)
             else:
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)

@@ -26,7 +26,7 @@ class Main(QtWidgets.QMainWindow):
         '''
         zona de eventos de tablas
         '''
-
+        var.ui.tablaClientes.setAlternatingRowColors(True)
         clientes.Clientes.cargaTablaClientes()
         eventos.Eventos.resizeTablaClientes()
         var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
@@ -52,6 +52,7 @@ class Main(QtWidgets.QMainWindow):
         '''
         var.ui.txtDnicli.editingFinished.connect(lambda: clientes.Clientes.checkDniCli(var.ui.txtDnicli.text()))
         var.ui.txtEmailcli.editingFinished.connect(lambda : clientes.Clientes.checkEmailCli(var.ui.txtEmailcli.text()))
+        var.ui.txtMovilcli.editingFinished.connect(lambda : clientes.Clientes.checkMovilCli(var.ui.txtMovilcli.text()))
         '''
         zona eventos comboBox
         '''
