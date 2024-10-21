@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_venPrincipal(object):
     def setupUi(self, venPrincipal):
         venPrincipal.setObjectName("venPrincipal")
-        venPrincipal.resize(1352, 753)
+        venPrincipal.resize(1398, 753)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -357,7 +357,7 @@ class Ui_venPrincipal(object):
         self.gridLayout_2.addWidget(self.panPrincipal, 0, 1, 1, 1)
         venPrincipal.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(parent=venPrincipal)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1352, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1398, 21))
         self.menubar.setObjectName("menubar")
         self.menuArchivo = QtWidgets.QMenu(parent=self.menubar)
         self.menuArchivo.setObjectName("menuArchivo")
@@ -424,7 +424,7 @@ class Ui_venPrincipal(object):
         _translate = QtCore.QCoreApplication.translate
         venPrincipal.setWindowTitle(_translate("venPrincipal", "InmoTeis"))
         self.btnGrabarcli.setText(_translate("venPrincipal", "Grabar"))
-        self.btnDelcli.setText(_translate("venPrincipal", "Eliminar"))
+        self.btnDelcli.setText(_translate("venPrincipal", "Dar de baja"))
         self.btnModifcli.setText(_translate("venPrincipal", "Modificar"))
         item = self.tablaClientes.horizontalHeaderItem(0)
         item.setText(_translate("venPrincipal", "DNI/NIE"))

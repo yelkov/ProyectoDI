@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from PyQt6 import QtWidgets, QtGui, QtCore
 
 import clientes
@@ -98,12 +100,19 @@ class Clientes:
 
     @staticmethod
     def checkDatosVaciosCli(datosClientes):
-        datos = datosClientes[:]
-        emailCli = datos.pop(4)
-        for dato in datos:
-            if dato == "" or dato == None:
-                return False
+        datos = datosClientes.copy()
+        if len(datos) == 9:
+            emailCli = datos.pop(4)
+            for dato in datos:
+                if dato == "" or dato == None:
+                    return False
+        elif len(datos) == 10:
+            emailCli = datos.pop(4)
+            for dato in datos[-1]:
+                if dato == "" or dato == None:
+                    return False
         return True
+
 
     @staticmethod
     def cargaTablaClientes():
@@ -171,7 +180,7 @@ class Clientes:
                 mbox.exec()
                 Clientes.cargaTablaClientes()
             elif not clientes.Clientes.checkDatosVaciosCli(modifcli):
-                QtWidgets.QMessageBox.critical(None, 'Error', 'Algunos campos deben ser cubiertos.',
+                QtWidgets.QMessageBox.critical(None, 'Error', 'El cliente no está guardado en la base de datos o bien hay campos vacíos.',
                                                QtWidgets.QMessageBox.StandardButton.Cancel)
             else:
                 QtWidgets.QMessageBox.critical(None, 'Error', 'Error al modificar cliente.',
@@ -189,7 +198,7 @@ class Clientes:
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                 mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
                 mbox.setWindowTitle('Aviso')
-                mbox.setText("El cliente fue dado de baja.")
+                mbox.setText("El cliente fue dado de baja a fecha de:" + datetime.now().strftime("%d/%m/%Y"))
                 mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
@@ -211,3 +220,10 @@ class Clientes:
 
         except Exception as e:
             print("Error al dar de baja cliente", e)
+
+    @staticmethod
+    def historicoCli():
+        try:
+            Clientes.cargaTablaClientes()
+        except Exception as e:
+            print("checkbox historico no funciona correcatamente", e)
