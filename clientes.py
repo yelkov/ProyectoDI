@@ -100,17 +100,11 @@ class Clientes:
 
     @staticmethod
     def checkDatosVaciosCli(datosClientes):
-        datos = datosClientes.copy()
-        if len(datos) == 9:
-            emailCli = datos.pop(4)
-            for dato in datos:
-                if dato == "" or dato == None:
-                    return False
-        elif len(datos) == 10:
-            emailCli = datos.pop(4)
-            for dato in datos[-1]:
-                if dato == "" or dato == None:
-                    return False
+        datos = datosClientes[:]
+        emailCli = datos.pop(4)
+        for dato in datos:
+            if dato == "" or dato == None:
+                return False
         return True
 
 
@@ -168,7 +162,7 @@ class Clientes:
             modifcli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(),
                         var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),
                         var.ui.cmbMunicli.currentText(),var.ui.txtBajacli.text()]
-            if clientes.Clientes.checkDatosVaciosCli(modifcli) and conexion.Conexion.modifCliente(modifcli):
+            if clientes.Clientes.checkDatosVaciosCli(modifcli[:-1]) and conexion.Conexion.modifCliente(modifcli):
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                 mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
@@ -192,21 +186,18 @@ class Clientes:
     def bajaCliente():
         try:
 
-            datos = [var.ui.txtBajacli.text(),var.ui.txtDnicli.text()]
-            if datos[0] != "" and conexion.Conexion.bajaCliente(datos):
+            dni = var.ui.txtDnicli.text()
+            if conexion.Conexion.bajaCliente(dni):
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
                 mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
                 mbox.setWindowTitle('Aviso')
-                mbox.setText("El cliente fue dado de baja a fecha de:" + datetime.now().strftime("%d/%m/%Y"))
+                mbox.setText("El cliente fue dado de baja a fecha de: " + datetime.now().strftime("%d/%m/%Y"))
                 mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
                 mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
                 mbox.exec()
                 Clientes.cargaTablaClientes()
-            elif datos[0] == "" or datos[0] == None:
-                QtWidgets.QMessageBox.critical(None, 'Error', 'El campo fecha de baja debe ser cubierto.',
-                                               QtWidgets.QMessageBox.StandardButton.Cancel)
             else:
                 mbox = QtWidgets.QMessageBox()
                 mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)

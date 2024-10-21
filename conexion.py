@@ -133,26 +133,27 @@ class Conexion:
             query = QtSql.QSqlQuery()
             query.prepare("select count(*) from clientes where dnicli = :dni")
             query.bindValue(":dni", str(registro[0]))
-            print("modif 1")
-            if query.exec() and query.numRowsAffected() == 1:
-                print("modif 2")
-                query.prepare("UPDATE clientes set altacli= :altacli, apelcli = :apelcli, nomecli= :nomecli, emailcli = :emailcli, movilcli = :movilcli, dircli = :dircli, provcli=:provcli, municli=:municli, bajacli = :bajacli WHERE dnicli = :dni")
-                query.bindValue(":dni", str(registro[0]))
-                query.bindValue(":altacli", str(registro[1]))
-                query.bindValue(":apelcli", str(registro[2]))
-                query.bindValue(":nomecli", str(registro[3]))
-                query.bindValue(":emailcli", str(registro[4]))
-                query.bindValue(":movilcli", str(registro[5]))
-                query.bindValue(":dircli", str(registro[6]))
-                query.bindValue(":provcli", str(registro[7]))
-                query.bindValue(":municli", str(registro[8]))
-                if registro[9] == "":
-                    query.bindValue(":bajacli",QtCore.QVariant())
-                else:
-                    query.bindValue(":bajacli", str(registro[9]))
+            if query.exec() and query.next():
+                count = query.value(0)
+                if count == 1: #verificamos que solo nos devuelve un resultado, la fila para el dni que buscamos
 
-                if query.exec():
-                    return True
+                    query.prepare("UPDATE clientes set altacli= :altacli, apelcli = :apelcli, nomecli= :nomecli, emailcli = :emailcli, movilcli = :movilcli, dircli = :dircli, provcli=:provcli, municli=:municli, bajacli = :bajacli WHERE dnicli = :dni")
+                    query.bindValue(":dni", str(registro[0]))
+                    query.bindValue(":altacli", str(registro[1]))
+                    query.bindValue(":apelcli", str(registro[2]))
+                    query.bindValue(":nomecli", str(registro[3]))
+                    query.bindValue(":emailcli", str(registro[4]))
+                    query.bindValue(":movilcli", str(registro[5]))
+                    query.bindValue(":dircli", str(registro[6]))
+                    query.bindValue(":provcli", str(registro[7]))
+                    query.bindValue(":municli", str(registro[8]))
+                    if registro[9] == "":
+                        query.bindValue(":bajacli",QtCore.QVariant())
+                    else:
+                        query.bindValue(":bajacli", str(registro[9]))
+
+                    if query.exec():
+                        return True
                 else:
                     return False
             else:
@@ -162,16 +163,23 @@ class Conexion:
 
 
     @staticmethod
-    def bajaCliente(datos):
+    def bajaCliente(dni):
         try:
             query = QtSql.QSqlQuery()
-            query.prepare("UPDATE clientes SET bajacli = :bajacli WHERE dnicli = :dni")
-            query.bindValue(":bajacli", datetime.now().strftime("%d/%m/%Y"))
-            query.bindValue(":dni", str(datos[1]))
+            query.prepare("SELECT COUNT(*) from clientes where dnicli = :dni")
             if query.exec():
-                return True
+                count = query.value(0)
+                if count == 1:
+                    query.prepare("UPDATE clientes SET bajacli = :bajacli WHERE dnicli = :dni")
+                    query.bindValue(":bajacli", datetime.now().strftime("%d/%m/%Y"))
+                    query.bindValue(":dni", str(dni))
+                    if query.exec():
+                        return True
+                    else:
+                        return False
+                else:
+                    return False
             else:
                 return False
-
         except Exception as e:
             print("Error en la conexión al dar de baja cliente", e)
