@@ -9,4 +9,4 @@ global uicalendar
 global panel
 global dlggestion
 global dlgAbrir
-global btn
+global btnvar

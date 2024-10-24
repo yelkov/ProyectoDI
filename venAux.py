@@ -24,8 +24,8 @@ class FileDialogAbrir(QtWidgets.QFileDialog):
     def __init__(self):
         super(FileDialogAbrir,self).__init__()
 
-class dlg_Tipo_prop(QtWidgets.QFileDialog):
+class dlg_Tipo_prop(QtWidgets.QDialog):
     def __init__(self):
         super(dlg_Tipo_prop,self).__init__()
-        var.ui.dlggestion = Ui_dlg_tipoprop()
+        var.dlggestion = Ui_dlg_tipoprop()
         var.dlggestion.setupUi(self)
