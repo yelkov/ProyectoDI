@@ -7,6 +7,7 @@ import var
 class Conexion:
 
     '''
+    @staticmethod
     método de una clase que no depende de una instancia específica de esa clase.
     Se puede llamarlo directamente a través de la clase, sin necesidad de crear un objeto de esa clase.
     Es útil en comportamientos o funcionalidades que son más a una clase en general que a una instancia en particular.
@@ -40,6 +41,10 @@ class Conexion:
             QtWidgets.QMessageBox.critical(None, 'Error', 'No se pudo abrir la base de datos.',
                                            QtWidgets.QMessageBox.StandardButton.Cancel)
             return False
+
+    '''
+    GESTION DE CLIENTES
+    '''
 
     @staticmethod
     def listaProv():
@@ -183,3 +188,7 @@ class Conexion:
                 return False
         except Exception as e:
             print("Error en la conexión al dar de baja cliente", e)
+
+    '''
+    GESTION DE PROPIEDADES
+    '''

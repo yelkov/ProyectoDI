@@ -15,6 +15,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.setupUi(self)
         var.uicalendar = Calendar()
         var.dlgAbrir = FileDialogAbrir()
+        var.dlggestion = dlg_Tipo_prop()
 
         conexion.Conexion.db_conexion()
         #conexionserver.ConexionServer.crear_conexion()
@@ -22,6 +23,7 @@ class Main(QtWidgets.QMainWindow):
         self.setStyleSheet(styles.load_stylesheet())
         eventos.Eventos.cargarProv()
         eventos.Eventos.cargaMunicli(var.ui.cmbProvcli.currentText())
+        eventos.Eventos.cargaMuniprop(var.ui.cmbProvprop.currentText())
 
         '''
         zona de eventos de tablas
@@ -37,13 +39,16 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionSalir.triggered.connect(eventos.Eventos.mensajeSalir)
         var.ui.actionCrear_backup.triggered.connect(eventos.Eventos.crearBackup)
         var.ui.actionRestaurar_backup.triggered.connect(eventos.Eventos.restaurarBackup)
+        var.ui.actionTipo_propiedades.triggered.connect(eventos.Eventos.abrirTipoprop)
 
         '''
         zona de eventos de botones
         '''
         var.ui.btnGrabarcli.clicked.connect(clientes.Clientes.altaCliente)
         var.ui.btnAltacli.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0,0))
+        var.ui.btnAltaprop.clicked.connect(lambda: eventos.Eventos.abrirCalendar(1,0))
         var.ui.btnBajacli.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0,1))
+        var.ui.btnBajaprop.clicked.connect(lambda: eventos.Eventos.abrirCalendar(1,1))
         var.ui.btnModifcli.clicked.connect(clientes.Clientes.modifCliente)
         var.ui.btnDelcli.clicked.connect(clientes.Clientes.bajaCliente)
 
@@ -57,6 +62,7 @@ class Main(QtWidgets.QMainWindow):
         zona eventos comboBox
         '''
         var.ui.cmbProvcli.currentIndexChanged.connect(lambda : eventos.Eventos.cargaMunicli(var.ui.cmbProvcli.currentText()))
+        var.ui.cmbProvprop.currentIndexChanged.connect(lambda : eventos.Eventos.cargaMuniprop(var.ui.cmbProvprop.currentText()))
 
         '''
         zona eventos toolBar

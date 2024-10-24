@@ -49,6 +49,7 @@ class Eventos():
         listado = conexion.Conexion.listaProv()
         #listado = conexionserver.ConexionServer.listaProv()
         var.ui.cmbProvcli.addItems(listado)
+        var.ui.cmbProvprop.addItems(listado)
 
     @staticmethod
     def cargaMunicli(provincia):
@@ -56,6 +57,13 @@ class Eventos():
         listado = conexion.Conexion.listaMunicipio(provincia)
         #listado = conexionserver.ConexionServer.listaMuniProv(provincia)
         var.ui.cmbMunicli.addItems(listado)
+
+    @staticmethod
+    def cargaMuniprop(provincia):
+        var.ui.cmbMuniprop.clear()
+        listado = conexion.Conexion.listaMunicipio(provincia)
+        #listado = conexionserver.ConexionServer.listaMuniProv(provincia)
+        var.ui.cmbMuniprop.addItems(listado)
 
     @staticmethod
     def validarDNI(dni):
@@ -108,10 +116,14 @@ class Eventos():
     def cargaFecha(qDate):
         try:
             data = ('{:02d}/{:02d}/{:4d}'.format(qDate.day(), qDate.month(), qDate.year()))
-            if var.panel == var.ui.panPrincipal.currentIndex() and var.btn == 0:
+            if var.panel == 0 and var.btn == 0:
                 var.ui.txtAltacli.setText(str(data))
-            elif var.panel == var.ui.panPrincipal.currentIndex() and var.btn == 1:
+            elif var.panel == 1 and var.btn == 0:
+                var.ui.txtAltaprop.setText(str(data))
+            elif var.panel == 0 and var.btn == 1:
                 var.ui.txtBajacli.setText(str(data))
+            elif var.panel == 1 and var.btn == 1:
+                var.ui.txtBajaprop.setText(str(data))
             time.sleep(0.5)
             var.uicalendar.hide()
             return data
@@ -205,3 +217,10 @@ class Eventos():
                 dato.setText("")
 
         eventos.Eventos.cargarProv()
+
+    @staticmethod
+    def abrirTipoprop():
+        try:
+            var.dlggestion.show()
+        except Exception as e:
+            print("error en abrir tipo prop: ", e)
