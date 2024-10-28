@@ -51,6 +51,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnBajaprop.clicked.connect(lambda: eventos.Eventos.abrirCalendar(1,1))
         var.ui.btnModifcli.clicked.connect(clientes.Clientes.modifCliente)
         var.ui.btnDelcli.clicked.connect(clientes.Clientes.bajaCliente)
+        var.ui.btnGrabarprop.clicked.connect(propiedades.Propiedades.altaPropiedad)
+
 
         '''
         zona de eventos de cajas de texto

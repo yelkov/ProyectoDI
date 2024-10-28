@@ -47,8 +47,9 @@ class Clientes:
                 var.ui.txtDnicli.setStyleSheet('border: 1px solid #41AD48; border-radius: 5px; background-color: rgb(254, 255, 210)')
                 Clientes.cargarTickcli()
             else:
-                var.ui.txtDnicli.setStyleSheet('border: 1px solid #de6767; border-radius: 5px; background-color: rgb(254, 255, 210)')
+                var.ui.txtDnicli.setStyleSheet('border: 1px solid #de6767; border-radius: 5px; font-style: italic; background-color: rgb(254, 255, 210)')
                 var.ui.txtDnicli.setText(None)
+                var.ui.txtDnicli.setPlaceholderText("dni no válido")
                 var.ui.txtDnicli.setFocus()
                 Clientes.cargarCruzcli()
 
@@ -78,7 +79,7 @@ class Clientes:
             else:
                 var.ui.txtEmailcli.setStyleSheet('border: 1px solid #de6767; border-radius: 5px; font-style: italic;')
                 var.ui.txtEmailcli.setText(None)
-                var.ui.txtEmailcli.setText("correo no válido")
+                var.ui.txtEmailcli.setPlaceholderText("correo no válido")
                 var.ui.txtEmailcli.setFocus()
 
         except Exception as error:
@@ -92,7 +93,7 @@ class Clientes:
             else:
                 var.ui.txtMovilcli.setStyleSheet('border: 1px solid #de6767; border-radius: 5px; font-style: italic;')
                 var.ui.txtMovilcli.setText(None)
-                var.ui.txtMovilcli.setText("móvil no válido")
+                var.ui.txtMovilcli.setPlaceholderText("móvil no válido")
                 var.ui.txtMovilcli.setFocus()
         except Exception as e:
             print("error check movil", e)

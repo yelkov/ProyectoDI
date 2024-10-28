@@ -4,8 +4,9 @@ from PyQt6.uic.Compiler.qtproxies import QtWidgets, QtCore
 
 import eventos
 import var
+import propiedades
 from dlgCalendar import *
-from dlgTipoprop import Ui_dlg_tipoprop
+from dlgGestion import Ui_dlg_tipoprop
 
 
 class Calendar(QtWidgets.QDialog):
@@ -29,3 +30,4 @@ class dlg_Tipo_prop(QtWidgets.QDialog):
         super(dlg_Tipo_prop,self).__init__()
         var.dlggestion = Ui_dlg_tipoprop()
         var.dlggestion.setupUi(self)
+        var.dlggestion.btnAltaTipoprop.clicked.connect(propiedades.Propiedades.altaTipoPropiedad)
