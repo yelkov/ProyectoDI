@@ -24,6 +24,7 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.cargarProv()
         eventos.Eventos.cargaMunicli(var.ui.cmbProvcli.currentText())
         eventos.Eventos.cargaMuniprop(var.ui.cmbProvprop.currentText())
+        eventos.Eventos.cargarTipoprop()
 
         '''
         zona de eventos de tablas
@@ -71,6 +72,7 @@ class Main(QtWidgets.QMainWindow):
         '''
         var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mensajeSalir)
         var.ui.actionbarLimpiar.triggered.connect(eventos.Eventos.limpiarPanel)
+        var.ui.actionbarAltaTipoprop.triggered.connect(eventos.Eventos.abrirTipoprop)
         '''
         zona eventos checkbox
         '''

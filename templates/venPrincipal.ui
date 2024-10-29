@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1701</width>
+    <width>1462</width>
     <height>849</height>
    </rect>
   </property>
@@ -2243,7 +2243,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1701</width>
+     <width>1462</width>
      <height>21</height>
     </rect>
    </property>
@@ -2287,6 +2287,8 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionbarAltaTipoprop"/>
+   <addaction name="separator"/>
    <addaction name="actionbarLimpiar"/>
    <addaction name="separator"/>
    <addaction name="actionbarSalir"/>
@@ -2335,6 +2337,18 @@
   <action name="actionTipo_propiedades">
    <property name="text">
     <string>Tipo propiedades</string>
+   </property>
+  </action>
+  <action name="actionbarAltaTipoprop">
+   <property name="icon">
+    <iconset>
+     <normaloff>../img/tipoProp.ico</normaloff>../img/tipoProp.ico</iconset>
+   </property>
+   <property name="text">
+    <string>Alta tipo de propiedad</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+T</string>
    </property>
   </action>
  </widget>

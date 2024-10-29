@@ -18,6 +18,7 @@ class Ui_dlg_tipoprop(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("C:/Users/a23yelkovq/.designer/img/icono.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         dlg_tipoprop.setWindowIcon(icon)
+        dlg_tipoprop.setModal(True)
         self.layoutWidget = QtWidgets.QWidget(parent=dlg_tipoprop)
         self.layoutWidget.setGeometry(QtCore.QRect(50, 30, 302, 230))
         self.layoutWidget.setObjectName("layoutWidget")

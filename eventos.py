@@ -224,3 +224,9 @@ class Eventos():
             var.dlggestion.show()
         except Exception as e:
             print("error en abrir tipo prop: ", e)
+
+    @staticmethod
+    def cargarTipoprop():
+        registro = conexion.Conexion.cargarTipoprop()
+        var.ui.cmbTipoprop.clear()
+        var.ui.cmbTipoprop.addItems(registro)

@@ -2,6 +2,8 @@ import os
 from datetime import datetime
 
 from PyQt6 import QtSql, QtWidgets, QtGui, QtCore
+
+import eventos
 import var
 
 class Conexion:
@@ -153,7 +155,7 @@ class Conexion:
                     query.bindValue(":provcli", str(registro[7]))
                     query.bindValue(":municli", str(registro[8]))
                     if registro[9] == "":
-                        query.bindValue(":bajacli",QtCore.QVariant())
+                        query.bindValue(":bajacli",QtCore.QVariant()) #QVariant añade un null a la BD
                     else:
                         query.bindValue(":bajacli", str(registro[9]))
 
@@ -192,3 +194,40 @@ class Conexion:
     '''
     GESTION DE PROPIEDADES
     '''
+    @staticmethod
+    def cargarTipoprop():
+        query = QtSql.QSqlQuery()
+        query.prepare("SELECT tipo from tipopropiedad ")
+        if query.exec():
+            registro = []
+            while query.next():
+                registro.append(str(query.value(0)))
+            return registro
+
+    @staticmethod
+    def altaTipoprop(tipo):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare("INSERT into tipopropiedad (tipo) values (:tipo) ")
+            query.bindValue(":tipo", str(tipo))
+            if query.exec():
+                registro = Conexion.cargarTipoprop()
+                return registro
+            else:
+                return registro
+        except Exception as e:
+            print("Error en conexion al dar de alta tipo propiedad", e)
+
+    @staticmethod
+    def bajaTipoprop(tipo):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("DELETE from tipopropiedad where tipo = :tipo ")
+            query.bindValue(":tipo", str(tipo))
+            if query.exec() and query.numRowsAffected() == 1:
+                return True
+            else:
+                return False
+        except Exception as e:
+            print("Error en conexion al dar de baja tipo propiedad", e)

@@ -29,6 +29,9 @@
    <iconset>
     <normaloff>C:/Users/a23yelkovq/.designer/img/icono.svg</normaloff>C:/Users/a23yelkovq/.designer/img/icono.svg</iconset>
   </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
