@@ -13,12 +13,14 @@ class Main(QtWidgets.QMainWindow):
         super(Main, self).__init__()
         var.ui = Ui_venPrincipal()
         var.ui.setupUi(self)
+
+        #conexionserver.ConexionServer.crear_conexion()
+        conexion.Conexion.db_conexion()
+
         var.uicalendar = Calendar()
         var.dlgAbrir = FileDialogAbrir()
         var.dlggestion = dlg_Tipo_prop()
 
-        conexion.Conexion.db_conexion()
-        #conexionserver.ConexionServer.crear_conexion()
 
         self.setStyleSheet(styles.load_stylesheet())
         eventos.Eventos.cargarProv()

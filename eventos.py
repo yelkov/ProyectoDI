@@ -18,7 +18,6 @@ from PyQt6 import QtWidgets, QtGui
 import zipfile
 import shutil
 
-
 #Establecer configuracion regional
 
 locale.setlocale(locale.LC_TIME,'es_ES.UTF-8')
@@ -27,21 +26,49 @@ locale.setlocale(locale.LC_MONETARY,'es_ES.UTF-8')
 class Eventos():
     @staticmethod
     def mensajeSalir():
-        mbox = QtWidgets.QMessageBox()
-        mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
-        mbox.setWindowIcon(QtGui.QIcon('./img/icono.svg'))
-        mbox.setText("¿Desea salir?")
-
-        mbox.setWindowTitle('Salir')
-        mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
-        mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.No)
-        mbox.button(QtWidgets.QMessageBox.StandardButton.Yes).setText('Sí')
-        mbox.button(QtWidgets.QMessageBox.StandardButton.No).setText('No')
+        mbox = Eventos.crearMensajeSalida('Salir',"¿Desea salir?")
 
         if mbox.exec() == QtWidgets.QMessageBox.StandardButton.Yes:
             sys.exit()
         else:
             mbox.hide()
+
+    @staticmethod
+    def crearMensajeSalida(titulo_ventana, mensaje):
+        mbox = QtWidgets.QMessageBox()
+        mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
+        mbox.setWindowIcon(QtGui.QIcon('./img/icono.svg'))
+        mbox.setText(mensaje)
+        mbox.setWindowTitle(titulo_ventana)
+        mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
+        mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.No)
+        mbox.button(QtWidgets.QMessageBox.StandardButton.Yes).setText('Sí')
+        mbox.button(QtWidgets.QMessageBox.StandardButton.No).setText('No')
+        return mbox
+
+    @staticmethod
+    def crearMensajeInfo(titulo_ventana, mensaje):
+        mbox = QtWidgets.QMessageBox()
+        mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
+        mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
+        mbox.setWindowTitle(titulo_ventana)
+        mbox.setText(mensaje)
+        mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+        mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+        mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+        return mbox
+
+    @staticmethod
+    def crearMensajeError(titulo_ventana, mensaje):
+        mbox = QtWidgets.QMessageBox()
+        mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
+        mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
+        mbox.setWindowTitle(titulo_ventana)
+        mbox.setText(mensaje)
+        mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
+        mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
+        mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+        return mbox
 
     @staticmethod
     def cargarProv():
@@ -157,6 +184,25 @@ class Eventos():
         except Exception as e:
             print("error en resize tabla clientes ", e)
 
+
+    @staticmethod
+    def resizeTablaPropiedades():
+        try:
+            header = var.ui.tablaProp.horizontalHeader()
+            for i in range(header.count()):
+                if i in (1,2,5):
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                else:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+
+                header_items = var.ui.tablaProp.horizontalHeaderItem(i)
+                font = header_items.font()
+                font.setBold(True)
+                header_items.setFont(font)
+
+        except Exception as e:
+            print("error en resize tabla clientes ", e)
+
     @staticmethod
     def crearBackup():
         try:
@@ -169,18 +215,13 @@ class Eventos():
                 fichzip.close()
                 shutil.move(fichero, directorio)
 
-                mbox = QtWidgets.QMessageBox()
-                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
-                mbox.setWindowTitle('Copia de seguridad')
-                mbox.setText("Copia de seguridad creada.")
-                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox = Eventos.crearMensajeInfo('Copia de seguridad',"Copia de seguridad creada.")
                 mbox.exec()
 
         except Exception as error:
             print("error en crear backup: ", error)
+
+
 
     @staticmethod
     def restaurarBackup():
@@ -191,14 +232,7 @@ class Eventos():
                 with zipfile.ZipFile(file, 'r') as bbdd:
                     bbdd.extractall(pwd=None)
                 bbdd.close()
-                mbox = QtWidgets.QMessageBox()
-                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
-                mbox.setWindowTitle('Copia de seguridad')
-                mbox.setText("Copia de seguridad restaurada.")
-                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox = Eventos.crearMensajeInfo('Copia de seguridad',"Copia de seguridad restaurada.")
                 mbox.exec()
                 conexion.Conexion.db_conexion()
                 eventos.Eventos.cargarProv()
@@ -230,3 +264,9 @@ class Eventos():
         registro = conexion.Conexion.cargarTipoprop()
         var.ui.cmbTipoprop.clear()
         var.ui.cmbTipoprop.addItems(registro)
+
+    @staticmethod
+    def cargarTipopropGestion():
+        registro = conexion.Conexion.cargarTipoprop()
+        var.ui.cmbTipopropGestion.clear()
+        var.ui.cmbTipopropGestion.addItems(registro)

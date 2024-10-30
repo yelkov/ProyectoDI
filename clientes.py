@@ -16,18 +16,9 @@ class Clientes:
                         var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),var.ui.cmbMunicli.currentText()]
 
             if Clientes.checkDatosVaciosCli(nuevoCli) and conexion.Conexion.altaCliente(nuevoCli):
-                mbox = QtWidgets.QMessageBox()
-                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
-                mbox.setWindowTitle('Aviso')
-                mbox.setText("Cliente Alta en Base de Datos")
-
-                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox = eventos.Eventos.crearMensajeInfo("Aviso","Cliente dado de alta en Base de Datos")
                 mbox.exec()
                 Clientes.cargaTablaClientes()
-
             elif not Clientes.checkDatosVaciosCli(nuevoCli):
                 QtWidgets.QMessageBox.critical(None, 'Error', 'Algunos campos deben ser cubiertos.',
                                                QtWidgets.QMessageBox.StandardButton.Cancel)
@@ -163,15 +154,11 @@ class Clientes:
             modifcli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(),
                         var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),
                         var.ui.cmbMunicli.currentText(),var.ui.txtBajacli.text()]
-            if clientes.Clientes.checkDatosVaciosCli(modifcli[:-1]) and conexion.Conexion.modifCliente(modifcli):
-                mbox = QtWidgets.QMessageBox()
-                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
-                mbox.setWindowTitle('Aviso')
-                mbox.setText("El cliente fue modificado correctamente en la base de datos")
-                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+            if modifcli[1] > modifcli[9]:
+                mbox = eventos.Eventos.crearMensajeError("Aviso","La fecha de baja no puede anterior a la de alta.")
+                mbox.exec()
+            elif clientes.Clientes.checkDatosVaciosCli(modifcli[:-1]) and conexion.Conexion.modifCliente(modifcli):
+                mbox = eventos.Eventos.crearMensajeInfo('Aviso',"El cliente fue modificado correctamente en la base de datos")
                 mbox.exec()
                 Clientes.cargaTablaClientes()
             elif not clientes.Clientes.checkDatosVaciosCli(modifcli):
@@ -186,28 +173,13 @@ class Clientes:
     @staticmethod
     def bajaCliente():
         try:
-
             dni = var.ui.txtDnicli.text()
             if conexion.Conexion.bajaCliente(dni):
-                mbox = QtWidgets.QMessageBox()
-                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
-                mbox.setWindowTitle('Aviso')
-                mbox.setText("El cliente fue dado de baja a fecha de: " + datetime.now().strftime("%d/%m/%Y"))
-                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox = eventos.Eventos.crearMensajeInfo("Aviso","El cliente fue dado de baja a fecha de: " + datetime.now().strftime("%d/%m/%Y"))
                 mbox.exec()
                 Clientes.cargaTablaClientes()
             else:
-                mbox = QtWidgets.QMessageBox()
-                mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-                mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
-                mbox.setWindowTitle('Aviso')
-                mbox.setText("Error: el cliente no existe o ya ha sido dado de baja.")
-                mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
-                mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
+                mbox = eventos.Eventos.crearMensajeInfo("Aviso","Error: el cliente no existe o ya ha sido dado de baja.")
                 mbox.exec()
 
         except Exception as e:

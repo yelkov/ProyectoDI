@@ -2,6 +2,7 @@ from datetime import datetime
 
 from PyQt6.uic.Compiler.qtproxies import QtWidgets, QtCore
 
+import conexion
 import eventos
 import var
 import propiedades
@@ -32,3 +33,5 @@ class dlg_Tipo_prop(QtWidgets.QDialog):
         self.ui.setupUi(self)
         self.ui.btnAltaTipoprop.clicked.connect(propiedades.Propiedades.altaTipoPropiedad)
         self.ui.btnDelTipoprop.clicked.connect(propiedades.Propiedades.bajaTipoPropiedad)
+        eventos.Eventos.cargarTipopropGestion()
+        #self.ui.cmbTipopropGestion.currentIndexChanged.connect()

@@ -231,3 +231,11 @@ class Conexion:
                 return False
         except Exception as e:
             print("Error en conexion al dar de baja tipo propiedad", e)
+
+    @staticmethod
+    def altaPropiedad(propiedad):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("INSERT into propiedades (alta,baja,direccion,municipio,provincia,tipo_propiedad,num_habitaciones,num_banos,superficie,precio_alquiler,precio_venta,codigo_postal,descripcion,tipo_operacion,estado,nombre_propietario,movil) values () ")
+        except Exception as e:
+            print("Error al dar de alta propiedad en conexion",e)
