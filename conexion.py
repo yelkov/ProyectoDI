@@ -5,6 +5,8 @@ from PyQt6 import QtSql, QtWidgets, QtGui, QtCore
 
 import eventos
 import var
+from eventos import Eventos
+
 
 class Conexion:
 
@@ -236,6 +238,28 @@ class Conexion:
     def altaPropiedad(propiedad):
         try:
             query = QtSql.QSqlQuery()
-            query.prepare("INSERT into propiedades (alta,baja,direccion,municipio,provincia,tipo_propiedad,num_habitaciones,num_banos,superficie,precio_alquiler,precio_venta,codigo_postal,descripcion,tipo_operacion,estado,nombre_propietario,movil) values () ")
+            query.prepare("INSERT into propiedades (alta,direccion,provincia,municipio,tipo_propiedad,num_habitaciones,num_banos,superficie,precio_alquiler,precio_venta,codigo_postal,descripcion,tipo_operacion,estado,nombre_propietario,movil) values (:alta,:direccion,:provincia,:municipio,:tipo_propiedad,:num_habitaciones,:num_banos,:superficie,:precio_alquiler,:precio_venta,:codigo_postal,:descripcion,:tipo_operacion,:estado,:nombre_propietario,:movil) ")
+            query.bindValue(":alta",str(propiedad[0]))
+            query.bindValue(":direccion",str(propiedad[1]))
+            query.bindValue(":provincia",str(propiedad[2]))
+            query.bindValue(":municipio",str(propiedad[3]))
+            query.bindValue(":tipo_propiedad",str(propiedad[4]))
+            query.bindValue(":num_habitaciones",str(propiedad[5]))
+            query.bindValue(":num_banos",str(propiedad[6]))
+            query.bindValue(":superficie",str(propiedad[7]))
+            query.bindValue(":precio_alquiler",str(propiedad[8]))
+            query.bindValue(":precio_venta",str(propiedad[9]))
+            query.bindValue(":codigo_postal",str(propiedad[10]))
+            query.bindValue(":descripcion",str(propiedad[11]))
+            query.bindValue(":tipo_operacion",str(propiedad[12]))
+            query.bindValue(":estado",str(propiedad[13]))
+            query.bindValue(":nombre_propietario",str(propiedad[14]))
+            query.bindValue(":movil",str(propiedad[15]))
+
+            if query.exec():
+                return True
+            else:
+                return False
+
         except Exception as e:
             print("Error al dar de alta propiedad en conexion",e)

@@ -2,6 +2,7 @@ import clientes
 import conexion
 import conexionserver
 import eventos
+import propiedades
 import styles
 from venAux import *
 from venPrincipal import *
@@ -63,6 +64,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtDnicli.editingFinished.connect(lambda: clientes.Clientes.checkDniCli(var.ui.txtDnicli.text()))
         var.ui.txtEmailcli.editingFinished.connect(lambda : clientes.Clientes.checkEmailCli(var.ui.txtEmailcli.text()))
         var.ui.txtMovilcli.editingFinished.connect(lambda : clientes.Clientes.checkMovilCli(var.ui.txtMovilcli.text()))
+        var.ui.txtMovilprop.editingFinished.connect(lambda : propiedades.Propiedades.checkMovilProp(var.ui.txtMovilprop.text()))
         '''
         zona eventos comboBox
         '''

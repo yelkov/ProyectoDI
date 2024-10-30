@@ -73,6 +73,7 @@ class Eventos():
     @staticmethod
     def cargarProv():
         var.ui.cmbProvcli.clear()
+        var.ui.cmbProvprop.clear()
         listado = conexion.Conexion.listaProv()
         #listado = conexionserver.ConexionServer.listaProv()
         var.ui.cmbProvcli.addItems(listado)
@@ -250,7 +251,28 @@ class Eventos():
             else:
                 dato.setText("")
 
+        objetosPanelProp = [var.ui.txtAltaprop,var.ui.txtBajaprop,var.ui.txtDirprop,var.ui.cmbProvprop,
+                            var.ui.cmbMuniprop,var.ui.cmbTipoprop,
+                            var.ui.spinHabprop, var.ui.spinBanosprop, var.ui.txtSuperprop,var.ui.txtPrecioAlquilerprop,
+                            var.ui.txtPrecioVentaprop,
+                            var.ui.txtCpprop,var.ui.areatxtDescriprop, var.ui.rbtDisponprop, var.ui.rbtAlquilprop,var.ui.chkVentaprop,var.ui.chkInterprop,
+                            var.ui.chkAlquilprop,var.ui.rbtVentaprop,var.ui.txtNomeprop,var.ui.txtMovilprop]
+        for i, dato in enumerate(objetosPanelProp):
+            if i in (3,4,5):
+                pass
+            elif i in (6,7):
+                dato.setValue(0)
+            elif i == 12:
+                dato.setPlainText("")
+            elif i == 13:
+                dato.setChecked(True)
+            elif i in (14,15,16,17,18):
+                dato.setChecked(False)
+            else:
+                dato.setText("")
+
         eventos.Eventos.cargarProv()
+        eventos.Eventos.cargarTipoprop()
 
     @staticmethod
     def abrirTipoprop():
@@ -265,8 +287,12 @@ class Eventos():
         var.ui.cmbTipoprop.clear()
         var.ui.cmbTipoprop.addItems(registro)
 
-    @staticmethod
-    def cargarTipopropGestion():
+
+    def cargarTipopropGestion(self):
         registro = conexion.Conexion.cargarTipoprop()
-        var.ui.cmbTipopropGestion.clear()
-        var.ui.cmbTipopropGestion.addItems(registro)
+        self.ui.cmbTipopropGestion.clear()
+        self.ui.cmbTipopropGestion.addItems(registro)
+
+    def seleccionarTipoGestion(self):
+        tipo = self.ui.cmbTipopropGestion.currentText()
+        self.ui.txtTipoprop.setText(tipo)
