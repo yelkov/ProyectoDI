@@ -59,7 +59,58 @@
         <string>CLIENTES</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_4">
-        <item row="3" column="0" colspan="2">
+        <item row="5" column="0">
+         <widget class="QTableWidget" name="tablaClientes">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>DNI/NIE</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Apellidos</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Nombre</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Móvil</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Provincia</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Municipio</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Fecha Baja</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="2">
          <widget class="Line" name="line">
           <property name="frameShadow">
            <enum>QFrame::Sunken</enum>
@@ -158,73 +209,6 @@
            </spacer>
           </item>
          </layout>
-        </item>
-        <item row="1" column="0">
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>0</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="4" column="0">
-         <widget class="QTableWidget" name="tablaClientes">
-          <property name="editTriggers">
-           <set>QAbstractItemView::NoEditTriggers</set>
-          </property>
-          <property name="selectionMode">
-           <enum>QAbstractItemView::SingleSelection</enum>
-          </property>
-          <property name="selectionBehavior">
-           <enum>QAbstractItemView::SelectRows</enum>
-          </property>
-          <attribute name="verticalHeaderVisible">
-           <bool>false</bool>
-          </attribute>
-          <column>
-           <property name="text">
-            <string>DNI/NIE</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Apellidos</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Nombre</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Móvil</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Provincia</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Municipio</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Fecha Baja</string>
-           </property>
-          </column>
-         </widget>
         </item>
         <item row="0" column="0" colspan="2">
          <layout class="QGridLayout" name="gridLayout">
@@ -824,6 +808,38 @@
            </widget>
           </item>
          </layout>
+        </item>
+        <item row="1" column="0">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="3" column="0">
+         <spacer name="verticalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </widget>
@@ -2072,8 +2088,8 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>30</width>
-            <height>40</height>
+            <width>0</width>
+            <height>30</height>
            </size>
           </property>
          </spacer>
@@ -2175,8 +2191,8 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>20</width>
-            <height>40</height>
+            <width>30</width>
+            <height>30</height>
            </size>
           </property>
          </spacer>
