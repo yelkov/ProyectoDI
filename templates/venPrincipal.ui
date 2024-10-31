@@ -2222,7 +2222,12 @@
           </column>
           <column>
            <property name="text">
-            <string>Precio</string>
+            <string>Precio Alquiler</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Precio Venta</string>
            </property>
           </column>
           <column>

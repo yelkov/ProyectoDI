@@ -191,7 +191,7 @@ class Eventos():
         try:
             header = var.ui.tablaProp.horizontalHeader()
             for i in range(header.count()):
-                if i in (1,2,5):
+                if i in (1,2,7):
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
                 else:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
@@ -251,22 +251,22 @@ class Eventos():
             else:
                 dato.setText("")
 
-        objetosPanelProp = [var.ui.txtAltaprop,var.ui.txtBajaprop,var.ui.txtDirprop,var.ui.cmbProvprop,
+        objetosPanelProp = [var.ui.lblProp, var.ui.txtAltaprop,var.ui.txtBajaprop,var.ui.txtDirprop,var.ui.cmbProvprop,
                             var.ui.cmbMuniprop,var.ui.cmbTipoprop,
                             var.ui.spinHabprop, var.ui.spinBanosprop, var.ui.txtSuperprop,var.ui.txtPrecioAlquilerprop,
                             var.ui.txtPrecioVentaprop,
                             var.ui.txtCpprop,var.ui.areatxtDescriprop, var.ui.rbtDisponprop, var.ui.rbtAlquilprop,var.ui.chkVentaprop,var.ui.chkInterprop,
                             var.ui.chkAlquilprop,var.ui.rbtVentaprop,var.ui.txtNomeprop,var.ui.txtMovilprop]
         for i, dato in enumerate(objetosPanelProp):
-            if i in (3,4,5):
+            if i in (4,5,6):
                 pass
-            elif i in (6,7):
+            elif i in (7,8):
                 dato.setValue(0)
-            elif i == 12:
-                dato.setPlainText("")
             elif i == 13:
+                dato.setPlainText("")
+            elif i == 14:
                 dato.setChecked(True)
-            elif i in (14,15,16,17,18):
+            elif i in (15,16,17,18,19):
                 dato.setChecked(False)
             else:
                 dato.setText("")

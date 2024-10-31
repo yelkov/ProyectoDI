@@ -33,10 +33,15 @@ class Main(QtWidgets.QMainWindow):
         zona de eventos de tablas
         '''
         var.ui.tablaClientes.setAlternatingRowColors(True)
+        var.ui.tablaProp.setAlternatingRowColors(True)
+
         clientes.Clientes.cargaTablaClientes()
         eventos.Eventos.resizeTablaClientes()
         var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
 
+        propiedades.Propiedades.cargarTablaPropiedades()
+        eventos.Eventos.resizeTablaPropiedades()
+        var.ui.tablaProp.clicked.connect(propiedades.Propiedades.cargaOnePropiedad)
         '''
         zona de eventos del menubar
         '''
