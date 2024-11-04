@@ -1,7 +1,7 @@
 import conexion
 import eventos
 import var
-from PyQt6 import QtWidgets, QtGui
+from PyQt6 import QtWidgets, QtGui, QtCore
 
 from eventos import Eventos
 
@@ -116,6 +116,14 @@ class Propiedades():
 
                 tipo_operacion = registro[14].replace('[', '').replace(']', '').replace("'","")
                 var.ui.tablaProp.setItem(index, 7, QtWidgets.QTableWidgetItem(tipo_operacion)) #tipo_operacion
+
+                var.ui.tablaProp.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaProp.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                var.ui.tablaProp.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                var.ui.tablaProp.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaProp.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaProp.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaProp.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
 
         except Exception as e:
@@ -168,6 +176,64 @@ class Propiedades():
         precio_venta = datos.pop(8)
         num_banos = datos.pop(6)
         num_habitaciones = datos.pop(5)
+
+        for dato in datos:
+            if dato == "" or dato is None:
+                return False
+        return True
+
+    @staticmethod
+    def modifProp():
+        try:
+            propiedad = [var.ui.lblProp.text(),var.ui.txtAltaprop.text(),var.ui.txtBajaprop.text(),var.ui.txtDirprop.text(),var.ui.cmbProvprop.currentText(),
+                        var.ui.cmbMuniprop.currentText(),var.ui.cmbTipoprop.currentText(),
+                        var.ui.spinHabprop.text(), var.ui.spinBanosprop.text(), var.ui.txtSuperprop.text(),var.ui.txtPrecioAlquilerprop.text(),
+                        var.ui.txtPrecioVentaprop.text(),
+                        var.ui.txtCpprop.text(),var.ui.areatxtDescriprop.toPlainText()]
+            tipoOper = []
+            if var.ui.chkAlquilprop.isChecked():
+                tipoOper.append(var.ui.chkAlquilprop.text())
+            if var.ui.chkVentaprop.isChecked():
+                tipoOper.append(var.ui.chkVentaprop.text())
+            if var.ui.chkInterprop.isChecked():
+                tipoOper.append(var.ui.chkInterprop.text())
+            propiedad.append(tipoOper)
+            if var.ui.rbtDisponprop.isChecked():
+                propiedad.append(var.ui.rbtDisponprop.text())
+            elif var.ui.rbtAlquilprop.isChecked():
+                propiedad.append(var.ui.rbtAlquilprop.text())
+            elif var.ui.rbtVentaprop.isChecked():
+                propiedad.append(var.ui.rbtVentaprop.text())
+
+            propiedad.append(var.ui.txtNomeprop.text())
+            propiedad.append(var.ui.txtMovilprop.text())
+
+            if propiedad[2] != "" and propiedad[1] > propiedad[2]:
+                mbox = eventos.Eventos.crearMensajeError("Error","La fecha de baja no puede ser posterior a la fecha de alta.")
+                mbox.exec()
+            elif Propiedades.checkDatosVaciosModifProp(propiedad) and conexion.Conexion.modifProp(propiedad):
+                mbox = eventos.Eventos.crearMensajeInfo("Aviso","Se ha modificado la propiedad correctamente.")
+                mbox.exec()
+                Propiedades.cargarTablaPropiedades()
+            elif not Propiedades.checkDatosVaciosModifProp(propiedad):
+                mbox = Eventos.crearMensajeError("Error","Hay algunos campos obligatorios que están vacíos.")
+                mbox.exec()
+            else:
+                mbox = Eventos.crearMensajeError("Error","Se ha producido un error al modificar la propiedad")
+                mbox.exec()
+
+        except Exception as e:
+            print("Error modificando cliente en propiedades.", e)
+
+    @staticmethod
+    def checkDatosVaciosModifProp(datosPropiedades):
+        datos = datosPropiedades[:]
+        descripcion = datos.pop(13)
+        precio_venta = datos.pop(11)
+        precio_alquiler = datos.pop(10)
+        num_banos = datos.pop(8)
+        num_habitaciones = datos.pop(7)
+        fecha_baja = datos.pop(2)
 
         for dato in datos:
             if dato == "" or dato is None:

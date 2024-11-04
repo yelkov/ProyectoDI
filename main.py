@@ -61,6 +61,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnModifcli.clicked.connect(clientes.Clientes.modifCliente)
         var.ui.btnDelcli.clicked.connect(clientes.Clientes.bajaCliente)
         var.ui.btnGrabarprop.clicked.connect(propiedades.Propiedades.altaPropiedad)
+        var.ui.btnModifprop.clicked.connect(propiedades.Propiedades.modifProp)
 
 
         '''

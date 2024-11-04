@@ -2,6 +2,7 @@ import os
 from datetime import datetime
 
 from PyQt6 import QtSql, QtWidgets, QtGui, QtCore
+from fontTools.misc.cython import returns
 
 import eventos
 import var
@@ -292,5 +293,51 @@ class Conexion:
             else:
                 return False
 
+
         except Exception as e:
             print("Error al dar de alta propiedad en conexion",e)
+
+    @staticmethod
+    def modifProp(propiedad):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("select count(*) from propiedades where codigo = :codigo")
+            query.bindValue(":codigo", propiedad[0])
+            if query.exec() and query.next():
+                count = query.value(0)
+                if count == 1: #verificamos que solo nos devuelve un resultado, la fila para el codigo que buscamos
+
+                    query.prepare("UPDATE propiedades set alta = :alta, baja = :baja, direccion = :direccion, municipio = :municipio, provincia = :provincia, tipo_propiedad = :tipo_propiedad, num_habitaciones=:num_habitaciones, num_banos = :num_banos, superficie = :superficie, precio_alquiler = :precio_alquiler, precio_venta = :precio_venta, codigo_postal = :codigo_postal, descripcion = :descripcion, tipo_operacion = :tipo_operacion, estado=:estado, nombre_propietario =:nombre_propietario, movil =:movil WHERE codigo = :codigo")
+                    query.bindValue(":codigo",str(propiedad[0]))
+                    query.bindValue(":alta",str(propiedad[1]))
+                    query.bindValue(":direccion",str(propiedad[3]))
+                    query.bindValue(":provincia",str(propiedad[4]))
+                    query.bindValue(":municipio",str(propiedad[5]))
+                    query.bindValue(":tipo_propiedad",str(propiedad[6]))
+                    query.bindValue(":num_habitaciones",str(propiedad[7]))
+                    query.bindValue(":num_banos",str(propiedad[8]))
+                    query.bindValue(":superficie",str(propiedad[9]))
+                    query.bindValue(":precio_alquiler",str(propiedad[10]))
+                    query.bindValue(":precio_venta",str(propiedad[11]))
+                    query.bindValue(":codigo_postal",str(propiedad[12]))
+                    query.bindValue(":descripcion",str(propiedad[13]))
+                    query.bindValue(":tipo_operacion",str(propiedad[14]))
+                    query.bindValue(":estado",str(propiedad[15]))
+                    query.bindValue(":nombre_propietario",str(propiedad[16]))
+                    query.bindValue(":movil",str(propiedad[17]))
+                    if propiedad[2] == "":
+                        query.bindValue(":bajacli",QtCore.QVariant()) #QVariant añade un null a la BD
+                    else:
+                        query.bindValue(":baja",str(propiedad[2]))
+
+                    if query.exec():
+                        return True
+                    else:
+                        return False
+                else:
+                    return False
+            else:
+                return False
+
+        except Exception as e:
+            print("Error al modificar cliente en conexión.",e)

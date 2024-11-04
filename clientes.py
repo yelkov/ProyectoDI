@@ -154,7 +154,7 @@ class Clientes:
             modifcli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(),
                         var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),
                         var.ui.cmbMunicli.currentText(),var.ui.txtBajacli.text()]
-            if modifcli[1] > modifcli[9]:
+            if  modifcli[9] != "" and modifcli[1] > modifcli[9]:
                 mbox = eventos.Eventos.crearMensajeError("Aviso","La fecha de baja no puede anterior a la de alta.")
                 mbox.exec()
             elif clientes.Clientes.checkDatosVaciosCli(modifcli[:-1]) and conexion.Conexion.modifCliente(modifcli):
