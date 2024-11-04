@@ -2374,6 +2374,7 @@
   </action>
  </widget>
  <tabstops>
+  <tabstop>panPrincipal</tabstop>
   <tabstop>txtDnicli</tabstop>
   <tabstop>txtAltacli</tabstop>
   <tabstop>txtApelcli</tabstop>
@@ -2383,14 +2384,41 @@
   <tabstop>txtDircli</tabstop>
   <tabstop>cmbProvcli</tabstop>
   <tabstop>cmbMunicli</tabstop>
-  <tabstop>chkHistoriacli</tabstop>
   <tabstop>btnGrabarcli</tabstop>
   <tabstop>btnModifcli</tabstop>
   <tabstop>btnDelcli</tabstop>
   <tabstop>txtBajacli</tabstop>
-  <tabstop>tablaClientes</tabstop>
+  <tabstop>chkHistoriacli</tabstop>
   <tabstop>btnAltacli</tabstop>
   <tabstop>btnBajacli</tabstop>
+  <tabstop>tablaClientes</tabstop>
+  <tabstop>txtAltaprop</tabstop>
+  <tabstop>txtDirprop</tabstop>
+  <tabstop>cmbProvprop</tabstop>
+  <tabstop>cmbMuniprop</tabstop>
+  <tabstop>txtCpprop</tabstop>
+  <tabstop>cmbTipoprop</tabstop>
+  <tabstop>spinHabprop</tabstop>
+  <tabstop>spinBanosprop</tabstop>
+  <tabstop>txtSuperprop</tabstop>
+  <tabstop>txtPrecioVentaprop</tabstop>
+  <tabstop>txtPrecioAlquilerprop</tabstop>
+  <tabstop>areatxtDescriprop</tabstop>
+  <tabstop>rbtDisponprop</tabstop>
+  <tabstop>rbtAlquilprop</tabstop>
+  <tabstop>rbtVentaprop</tabstop>
+  <tabstop>chkVentaprop</tabstop>
+  <tabstop>chkAlquilprop</tabstop>
+  <tabstop>chkInterprop</tabstop>
+  <tabstop>txtNomeprop</tabstop>
+  <tabstop>txtMovilprop</tabstop>
+  <tabstop>btnGrabarprop</tabstop>
+  <tabstop>btnModifprop</tabstop>
+  <tabstop>btnDelprop</tabstop>
+  <tabstop>txtBajaprop</tabstop>
+  <tabstop>btnAltaprop</tabstop>
+  <tabstop>btnBajaprop</tabstop>
+  <tabstop>tablaProp</tabstop>
  </tabstops>
  <resources/>
  <connections/>

@@ -69,10 +69,13 @@ class Propiedades():
             propiedad.append(var.ui.txtNomeprop.text())
             propiedad.append(var.ui.txtMovilprop.text())
 
-            if conexion.Conexion.altaPropiedad(propiedad):
+            if Propiedades.checkDatosVaciosAltaProp(propiedad) and conexion.Conexion.altaPropiedad(propiedad):
                 mbox = eventos.Eventos.crearMensajeInfo("Aviso", "Se ha grabado la propiedad en la base de datos.")
                 mbox.exec()
                 Propiedades.cargarTablaPropiedades()
+            elif not Propiedades.checkDatosVaciosAltaProp(propiedad):
+                mbox = eventos.Eventos.crearMensajeError("Aviso", "Hay campos vacíos que deben ser cubiertos.")
+                mbox.exec()
             else:
                 mbox = eventos.Eventos.crearMensajeError("Aviso","Se ha producido un error al grabar la propiedad.")
                 mbox.exec()
@@ -156,3 +159,17 @@ class Propiedades():
 
         except Exception as e:
             print("Error cargando UNA propiedad en propiedades.", e)
+
+    @staticmethod
+    def checkDatosVaciosAltaProp(datosPropiedades):
+        datos = datosPropiedades[:]
+        descripcion = datos.pop(11)
+        precio_alquiler = datos.pop(9)
+        precio_venta = datos.pop(8)
+        num_banos = datos.pop(6)
+        num_habitaciones = datos.pop(5)
+
+        for dato in datos:
+            if dato == "" or dato is None:
+                return False
+        return True
