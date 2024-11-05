@@ -2,7 +2,6 @@ import os
 from datetime import datetime
 
 from PyQt6 import QtSql, QtWidgets, QtGui, QtCore
-from fontTools.misc.cython import returns
 
 import eventos
 import var

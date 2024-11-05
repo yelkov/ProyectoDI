@@ -1,3 +1,5 @@
+from PyQt6.QtGui import QIcon
+
 import clientes
 import conexion
 import conexionserver

@@ -50,7 +50,7 @@ QPushButton{
 
 /*---- Estilo boton de filtrado por Tipo de propiedad ------*/
 #btnBuscaTipoProp {
-    background-color: #DADADA;
+    background-color: #EFEFEF;
     border-radius: 5px;
 }
 #btnBuscaTipoProp:hover {
@@ -58,7 +58,7 @@ QPushButton{
     border-radius: 5px;
 }
 #btnBuscaTipoProp:checked {
-    background-color: #BBB;
+    background-color: #FACFAD;
     border-radius: 5px;
 }
 
