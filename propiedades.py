@@ -100,22 +100,25 @@ class Propiedades():
         try:
             listado = conexion.Conexion.listadoPropiedades()
             index = 0
+            var.ui.tablaProp.setRowCount(len(listado))
             for registro in listado:
-                var.ui.tablaProp.setRowCount(index + 1)
+
                 var.ui.tablaProp.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0]))) #codigo
                 var.ui.tablaProp.setItem(index, 1, QtWidgets.QTableWidgetItem(registro[5])) #municipio
                 var.ui.tablaProp.setItem(index, 2, QtWidgets.QTableWidgetItem(registro[6])) #tipo_provincia
                 var.ui.tablaProp.setItem(index, 3, QtWidgets.QTableWidgetItem(str(registro[7]))) #num_habitaciones
                 var.ui.tablaProp.setItem(index, 4, QtWidgets.QTableWidgetItem(str(registro[8]))) #num_baños
 
-                precio_alquiler = f"{registro[10]:,.1f} €" if registro[10] != ""  else ""
+                precio_alquiler = f"{registro[10]:,.1f} €" if registro[10] != ""  else " - €"
                 var.ui.tablaProp.setItem(index, 5, QtWidgets.QTableWidgetItem(precio_alquiler)) #precio_alqui
 
-                precio_venta = f"{registro[11]:,.1f} €" if registro[11] != ""  else ""
+                precio_venta = f"{registro[11]:,.1f} €" if registro[11] != ""  else " - €"
                 var.ui.tablaProp.setItem(index, 6, QtWidgets.QTableWidgetItem(precio_venta)) #precio_venta
 
                 tipo_operacion = registro[14].replace('[', '').replace(']', '').replace("'","")
                 var.ui.tablaProp.setItem(index, 7, QtWidgets.QTableWidgetItem(tipo_operacion)) #tipo_operacion
+
+                var.ui.tablaProp.setItem(index, 8, QtWidgets.QTableWidgetItem(str(registro[2]))) #fecha de baja
 
                 var.ui.tablaProp.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaProp.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
@@ -124,6 +127,8 @@ class Propiedades():
                 var.ui.tablaProp.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaProp.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaProp.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.tablaProp.item(index, 7).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                var.ui.tablaProp.item(index, 8).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
 
         except Exception as e:
@@ -169,20 +174,6 @@ class Propiedades():
             print("Error cargando UNA propiedad en propiedades.", e)
 
     @staticmethod
-    def checkDatosVaciosAltaProp(datosPropiedades):
-        datos = datosPropiedades[:]
-        descripcion = datos.pop(11)
-        precio_alquiler = datos.pop(9)
-        precio_venta = datos.pop(8)
-        num_banos = datos.pop(6)
-        num_habitaciones = datos.pop(5)
-
-        for dato in datos:
-            if dato == "" or dato is None:
-                return False
-        return True
-
-    @staticmethod
     def modifProp():
         try:
             propiedad = [var.ui.lblProp.text(),var.ui.txtAltaprop.text(),var.ui.txtBajaprop.text(),var.ui.txtDirprop.text(),var.ui.cmbProvprop.currentText(),
@@ -208,7 +199,7 @@ class Propiedades():
             propiedad.append(var.ui.txtNomeprop.text())
             propiedad.append(var.ui.txtMovilprop.text())
 
-            if propiedad[2] != "" and propiedad[1] > propiedad[2]:
+            if propiedad[2] != "" and Propiedades.checkFechasProp(propiedad):
                 mbox = eventos.Eventos.crearMensajeError("Error","La fecha de baja no puede ser posterior a la fecha de alta.")
                 mbox.exec()
             elif Propiedades.checkDatosVaciosModifProp(propiedad) and conexion.Conexion.modifProp(propiedad):
@@ -226,6 +217,45 @@ class Propiedades():
             print("Error modificando cliente en propiedades.", e)
 
     @staticmethod
+    def bajaProp():
+        propiedad = [var.ui.lblProp.text(),var.ui.txtAltaprop.text(),var.ui.txtBajaprop.text()]
+
+        if Propiedades.checkFechasProp(propiedad) and conexion.Conexion.bajaProp(propiedad):
+            mbox = Eventos.crearMensajeInfo("Aviso", "Se ha dado de baja la propiedad.")
+            mbox.exec()
+            Propiedades.cargarTablaPropiedades()
+        elif propiedad[2] == "" or propiedad[2] is None:
+            mbox = Eventos.crearMensajeError("Error","Es necesario elegir una fecha para dar de baja la propiedad.")
+            mbox.exec()
+        elif not Propiedades.checkFechasProp(propiedad):
+            mbox = Eventos.crearMensajeError("Error", "La fecha de baja no puede ser anterior a la fecha de alta.")
+            mbox.exec()
+        else:
+            mbox = Eventos.crearMensajeError("Error","Se ha producido un error al dar de baja la propiedad.")
+            mbox.exec()
+
+    @staticmethod
+    def historicoProp():
+        try:
+            Propiedades.cargarTablaPropiedades()
+        except Exception as e:
+            print("checkbox historico no funciona correcatamente", e)
+
+    @staticmethod
+    def checkDatosVaciosAltaProp(datosPropiedades):
+        datos = datosPropiedades[:]
+        descripcion = datos.pop(11)
+        precio_alquiler = datos.pop(9)
+        precio_venta = datos.pop(8)
+        num_banos = datos.pop(6)
+        num_habitaciones = datos.pop(5)
+
+        for dato in datos:
+            if dato == "" or dato is None:
+                return False
+        return True
+
+    @staticmethod
     def checkDatosVaciosModifProp(datosPropiedades):
         datos = datosPropiedades[:]
         descripcion = datos.pop(13)
@@ -239,3 +269,12 @@ class Propiedades():
             if dato == "" or dato is None:
                 return False
         return True
+
+    @staticmethod
+    def checkFechasProp(datosPropiedades):
+        datos = datosPropiedades[:]
+        if datos[1] > datos[2]: #si fecha de alta es posterior a fecha de baja devuelve false
+            return False
+        else:
+            return True
+

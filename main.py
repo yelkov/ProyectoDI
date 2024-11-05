@@ -62,7 +62,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnDelcli.clicked.connect(clientes.Clientes.bajaCliente)
         var.ui.btnGrabarprop.clicked.connect(propiedades.Propiedades.altaPropiedad)
         var.ui.btnModifprop.clicked.connect(propiedades.Propiedades.modifProp)
-
+        var.ui.btnDelprop.clicked.connect(propiedades.Propiedades.bajaProp)
+        var.ui.btnBuscaTipoProp.clicked.connect(propiedades.Propiedades.cargarTablaPropiedades)
 
         '''
         zona de eventos de cajas de texto
@@ -76,6 +77,7 @@ class Main(QtWidgets.QMainWindow):
         '''
         var.ui.cmbProvcli.currentIndexChanged.connect(lambda : eventos.Eventos.cargaMunicli(var.ui.cmbProvcli.currentText()))
         var.ui.cmbProvprop.currentIndexChanged.connect(lambda : eventos.Eventos.cargaMuniprop(var.ui.cmbProvprop.currentText()))
+        var.ui.cmbTipoprop.currentIndexChanged.connect(propiedades.Propiedades.cargarTablaPropiedades)
 
         '''
         zona eventos toolBar
@@ -87,6 +89,8 @@ class Main(QtWidgets.QMainWindow):
         zona eventos checkbox
         '''
         var.ui.chkHistoriacli.stateChanged.connect(clientes.Clientes.historicoCli)
+        var.ui.chkHistoriaprop.stateChanged.connect(propiedades.Propiedades.historicoProp)
+
 
 
 

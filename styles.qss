@@ -48,6 +48,20 @@ QPushButton{
     border-radius: 5px;
 }
 
+/*---- Estilo boton de filtrado por Tipo de propiedad ------*/
+#btnBuscaTipoProp {
+    background-color: #DADADA;
+    border-radius: 5px;
+}
+#btnBuscaTipoProp:hover {
+    background-color: #CCC;
+    border-radius: 5px;
+}
+#btnBuscaTipoProp:checked {
+    background-color: #BBB;
+    border-radius: 5px;
+}
+
 /*----    Estilo para botones al pasar el ratón      -----*/
 QPushButton:hover{
     background-color: #F6AC51;
