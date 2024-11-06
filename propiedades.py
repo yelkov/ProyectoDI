@@ -1,3 +1,5 @@
+from datetime import date, datetime
+
 import conexion
 import eventos
 import var
@@ -219,11 +221,18 @@ class Propiedades():
     @staticmethod
     def bajaProp():
         propiedad = [var.ui.lblProp.text(),var.ui.txtAltaprop.text(),var.ui.txtBajaprop.text()]
+        if var.ui.rbtAlquilprop.isChecked():
+            propiedad.append(var.ui.rbtAlquilprop.text())
+        elif var.ui.rbtVentaprop.isChecked():
+            propiedad.append(var.ui.rbtVentaprop.text())
 
-        if Propiedades.checkFechasProp(propiedad) and conexion.Conexion.bajaProp(propiedad):
+        if not var.ui.rbtDisponprop.isChecked and Propiedades.checkFechasProp(propiedad) and conexion.Conexion.bajaProp(propiedad):
             mbox = Eventos.crearMensajeInfo("Aviso", "Se ha dado de baja la propiedad.")
             mbox.exec()
             Propiedades.cargarTablaPropiedades()
+        elif var.ui.rbtDisponprop.isChecked():
+            mbox = Eventos.crearMensajeError("Error","Para dar de baja el estado de la propiedad no puede ser disponible.")
+            mbox.exec()
         elif propiedad[2] == "" or propiedad[2] is None:
             mbox = Eventos.crearMensajeError("Error","Es necesario elegir una fecha para dar de baja la propiedad.")
             mbox.exec()
@@ -273,8 +282,14 @@ class Propiedades():
     @staticmethod
     def checkFechasProp(datosPropiedades):
         datos = datosPropiedades[:]
-        if datos[1] > datos[2]: #si fecha de alta es posterior a fecha de baja devuelve false
-            return False
-        else:
-            return True
+        alta = datos[1]
+        baja = datos[2]
 
+        return fecha_alta < fecha_baja #si fecha de alta es posterior a fecha de baja devuelve false
+
+
+    @staticmethod
+    def filtrar():
+        checkeado = var.ui.btnBuscaTipoProp.isChecked()
+        var.ui.btnBuscaTipoProp.setChecked(not checkeado)
+        Propiedades.cargarTablaPropiedades()

@@ -121,47 +121,6 @@ class Conexion:
         except Exception as e:
             print("Error al listar clientes")
 
-    @staticmethod
-    def listadoPropiedades():
-        try:
-            listado = []
-            historico = var.ui.chkHistoriaprop.isChecked()
-            filtradoTipoProp = var.ui.btnBuscaTipoProp.isChecked()
-            tipoSeleccionado = var.ui.cmbTipoprop.currentText()
-            if not historico and filtradoTipoProp:
-                query = QtSql.QSqlQuery()
-                query.prepare("SELECT * FROM PROPIEDADES where baja is null and tipo_propiedad = :tipo_propiedad order by municipio asc" )
-                query.bindValue(":tipo_propiedad", str(tipoSeleccionado))
-                if query.exec():
-                    while query.next():
-                        fila = [query.value(i) for i in range(query.record().count())]
-                        listado.append(fila)
-            elif historico and not filtradoTipoProp:
-                query = QtSql.QSqlQuery()
-                query.prepare("SELECT * FROM propiedades ORDER BY municipio ASC")
-                if query.exec():
-                    while query.next():
-                        fila = [query.value(i) for i in range(query.record().count())]
-                        listado.append(fila)
-            elif historico and filtradoTipoProp:
-                query = QtSql.QSqlQuery()
-                query.prepare("SELECT * FROM PROPIEDADES where tipo_propiedad = :tipo_propiedad order by municipio asc" )
-                query.bindValue(":tipo_propiedad", str(tipoSeleccionado))
-                if query.exec():
-                    while query.next():
-                        fila = [query.value(i) for i in range(query.record().count())]
-                        listado.append(fila)
-            else:
-                query = QtSql.QSqlQuery()
-                query.prepare("SELECT * FROM propiedades where baja is null ORDER BY municipio ASC")
-                if query.exec():
-                    while query.next():
-                        fila = [query.value(i) for i in range(query.record().count())]
-                        listado.append(fila)
-            return listado
-
-        except Exception as e:
-            print("Error al listar propiedades en listadoPropiedades", e)
 
     @staticmethod
     def datosOneCliente(dni):
@@ -377,9 +336,10 @@ class Conexion:
             if query.exec() and query.next():
                 count = query.value(0)
                 if count == 1: #verificamos que solo nos devuelve un resultado a consulta, por tanto la propiedad existe.
-                    query.prepare("update propiedades set baja =:baja where codigo = :codigo ")
+                    query.prepare("update propiedades set baja =:baja, estado = :estado where codigo = :codigo ")
                     query.bindValue(":codigo",str(propiedad[0]))
                     query.bindValue(":baja",str(propiedad[2])) #dejamos el segundo espacio del array para fecha de alta, y comprobar mas tarde que no sea posterior a fecha de baja
+                    query.bindValue(":estado",str(propiedad[3]))
                     if query.exec():
                         return True
                     else:
@@ -391,3 +351,48 @@ class Conexion:
 
         except Exception as e:
             print("Error al dar de baja propiedad en conexión.",e)
+
+    @staticmethod
+    def listadoPropiedades():
+        try:
+            listado = []
+            historico = var.ui.chkHistoriaprop.isChecked()
+            municipio = var.ui.cmbMuniprop.currentText()
+            filtrado = var.ui.btnBuscaTipoProp.isChecked()
+            tipoSeleccionado = var.ui.cmbTipoprop.currentText()
+            if not historico and filtrado:
+                query = QtSql.QSqlQuery()
+                query.prepare("SELECT * FROM PROPIEDADES where baja is null and tipo_propiedad = :tipo_propiedad  and municipio = :municipio order by municipio asc" )
+                query.bindValue(":tipo_propiedad", str(tipoSeleccionado))
+                query.bindValue(":municipio", str(municipio))
+                if query.exec():
+                    while query.next():
+                        fila = [query.value(i) for i in range(query.record().count())]
+                        listado.append(fila)
+            elif historico and not filtrado:
+                query = QtSql.QSqlQuery()
+                query.prepare("SELECT * FROM propiedades ORDER BY municipio ASC")
+                if query.exec():
+                    while query.next():
+                        fila = [query.value(i) for i in range(query.record().count())]
+                        listado.append(fila)
+            elif historico and filtrado:
+                query = QtSql.QSqlQuery()
+                query.prepare("SELECT * FROM PROPIEDADES where tipo_propiedad = :tipo_propiedad and municipio = :municipio order by municipio asc" )
+                query.bindValue(":tipo_propiedad", str(tipoSeleccionado))
+                query.bindValue(":municipio", str(municipio))
+                if query.exec():
+                    while query.next():
+                        fila = [query.value(i) for i in range(query.record().count())]
+                        listado.append(fila)
+            else:
+                query = QtSql.QSqlQuery()
+                query.prepare("SELECT * FROM propiedades where baja is null ORDER BY municipio ASC")
+                if query.exec():
+                    while query.next():
+                        fila = [query.value(i) for i in range(query.record().count())]
+                        listado.append(fila)
+            return listado
+
+        except Exception as e:
+            print("Error al listar propiedades en listadoPropiedades", e)

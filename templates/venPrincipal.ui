@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1462</width>
+    <width>1493</width>
     <height>849</height>
    </rect>
   </property>
@@ -1582,7 +1582,7 @@
                  </size>
                 </property>
                 <property name="toolTip">
-                 <string>Filtrar por tipo de propiedad</string>
+                 <string>Filtrar por tipo de propiedad y municipio</string>
                 </property>
                 <property name="text">
                  <string/>
@@ -1658,6 +1658,22 @@
             </item>
             <item row="2" column="1">
              <layout class="QHBoxLayout" name="horizontalLayout_12">
+              <item>
+               <spacer name="horizontalSpacer_31">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>10</width>
+                  <height>5</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
               <item>
                <widget class="QLabel" name="lblHabiprop">
                 <property name="sizePolicy">
@@ -2172,7 +2188,7 @@
           <property name="sizeHint" stdset="0">
            <size>
             <width>30</width>
-            <height>40</height>
+            <height>20</height>
            </size>
           </property>
          </spacer>
@@ -2275,10 +2291,17 @@
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>40</height>
+            <height>20</height>
            </size>
           </property>
          </spacer>
+        </item>
+        <item>
+         <widget class="Line" name="line_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QTableWidget" name="tablaProp">
@@ -2352,7 +2375,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1462</width>
+     <width>1493</width>
      <height>21</height>
     </rect>
    </property>
@@ -2396,6 +2419,8 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionFiltrar"/>
+   <addaction name="separator"/>
    <addaction name="actionbarAltaTipoprop"/>
    <addaction name="separator"/>
    <addaction name="actionbarLimpiar"/>
@@ -2458,6 +2483,21 @@
    </property>
    <property name="shortcut">
     <string>Alt+T</string>
+   </property>
+  </action>
+  <action name="actionFiltrar">
+   <property name="icon">
+    <iconset>
+     <normaloff>../img/lupa.ico</normaloff>../img/lupa.ico</iconset>
+   </property>
+   <property name="text">
+    <string>Filtrar</string>
+   </property>
+   <property name="toolTip">
+    <string>Filtrar por tipo de propiedad y municipio</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+F</string>
    </property>
   </action>
  </widget>

@@ -87,6 +87,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionbarSalir.triggered.connect(eventos.Eventos.mensajeSalir)
         var.ui.actionbarLimpiar.triggered.connect(eventos.Eventos.limpiarPanel)
         var.ui.actionbarAltaTipoprop.triggered.connect(eventos.Eventos.abrirTipoprop)
+        var.ui.actionFiltrar.triggered.connect(propiedades.Propiedades.filtrar)
         '''
         zona eventos checkbox
         '''
