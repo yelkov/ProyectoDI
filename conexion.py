@@ -336,7 +336,7 @@ class Conexion:
             if query.exec() and query.next():
                 count = query.value(0)
                 if count == 1: #verificamos que solo nos devuelve un resultado a consulta, por tanto la propiedad existe.
-                    query.prepare("update propiedades set baja =:baja, estado = :estado where codigo = :codigo ")
+                    query.prepare("update propiedades set baja =:baja, estado =:estado where codigo = :codigo ")
                     query.bindValue(":codigo",str(propiedad[0]))
                     query.bindValue(":baja",str(propiedad[2])) #dejamos el segundo espacio del array para fecha de alta, y comprobar mas tarde que no sea posterior a fecha de baja
                     query.bindValue(":estado",str(propiedad[3]))
@@ -362,7 +362,7 @@ class Conexion:
             tipoSeleccionado = var.ui.cmbTipoprop.currentText()
             if not historico and filtrado:
                 query = QtSql.QSqlQuery()
-                query.prepare("SELECT * FROM PROPIEDADES where baja is null and tipo_propiedad = :tipo_propiedad  and municipio = :municipio order by municipio asc" )
+                query.prepare("SELECT * FROM PROPIEDADES where baja is null and estado = 'Disponible' and tipo_propiedad = :tipo_propiedad  and municipio = :municipio order by municipio asc" )
                 query.bindValue(":tipo_propiedad", str(tipoSeleccionado))
                 query.bindValue(":municipio", str(municipio))
                 if query.exec():
@@ -378,7 +378,7 @@ class Conexion:
                         listado.append(fila)
             elif historico and filtrado:
                 query = QtSql.QSqlQuery()
-                query.prepare("SELECT * FROM PROPIEDADES where tipo_propiedad = :tipo_propiedad and municipio = :municipio order by municipio asc" )
+                query.prepare("SELECT * FROM PROPIEDADES where estado = 'Disponible' and tipo_propiedad = :tipo_propiedad and municipio = :municipio order by municipio asc" )
                 query.bindValue(":tipo_propiedad", str(tipoSeleccionado))
                 query.bindValue(":municipio", str(municipio))
                 if query.exec():

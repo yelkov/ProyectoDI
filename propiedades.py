@@ -1,4 +1,4 @@
-from datetime import date, datetime
+import datetime
 
 import conexion
 import eventos
@@ -20,7 +20,7 @@ class Propiedades():
                 var.ui.cmbTipoprop.addItems(registro)
                 mbox = eventos.Eventos.crearMensajeInfo("Aviso","Tipo de propiedad añadida.")
                 mbox.exec()
-                eventos.Eventos.cargarTipopropGestion(venDialogo)
+                Propiedades.cargarTipopropGestion(venDialogo)
             else:
                 mbox = eventos.Eventos.crearMensajeError("Aviso", "Error al añadir tipo de propiedad añadida.")
                 mbox.exec()
@@ -35,9 +35,9 @@ class Propiedades():
             if conexion.Conexion.bajaTipoprop(tipo):
                 mbox = eventos.Eventos.crearMensajeInfo("Aviso","Tipo de propiedad eliminada.")
                 mbox.exec()
-                eventos.Eventos.cargarTipoprop()
+                Propiedades.cargarTipoprop()
                 var.dlggestion.ui.txtTipoprop.setText("")
-                eventos.Eventos.cargarTipopropGestion(venDialogo)
+                Propiedades.cargarTipopropGestion(venDialogo)
             else:
                 mbox = eventos.Eventos.crearMensajeError("Aviso","Error al eliminar tipo de propiedad.")
                 mbox.exec()
@@ -71,11 +71,11 @@ class Propiedades():
             propiedad.append(var.ui.txtNomeprop.text())
             propiedad.append(var.ui.txtMovilprop.text())
 
-            if Propiedades.checkDatosVaciosAltaProp(propiedad) and conexion.Conexion.altaPropiedad(propiedad):
+            if Propiedades.hasCamposObligatoriosAlta(propiedad) and conexion.Conexion.altaPropiedad(propiedad):
                 mbox = eventos.Eventos.crearMensajeInfo("Aviso", "Se ha grabado la propiedad en la base de datos.")
                 mbox.exec()
                 Propiedades.cargarTablaPropiedades()
-            elif not Propiedades.checkDatosVaciosAltaProp(propiedad):
+            elif not Propiedades.hasCamposObligatoriosAlta(propiedad):
                 mbox = eventos.Eventos.crearMensajeError("Aviso", "Hay campos vacíos que deben ser cubiertos.")
                 mbox.exec()
             else:
@@ -201,14 +201,19 @@ class Propiedades():
             propiedad.append(var.ui.txtNomeprop.text())
             propiedad.append(var.ui.txtMovilprop.text())
 
-            if propiedad[2] != "" and Propiedades.checkFechasProp(propiedad):
+            fecha_baja = propiedad[2]
+
+            if fecha_baja != "" and not Propiedades.esFechasValidas(propiedad):
                 mbox = eventos.Eventos.crearMensajeError("Error","La fecha de baja no puede ser posterior a la fecha de alta.")
                 mbox.exec()
-            elif Propiedades.checkDatosVaciosModifProp(propiedad) and conexion.Conexion.modifProp(propiedad):
+            elif fecha_baja != "" and var.ui.rbtDisponprop.isChecked():
+                mbox = eventos.Eventos.crearMensajeError("Error", "No es posible guardar fecha de baja si el estado del inmueble es 'Disponible'.")
+                mbox.exec()
+            elif Propiedades.hasCamposObligatoriosModif(propiedad) and conexion.Conexion.modifProp(propiedad):
                 mbox = eventos.Eventos.crearMensajeInfo("Aviso","Se ha modificado la propiedad correctamente.")
                 mbox.exec()
                 Propiedades.cargarTablaPropiedades()
-            elif not Propiedades.checkDatosVaciosModifProp(propiedad):
+            elif not Propiedades.hasCamposObligatoriosModif(propiedad):
                 mbox = Eventos.crearMensajeError("Error","Hay algunos campos obligatorios que están vacíos.")
                 mbox.exec()
             else:
@@ -226,7 +231,9 @@ class Propiedades():
         elif var.ui.rbtVentaprop.isChecked():
             propiedad.append(var.ui.rbtVentaprop.text())
 
-        if not var.ui.rbtDisponprop.isChecked and Propiedades.checkFechasProp(propiedad) and conexion.Conexion.bajaProp(propiedad):
+
+
+        if not var.ui.rbtDisponprop.isChecked() and Propiedades.esFechasValidas(propiedad) and conexion.Conexion.bajaProp(propiedad):
             mbox = Eventos.crearMensajeInfo("Aviso", "Se ha dado de baja la propiedad.")
             mbox.exec()
             Propiedades.cargarTablaPropiedades()
@@ -236,7 +243,7 @@ class Propiedades():
         elif propiedad[2] == "" or propiedad[2] is None:
             mbox = Eventos.crearMensajeError("Error","Es necesario elegir una fecha para dar de baja la propiedad.")
             mbox.exec()
-        elif not Propiedades.checkFechasProp(propiedad):
+        elif not Propiedades.esFechasValidas(propiedad):
             mbox = Eventos.crearMensajeError("Error", "La fecha de baja no puede ser anterior a la fecha de alta.")
             mbox.exec()
         else:
@@ -251,7 +258,7 @@ class Propiedades():
             print("checkbox historico no funciona correcatamente", e)
 
     @staticmethod
-    def checkDatosVaciosAltaProp(datosPropiedades):
+    def hasCamposObligatoriosAlta(datosPropiedades):
         datos = datosPropiedades[:]
         descripcion = datos.pop(11)
         precio_alquiler = datos.pop(9)
@@ -265,7 +272,7 @@ class Propiedades():
         return True
 
     @staticmethod
-    def checkDatosVaciosModifProp(datosPropiedades):
+    def hasCamposObligatoriosModif(datosPropiedades):
         datos = datosPropiedades[:]
         descripcion = datos.pop(13)
         precio_venta = datos.pop(11)
@@ -280,10 +287,13 @@ class Propiedades():
         return True
 
     @staticmethod
-    def checkFechasProp(datosPropiedades):
+    def esFechasValidas(datosPropiedades):
         datos = datosPropiedades[:]
         alta = datos[1]
         baja = datos[2]
+
+        fecha_alta = datetime.datetime.strptime(alta,"%d/%m/%Y")
+        fecha_baja = datetime.datetime.strptime(baja,"%d/%m/%Y")
 
         return fecha_alta < fecha_baja #si fecha de alta es posterior a fecha de baja devuelve false
 
@@ -293,3 +303,19 @@ class Propiedades():
         checkeado = var.ui.btnBuscaTipoProp.isChecked()
         var.ui.btnBuscaTipoProp.setChecked(not checkeado)
         Propiedades.cargarTablaPropiedades()
+
+    @staticmethod
+    def cargarTipoprop():
+        registro = conexion.Conexion.cargarTipoprop()
+        var.ui.cmbTipoprop.clear()
+        var.ui.cmbTipoprop.addItems(registro)
+
+    def seleccionarTipoGestion(self):
+        tipo = self.ui.cmbTipopropGestion.currentText()
+        self.ui.txtTipoprop.setText(tipo)
+
+    def cargarTipopropGestion(self):
+        registro = conexion.Conexion.cargarTipoprop()
+        self.ui.cmbTipopropGestion.clear()
+        self.ui.cmbTipopropGestion.addItems(registro)
+

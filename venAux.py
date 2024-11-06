@@ -33,5 +33,5 @@ class dlg_Tipo_prop(QtWidgets.QDialog):
         self.ui.setupUi(self)
         self.ui.btnAltaTipoprop.clicked.connect(lambda: propiedades.Propiedades.altaTipoPropiedad(self))
         self.ui.btnDelTipoprop.clicked.connect(lambda: propiedades.Propiedades.bajaTipoPropiedad(self))
-        eventos.Eventos.cargarTipopropGestion(self)
-        self.ui.cmbTipopropGestion.activated.connect(lambda: eventos.Eventos.seleccionarTipoGestion(self))
+        propiedades.Propiedades.cargarTipopropGestion(self)
+        self.ui.cmbTipopropGestion.activated.connect(lambda: propiedades.Propiedades.seleccionarTipoGestion(self))

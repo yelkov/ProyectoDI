@@ -6,13 +6,13 @@ from datetime import datetime
 
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QHeaderView
+from PyQt6.QtWidgets import QHeaderView
 
 import locale
-
+import eventos
 import clientes
 import conexion
 import conexionserver
-import eventos
 import var
 from PyQt6 import QtWidgets, QtGui
 import zipfile
@@ -37,7 +37,7 @@ class Eventos():
     def crearMensajeSalida(titulo_ventana, mensaje):
         mbox = QtWidgets.QMessageBox()
         mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
-        mbox.setWindowIcon(QtGui.QIcon('./img/icono.svg'))
+        mbox.setWindowIcon(QtGui.QIcon('./img/icono.png'))
         mbox.setText(mensaje)
         mbox.setWindowTitle(titulo_ventana)
         mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
@@ -50,7 +50,7 @@ class Eventos():
     def crearMensajeInfo(titulo_ventana, mensaje):
         mbox = QtWidgets.QMessageBox()
         mbox.setIcon(QtWidgets.QMessageBox.Icon.Information)
-        mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
+        mbox.setWindowIcon(QtGui.QIcon('img/icono.png'))
         mbox.setWindowTitle(titulo_ventana)
         mbox.setText(mensaje)
         mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
@@ -62,7 +62,7 @@ class Eventos():
     def crearMensajeError(titulo_ventana, mensaje):
         mbox = QtWidgets.QMessageBox()
         mbox.setIcon(QtWidgets.QMessageBox.Icon.Critical)
-        mbox.setWindowIcon(QtGui.QIcon('img/icono.svg'))
+        mbox.setWindowIcon(QtGui.QIcon('img/icono.png'))
         mbox.setWindowTitle(titulo_ventana)
         mbox.setText(mensaje)
         mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
@@ -243,6 +243,7 @@ class Eventos():
 
     @staticmethod
     def limpiarPanel():
+        import propiedades
         objetosPanelCli = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,
                    var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli,var.ui.cmbMunicli,var.ui.txtBajacli]
         for i, dato in enumerate(objetosPanelCli):
@@ -250,6 +251,14 @@ class Eventos():
                 pass
             else:
                 dato.setText("")
+
+        var.ui.lblTickcli.clear()
+        var.ui.txtDnicli.setStyleSheet('border: 1px solid black; border-radius: 5px; background-color: rgb(254, 255, 210)')
+        var.ui.txtDnicli.setPlaceholderText("")
+        var.ui.txtMovilcli.setPlaceholderText("")
+        var.ui.txtMovilcli.setStyleSheet('border: 1px solid black; border-radius: 5px;')
+        var.ui.txtEmailcli.setPlaceholderText("")
+        var.ui.txtEmailcli.setStyleSheet('border: 1px solid black; border-radius: 5px;')
 
         objetosPanelProp = [var.ui.lblProp, var.ui.txtAltaprop,var.ui.txtBajaprop,var.ui.txtDirprop,var.ui.cmbProvprop,
                             var.ui.cmbMuniprop,var.ui.cmbTipoprop,
@@ -272,7 +281,9 @@ class Eventos():
                 dato.setText("")
 
         eventos.Eventos.cargarProv()
-        eventos.Eventos.cargarTipoprop()
+        var.ui.btnBuscaTipoProp.setChecked(False)
+        propiedades.Propiedades.cargarTablaPropiedades()
+
 
     @staticmethod
     def abrirTipoprop():
@@ -281,18 +292,7 @@ class Eventos():
         except Exception as e:
             print("error en abrir tipo prop: ", e)
 
-    @staticmethod
-    def cargarTipoprop():
-        registro = conexion.Conexion.cargarTipoprop()
-        var.ui.cmbTipoprop.clear()
-        var.ui.cmbTipoprop.addItems(registro)
 
 
-    def cargarTipopropGestion(self):
-        registro = conexion.Conexion.cargarTipoprop()
-        self.ui.cmbTipopropGestion.clear()
-        self.ui.cmbTipopropGestion.addItems(registro)
 
-    def seleccionarTipoGestion(self):
-        tipo = self.ui.cmbTipopropGestion.currentText()
-        self.ui.txtTipoprop.setText(tipo)
+

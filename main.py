@@ -29,7 +29,7 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.cargarProv()
         eventos.Eventos.cargaMunicli(var.ui.cmbProvcli.currentText())
         eventos.Eventos.cargaMuniprop(var.ui.cmbProvprop.currentText())
-        eventos.Eventos.cargarTipoprop()
+        propiedades.Propiedades.cargarTipoprop()
 
         '''
         zona de eventos de tablas
