@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 from PyQt6 import QtWidgets, QtGui, QtCore
 
@@ -15,11 +15,11 @@ class Clientes:
             nuevoCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(),
                         var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),var.ui.cmbMunicli.currentText()]
 
-            if Clientes.checkDatosVaciosCli(nuevoCli) and conexion.Conexion.altaCliente(nuevoCli):
+            if Clientes.hasCamposObligatoriosCli(nuevoCli) and conexion.Conexion.altaCliente(nuevoCli):
                 mbox = eventos.Eventos.crearMensajeInfo("Aviso","Cliente dado de alta en Base de Datos")
                 mbox.exec()
                 Clientes.cargaTablaClientes()
-            elif not Clientes.checkDatosVaciosCli(nuevoCli):
+            elif not Clientes.hasCamposObligatoriosCli(nuevoCli):
                 QtWidgets.QMessageBox.critical(None, 'Error', 'Algunos campos deben ser cubiertos.',
                                                QtWidgets.QMessageBox.StandardButton.Cancel)
             else:
@@ -91,7 +91,7 @@ class Clientes:
 
 
     @staticmethod
-    def checkDatosVaciosCli(datosClientes):
+    def hasCamposObligatoriosCli(datosClientes):
         datos = datosClientes[:]
         emailCli = datos.pop(4)
         for dato in datos:
@@ -99,6 +99,16 @@ class Clientes:
                 return False
         return True
 
+    @staticmethod
+    def esFechasValidas(datosClientes):
+        datos = datosClientes[:]
+        alta = datos[1]
+        baja = datos[9]
+
+        fecha_alta = datetime.datetime.strptime(alta,"%d/%m/%Y")
+        fecha_baja = datetime.datetime.strptime(baja,"%d/%m/%Y")
+
+        return fecha_alta < fecha_baja #si fecha de alta es posterior a fecha de baja devuelve false
 
     @staticmethod
     def cargaTablaClientes():
@@ -106,8 +116,8 @@ class Clientes:
             listado = conexion.Conexion.listadoClientes()
             #listado = conexionserver.ConexionServer.listadoClientes()
             index = 0
+            var.ui.tablaClientes.setRowCount(len(listado))
             for registro in listado:
-                var.ui.tablaClientes.setRowCount(index + 1)
                 var.ui.tablaClientes.setItem(index, 0, QtWidgets.QTableWidgetItem(registro[0])) #dni
                 var.ui.tablaClientes.setItem(index, 1, QtWidgets.QTableWidgetItem(registro[2])) #apellido
                 var.ui.tablaClientes.setItem(index, 2, QtWidgets.QTableWidgetItem(registro[3])) #nombre
@@ -154,14 +164,14 @@ class Clientes:
             modifcli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(),
                         var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),
                         var.ui.cmbMunicli.currentText(),var.ui.txtBajacli.text()]
-            if  modifcli[9] != "" and modifcli[1] > modifcli[9]:
+            if  modifcli[9] != "" and not Clientes.esFechasValidas(modifcli):
                 mbox = eventos.Eventos.crearMensajeError("Aviso","La fecha de baja no puede anterior a la de alta.")
                 mbox.exec()
-            elif clientes.Clientes.checkDatosVaciosCli(modifcli[:-1]) and conexion.Conexion.modifCliente(modifcli):
+            elif clientes.Clientes.hasCamposObligatoriosCli(modifcli[:-1]) and conexion.Conexion.modifCliente(modifcli):
                 mbox = eventos.Eventos.crearMensajeInfo('Aviso',"El cliente fue modificado correctamente en la base de datos")
                 mbox.exec()
                 Clientes.cargaTablaClientes()
-            elif not clientes.Clientes.checkDatosVaciosCli(modifcli):
+            elif not clientes.Clientes.hasCamposObligatoriosCli(modifcli):
                 QtWidgets.QMessageBox.critical(None, 'Error', 'El cliente no está guardado en la base de datos o bien hay campos vacíos.',
                                                QtWidgets.QMessageBox.StandardButton.Cancel)
             else:

@@ -22,14 +22,12 @@ QToolBar{
     background-color: #EEE;
 }
 /*----    Estilo para tablas       -----*/
-
 QTableWidget::item:alternate{
     background-color: #eFEfEf;
 }
 QTableWidget::item:selected{
     background-color: #ccc;
     color:black;
-
 }
 QHeaderView::section{
     background-color: #FEEAD9;

@@ -193,7 +193,8 @@ class Conexion:
         try:
             query = QtSql.QSqlQuery()
             query.prepare("SELECT COUNT(*) from clientes where dnicli = :dni")
-            if query.exec():
+            query.bindValue(":dni", str(dni))
+            if query.exec() and query.next():
                 count = query.value(0)
                 if count == 1:
                     query.prepare("UPDATE clientes SET bajacli = :bajacli WHERE dnicli = :dni")
