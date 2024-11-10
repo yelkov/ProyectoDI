@@ -20,11 +20,11 @@ class Clientes:
                 mbox.exec()
                 Clientes.cargaTablaClientes()
             elif not Clientes.hasCamposObligatoriosCli(nuevoCli):
-                QtWidgets.QMessageBox.critical(None, 'Error', 'Algunos campos deben ser cubiertos.',
-                                               QtWidgets.QMessageBox.StandardButton.Cancel)
+                mbox = eventos.Eventos.crearMensajeError("Error","Hay campos obligatorios que deben ser cubiertos.")
+                mbox.exec()
             else:
-                QtWidgets.QMessageBox.critical(None, 'Error', 'Error al grabar cliente.',
-                                               QtWidgets.QMessageBox.StandardButton.Cancel)
+                mbox = eventos.Eventos.crearMensajeError("Error","Se ha producido un error al grabar cliente.")
+                mbox.exec()
         except Exception as e:
             print("error alta cliente", e)
 
@@ -33,7 +33,7 @@ class Clientes:
         try:
             dni = str(dni).upper()
             var.ui.txtDnicli.setText(str(dni))
-            check = eventos.Eventos.validarDNI(dni)
+            check = eventos.Eventos.isDniValido(dni)
             if check:
                 var.ui.txtDnicli.setStyleSheet('border: 1px solid #41AD48; border-radius: 5px; background-color: rgb(254, 255, 210)')
                 Clientes.cargarTickcli()
@@ -63,7 +63,7 @@ class Clientes:
     def checkEmailCli(mail):
         try:
             mail = str(var.ui.txtEmailcli.text())
-            if eventos.Eventos.validarMail(mail):
+            if eventos.Eventos.isMailValido(mail):
                 var.ui.txtEmailcli.setStyleSheet('background-color: rgb(255, 255, 255);')
                 var.ui.txtEmailcli.setText(mail.lower())
 
@@ -79,7 +79,7 @@ class Clientes:
     @staticmethod
     def checkMovilCli(movil):
         try:
-            if eventos.Eventos.validarMovil(movil):
+            if eventos.Eventos.isMovilValido(movil):
                 var.ui.txtMovilcli.setStyleSheet('background-color: rgb(255, 255, 255);')
             else:
                 var.ui.txtMovilcli.setStyleSheet('border: 1px solid #de6767; border-radius: 5px; font-style: italic;')
@@ -105,10 +105,18 @@ class Clientes:
         alta = datos[1]
         baja = datos[9]
 
-        fecha_alta = datetime.datetime.strptime(alta,"%d/%m/%Y")
-        fecha_baja = datetime.datetime.strptime(baja,"%d/%m/%Y")
+        try:
+            fecha_alta = datetime.datetime.strptime(alta, "%d/%m/%Y")
+            fecha_baja = datetime.datetime.strptime(baja, "%d/%m/%Y")
 
-        return fecha_alta < fecha_baja #si fecha de alta es posterior a fecha de baja devuelve false
+            return fecha_alta < fecha_baja #si fecha de alta es posterior a fecha de baja devuelve false
+
+        except ValueError as e:
+            print("Error: La fecha no tiene el formato correcto o no es válida.", e)
+            return False
+        except TypeError as e:
+            print("Error: Se esperaba una cadena de texto para la fecha.", e)
+            return False
 
     @staticmethod
     def cargaTablaClientes():

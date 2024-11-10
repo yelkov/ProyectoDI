@@ -94,7 +94,7 @@ class Eventos():
         var.ui.cmbMuniprop.addItems(listado)
 
     @staticmethod
-    def validarDNI(dni):
+    def isDniValido(dni):
         try:
             dni = str(dni).upper()
             var.ui.txtDnicli.setText(str(dni))
@@ -117,7 +117,7 @@ class Eventos():
             print("error en validar dni ", error)
 
     @staticmethod
-    def validarMovil(movil):
+    def isMovilValido(movil):
         regex = r"^[67]\d{8}$"
         return re.fullmatch(regex, movil)
 
@@ -159,9 +159,9 @@ class Eventos():
             print("error en cargar fecha: ", error)
 
     @staticmethod
-    def validarMail(mail):
+    def isMailValido(mail):
         mail = mail.lower()
-        regex = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$'
+        regex = r'^([a-z0-9]+[\._])*[a-z0-9]+[@](\w+[.])*\w+$'
         if re.match(regex, mail) or mail == "":
             return True
         else:
