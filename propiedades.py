@@ -101,6 +101,7 @@ class Propiedades():
     def cargarTablaPropiedades():
         try:
             listado = conexion.Conexion.listadoPropiedades()
+            #listado = conexionserver.ConexionServer.listadoPropiedades()
             index = 0
             var.ui.tablaProp.setRowCount(len(listado))
             for registro in listado:

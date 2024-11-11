@@ -21,8 +21,8 @@ class Conexion:
     def db_conexion():
         # Verifica si el archivo de base de datos existe
         if not os.path.isfile('bbdd.sqlite'):
-            QtWidgets.QMessageBox.critical(None, 'Error', 'El archivo de la base de datos no existe.',
-                                           QtWidgets.QMessageBox.StandardButton.Cancel)
+            mbox = eventos.Eventos.crearMensajeError("Error",'El archivo de la base de datos no existe.')
+            mbox.exec()
             return False
         # Crear la conexión con la base de datos SQLite
         db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
@@ -34,16 +34,16 @@ class Conexion:
             query.exec("SELECT name FROM sqlite_master WHERE type='table';")
 
             if not query.next():  # Si no hay tablas
-                QtWidgets.QMessageBox.critical(None, 'Error', 'Base de datos vacía o no válida.',
-                                               QtWidgets.QMessageBox.StandardButton.Cancel)
+                mbox = eventos.Eventos.crearMensajeError("Error","Base de datos vacía o no válida.")
+                mbox.exec()
                 return False
             else:
-                QtWidgets.QMessageBox.information(None, 'Aviso', 'Conexión Base de Datos realizada',
-                                                  QtWidgets.QMessageBox.StandardButton.Ok)
+                mbox = eventos.Eventos.crearMensajeInfo("Aviso","Conexión Base de Datos realizada")
+                mbox.exec()
                 return True
         else:
-            QtWidgets.QMessageBox.critical(None, 'Error', 'No se pudo abrir la base de datos.',
-                                           QtWidgets.QMessageBox.StandardButton.Cancel)
+            mbox = eventos.Eventos.crearMensajeError("Error","No se pudo abrir la base de datos.")
+            mbox.exec()
             return False
 
     '''

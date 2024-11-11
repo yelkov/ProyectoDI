@@ -80,4 +80,21 @@ class ConexionServer():
             print(listadoclientes)
             return listadoclientes
         except Exception as e:
-            print("error listado en conexion", e)
+            print("error listado de clientes en conexión", e)
+
+    @staticmethod
+    def listadoPropiedades():
+        try:
+            conexion = ConexionServer().crear_conexion()
+            listadoPropiedades = []
+            cursor = conexion.cursor()
+            cursor.execute("SELECT * FROM propiedades ORDER BY municipio ASC")
+            resultados = cursor.fetchall()
+            for fila in resultados:
+                listadoPropiedades.append(list(fila))
+
+            cursor.close()
+            conexion.close()
+            return listadoPropiedades
+        except Exception as e:
+            print("error listado de propiedades en conexión", e)

@@ -20,11 +20,11 @@ class Clientes:
                 mbox.exec()
                 Clientes.cargaTablaClientes()
             elif not Clientes.hasCamposObligatoriosCli(nuevoCli):
-                QtWidgets.QMessageBox.critical(None, 'Error', 'Algunos campos deben ser cubiertos.',
-                                               QtWidgets.QMessageBox.StandardButton.Cancel)
+                mbox = eventos.Eventos.crearMensajeError("Error","Algunos campos deben ser cubiertos.")
+                mbox.exec()
             else:
-                QtWidgets.QMessageBox.critical(None, 'Error', 'Error al grabar cliente.',
-                                               QtWidgets.QMessageBox.StandardButton.Cancel)
+                mbox = eventos.Eventos.crearMensajeError("Error","Error al grabar cliente.")
+                mbox.exec()
         except Exception as e:
             print("error alta cliente", e)
 
@@ -172,11 +172,12 @@ class Clientes:
                 mbox.exec()
                 Clientes.cargaTablaClientes()
             elif not clientes.Clientes.hasCamposObligatoriosCli(modifcli):
-                QtWidgets.QMessageBox.critical(None, 'Error', 'El cliente no está guardado en la base de datos o bien hay campos vacíos.',
-                                               QtWidgets.QMessageBox.StandardButton.Cancel)
+                mbox = eventos.Eventos.crearMensajeError("Error","El cliente no está guardado en la base de datos o bien hay campos vacíos.")
+                mbox.exec()
             else:
-                QtWidgets.QMessageBox.critical(None, 'Error', 'Error al modificar cliente.',
-                                               QtWidgets.QMessageBox.StandardButton.Cancel)
+                mbox = eventos.Eventos.crearMensajeError("Error","Error al modificar cliente.")
+                mbox.exec()
+
         except Exception as e:
             print("Error en modifCliente", e)
 
@@ -189,7 +190,7 @@ class Clientes:
                 mbox.exec()
                 Clientes.cargaTablaClientes()
             else:
-                mbox = eventos.Eventos.crearMensajeInfo("Aviso","Error: el cliente no existe o ya ha sido dado de baja.")
+                mbox = eventos.Eventos.crearMensajeError("Error","El cliente no existe o ya ha sido dado de baja.")
                 mbox.exec()
 
         except Exception as e:
