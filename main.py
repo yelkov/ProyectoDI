@@ -1,4 +1,7 @@
-from PyQt6.QtGui import QIcon, QDoubleValidator, QIntValidator
+from xml.dom.minidom import Notation
+
+from PyQt6.QtCore import QLocale, QRegularExpression
+from PyQt6.QtGui import QIcon, QDoubleValidator, QIntValidator, QRegularExpressionValidator
 
 import clientes
 import conexion
@@ -34,9 +37,10 @@ class Main(QtWidgets.QMainWindow):
         '''
         validadores
         '''
-        validadorPrecios = QDoubleValidator(self)
-        var.ui.txtPrecioVentaprop.setValidator(validadorPrecios)
-        var.ui.txtPrecioAlquilerprop.setValidator(validadorPrecios)
+        validadorNumerosReales = QRegularExpressionValidator(QRegularExpression(r"^(?:[1-9]\d{0,9}|0)(?:\.\d{2})?$"))
+        var.ui.txtSuperprop.setValidator(validadorNumerosReales)
+        var.ui.txtPrecioVentaprop.setValidator(validadorNumerosReales)
+        var.ui.txtPrecioAlquilerprop.setValidator(validadorNumerosReales)
         validadorCP = QIntValidator(10000,99999,self)
         var.ui.txtCpprop.setValidator(validadorCP)
         validadorMovil = QIntValidator(0,999999999,self)
@@ -86,6 +90,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtEmailcli.editingFinished.connect(lambda : clientes.Clientes.checkEmailCli(var.ui.txtEmailcli.text()))
         var.ui.txtMovilcli.editingFinished.connect(lambda : clientes.Clientes.checkMovilCli(var.ui.txtMovilcli.text()))
         var.ui.txtMovilprop.editingFinished.connect(lambda : propiedades.Propiedades.checkMovilProp(var.ui.txtMovilprop.text()))
+        var.ui.txtPrecioVentaprop.textChanged.connect(propiedades.Propiedades.activarCheckPrecios)
+        var.ui.txtPrecioAlquilerprop.textChanged.connect(propiedades.Propiedades.activarCheckPrecios)
         '''
         zona eventos comboBox
         '''

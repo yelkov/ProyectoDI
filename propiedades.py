@@ -342,6 +342,19 @@ class Propiedades():
         Propiedades.cargarTablaPropiedades()
 
     @staticmethod
+    def activarCheckPrecios():
+        if var.ui.txtPrecioVentaprop.text() != "":
+            var.ui.chkVentaprop.setChecked(True)
+        else:
+            var.ui.chkVentaprop.setChecked(False)
+
+        if var.ui.txtPrecioAlquilerprop.text() != "":
+            var.ui.chkAlquilprop.setChecked(True)
+        else:
+            var.ui.chkAlquilprop.setChecked(False)
+
+
+    @staticmethod
     def cargarTipoprop():
         registro = conexion.Conexion.cargarTipoprop()
         var.ui.cmbTipoprop.clear()
