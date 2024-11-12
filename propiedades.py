@@ -87,7 +87,7 @@ class Propiedades():
     @staticmethod
     def checkMovilProp(movil):
         try:
-            if eventos.Eventos.validarMovil(movil):
+            if eventos.Eventos.isMovilValido(movil):
                 var.ui.txtMovilprop.setStyleSheet('background-color: rgb(255, 255, 255);')
             else:
                 var.ui.txtMovilprop.setStyleSheet('border: 1px solid #de6767; border-radius: 5px; font-style: italic;')
@@ -143,12 +143,9 @@ class Propiedades():
             fila = var.ui.tablaProp.selectedItems()
             datos = [dato.text() for dato in fila]
             registro = conexion.Conexion.datosOnePropiedad(str(datos[0]))
-            listado = [var.ui.lblProp,var.ui.txtAltaprop, var.ui.txtBajaprop, var.ui.txtDirprop,var.ui.cmbProvprop,
-            var.ui.cmbMuniprop,var.ui.cmbTipoprop,
-                       var.ui.spinHabprop, var.ui.spinBanosprop, var.ui.txtSuperprop,var.ui.txtPrecioAlquilerprop,
-                       var.ui.txtPrecioVentaprop,
-                       var.ui.txtCpprop,var.ui.areatxtDescriprop, var.ui.rbtDisponprop, var.ui.rbtAlquilprop,var.ui.rbtVentaprop,var.ui.chkInterprop,
-                       var.ui.chkAlquilprop,var.ui.chkVentaprop,var.ui.txtNomeprop,var.ui.txtMovilprop]
+
+            listado = [var.ui.lblProp,var.ui.txtAltaprop, var.ui.txtBajaprop, var.ui.txtDirprop,var.ui.cmbProvprop,var.ui.cmbMuniprop,var.ui.cmbTipoprop,var.ui.spinHabprop, var.ui.spinBanosprop, var.ui.txtSuperprop,var.ui.txtPrecioAlquilerprop,var.ui.txtPrecioVentaprop,var.ui.txtCpprop,var.ui.areatxtDescriprop, var.ui.rbtDisponprop, var.ui.rbtAlquilprop,var.ui.rbtVentaprop,var.ui.chkInterprop,var.ui.chkAlquilprop,var.ui.chkVentaprop,var.ui.txtNomeprop,var.ui.txtMovilprop]
+
             for i in range(len(listado)):
                 if i in (4,5,6):
                     listado[i].setCurrentText(registro[i])
@@ -179,11 +176,7 @@ class Propiedades():
     @staticmethod
     def modifProp():
         try:
-            propiedad = [var.ui.lblProp.text(),var.ui.txtAltaprop.text(),var.ui.txtBajaprop.text(),var.ui.txtDirprop.text(),var.ui.cmbProvprop.currentText(),
-                        var.ui.cmbMuniprop.currentText(),var.ui.cmbTipoprop.currentText(),
-                        var.ui.spinHabprop.text(), var.ui.spinBanosprop.text(), var.ui.txtSuperprop.text(),var.ui.txtPrecioAlquilerprop.text(),
-                        var.ui.txtPrecioVentaprop.text(),
-                        var.ui.txtCpprop.text(),var.ui.areatxtDescriprop.toPlainText()]
+            propiedad = [var.ui.lblProp.text(),var.ui.txtAltaprop.text(),var.ui.txtBajaprop.text(),var.ui.txtDirprop.text(),var.ui.cmbProvprop.currentText(),var.ui.cmbMuniprop.currentText(),var.ui.cmbTipoprop.currentText(),var.ui.spinHabprop.text(),var.ui.spinBanosprop.text(), var.ui.txtSuperprop.text(),var.ui.txtPrecioAlquilerprop.text(),var.ui.txtPrecioVentaprop.text(),var.ui.txtCpprop.text(),var.ui.areatxtDescriprop.toPlainText()]
             tipoOper = []
             if var.ui.chkAlquilprop.isChecked():
                 tipoOper.append(var.ui.chkAlquilprop.text())
@@ -234,15 +227,15 @@ class Propiedades():
 
 
 
-        if not var.ui.rbtDisponprop.isChecked() and Propiedades.esFechasValidas(propiedad) and conexion.Conexion.bajaProp(propiedad):
+        if propiedad[2] == "" or propiedad[2] is None:
+            mbox = Eventos.crearMensajeError("Error","Es necesario elegir una fecha para dar de baja la propiedad.")
+            mbox.exec()
+        elif not var.ui.rbtDisponprop.isChecked() and conexion.Conexion.bajaProp(propiedad) and Propiedades.esFechasValidas(propiedad):
             mbox = Eventos.crearMensajeInfo("Aviso", "Se ha dado de baja la propiedad.")
             mbox.exec()
             Propiedades.cargarTablaPropiedades()
         elif var.ui.rbtDisponprop.isChecked():
             mbox = Eventos.crearMensajeError("Error","Para dar de baja el estado de la propiedad no puede ser disponible.")
-            mbox.exec()
-        elif propiedad[2] == "" or propiedad[2] is None:
-            mbox = Eventos.crearMensajeError("Error","Es necesario elegir una fecha para dar de baja la propiedad.")
             mbox.exec()
         elif not Propiedades.esFechasValidas(propiedad):
             mbox = Eventos.crearMensajeError("Error", "La fecha de baja no puede ser anterior a la fecha de alta.")
@@ -293,10 +286,20 @@ class Propiedades():
         alta = datos[1]
         baja = datos[2]
 
-        fecha_alta = datetime.datetime.strptime(alta,"%d/%m/%Y")
-        fecha_baja = datetime.datetime.strptime(baja,"%d/%m/%Y")
+        try:
+            fecha_alta = datetime.datetime.strptime(alta, "%d/%m/%Y")
+            fecha_baja = datetime.datetime.strptime(baja, "%d/%m/%Y")
 
-        return fecha_alta < fecha_baja #si fecha de alta es posterior a fecha de baja devuelve false
+            return fecha_alta < fecha_baja #si fecha de alta es posterior a fecha de baja devuelve false
+
+        except ValueError as e:
+            print("Error: La fecha no tiene el formato correcto o no es válida.", e)
+            return False
+        except TypeError as e:
+            print("Error: Se esperaba una cadena de texto para la fecha.", e)
+            return False
+
+
 
 
     @staticmethod
