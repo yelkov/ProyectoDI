@@ -16,15 +16,15 @@ class Clientes:
                         var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),var.ui.cmbMunicli.currentText()]
 
             if Clientes.hasCamposObligatoriosCli(nuevoCli) and conexion.Conexion.altaCliente(nuevoCli):
-                mbox = eventos.Eventos.crearMensajeInfo("Aviso","Cliente dado de alta en Base de Datos")
-                mbox.exec()
+                eventos.Eventos.crearMensajeInfo("Aviso","Cliente dado de alta en Base de Datos")
+
                 Clientes.cargaTablaClientes()
             elif not Clientes.hasCamposObligatoriosCli(nuevoCli):
-                mbox = eventos.Eventos.crearMensajeError("Error","Algunos campos deben ser cubiertos.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Error","Algunos campos deben ser cubiertos.")
+
             else:
-                mbox = eventos.Eventos.crearMensajeError("Error","Error al grabar cliente.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Error","Error al grabar cliente.")
+
         except Exception as e:
             print("error alta cliente", e)
 
@@ -165,18 +165,15 @@ class Clientes:
                         var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),
                         var.ui.cmbMunicli.currentText(),var.ui.txtBajacli.text()]
             if  modifcli[9] != "" and not Clientes.esFechasValidas(modifcli):
-                mbox = eventos.Eventos.crearMensajeError("Aviso","La fecha de baja no puede anterior a la de alta.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Aviso","La fecha de baja no puede anterior a la de alta.")
+
             elif clientes.Clientes.hasCamposObligatoriosCli(modifcli[:-1]) and conexion.Conexion.modifCliente(modifcli):
-                mbox = eventos.Eventos.crearMensajeInfo('Aviso',"El cliente fue modificado correctamente en la base de datos")
-                mbox.exec()
+                eventos.Eventos.crearMensajeInfo('Aviso',"El cliente fue modificado correctamente en la base de datos")
                 Clientes.cargaTablaClientes()
             elif not clientes.Clientes.hasCamposObligatoriosCli(modifcli):
-                mbox = eventos.Eventos.crearMensajeError("Error","El cliente no está guardado en la base de datos o bien hay campos vacíos.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Error","El cliente no está guardado en la base de datos o bien hay campos vacíos.")
             else:
-                mbox = eventos.Eventos.crearMensajeError("Error","Error al modificar cliente.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Error","Error al modificar cliente.")
 
         except Exception as e:
             print("Error en modifCliente", e)
@@ -186,12 +183,10 @@ class Clientes:
         try:
             dni = var.ui.txtDnicli.text()
             if conexion.Conexion.bajaCliente(dni):
-                mbox = eventos.Eventos.crearMensajeInfo("Aviso","El cliente fue dado de baja a fecha de: " + datetime.now().strftime("%d/%m/%Y"))
-                mbox.exec()
+                eventos.Eventos.crearMensajeInfo("Aviso","El cliente fue dado de baja a fecha de: " + datetime.now().strftime("%d/%m/%Y"))
                 Clientes.cargaTablaClientes()
             else:
-                mbox = eventos.Eventos.crearMensajeError("Error","El cliente no existe o ya ha sido dado de baja.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Error","El cliente no existe o ya ha sido dado de baja.")
 
         except Exception as e:
             print("Error al dar de baja cliente", e)

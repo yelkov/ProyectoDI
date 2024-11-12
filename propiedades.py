@@ -19,12 +19,12 @@ class Propiedades():
             if registro:
                 var.ui.cmbTipoprop.clear()
                 var.ui.cmbTipoprop.addItems(registro)
-                mbox = eventos.Eventos.crearMensajeInfo("Aviso","Tipo de propiedad añadida.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeInfo("Aviso","Tipo de propiedad añadida.")
+
                 Propiedades.cargarTipopropGestion(venDialogo)
             else:
-                mbox = eventos.Eventos.crearMensajeError("Aviso", "Error al añadir tipo de propiedad añadida.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Aviso", "Error al añadir tipo de propiedad añadida.")
+
             var.dlggestion.ui.txtTipoprop.setText("")
         except Exception as e:
             print("Error alta tipo propiedad" + e)
@@ -34,14 +34,12 @@ class Propiedades():
         try:
             tipo = var.dlggestion.ui.txtTipoprop.text().title()
             if conexion.Conexion.bajaTipoprop(tipo):
-                mbox = eventos.Eventos.crearMensajeInfo("Aviso","Tipo de propiedad eliminada.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeInfo("Aviso","Tipo de propiedad eliminada.")
                 Propiedades.cargarTipoprop()
                 var.dlggestion.ui.txtTipoprop.setText("")
                 Propiedades.cargarTipopropGestion(venDialogo)
             else:
-                mbox = eventos.Eventos.crearMensajeError("Aviso","Error al eliminar tipo de propiedad.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Aviso","Error al eliminar tipo de propiedad.")
         except Exception as e:
             print("Error baja tipo propiedad" + e)
 
@@ -76,21 +74,19 @@ class Propiedades():
             precioVenta = propiedad[9]
 
             if Propiedades.hasCamposObligatoriosAlta(propiedad) and Propiedades.checkPrecioAlquiler(precioAlquiler) and Propiedades.checkPrecioVenta(precioVenta) and conexion.Conexion.altaPropiedad(propiedad):
-                mbox = eventos.Eventos.crearMensajeInfo("Aviso", "Se ha grabado la propiedad en la base de datos.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeInfo("Aviso", "Se ha grabado la propiedad en la base de datos.")
                 Propiedades.cargarTablaPropiedades()
+
             elif not Propiedades.hasCamposObligatoriosAlta(propiedad):
-                mbox = eventos.Eventos.crearMensajeError("Error", "Hay campos vacíos que deben ser cubiertos.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Error", "Hay campos vacíos que deben ser cubiertos.")
+
             elif not Propiedades.checkPrecioAlquiler(precioAlquiler):
-                mbox = eventos.Eventos.crearMensajeError("Error","Para guardar una propiedad de tipo alquiler debe guardarse un precio y estar marcada la casilla 'Alquiler'.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Error","Para guardar una propiedad de tipo alquiler debe guardarse un precio y estar marcada la casilla 'Alquiler'.")
+
             elif not Propiedades.checkPrecioVenta(precioVenta):
-                mbox = eventos.Eventos.crearMensajeError("Error","Para guardar una propiedad de tipo venta debe guardarse un precio y estar marcada la casilla 'Venta'.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Error","Para guardar una propiedad de tipo venta debe guardarse un precio y estar marcada la casilla 'Venta'.")
             else:
-                mbox = eventos.Eventos.crearMensajeError("Error","Se ha producido un error al grabar la propiedad.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Error","Se ha producido un error al grabar la propiedad.")
         except Exception as e:
             print(str(e))
 
@@ -210,27 +206,26 @@ class Propiedades():
             precioVenta = propiedad[11]
 
             if fecha_baja != "" and not Propiedades.esFechasValidas(propiedad):
-                mbox = eventos.Eventos.crearMensajeError("Error","La fecha de baja no puede ser posterior a la fecha de alta.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Error","La fecha de baja no puede ser posterior a la fecha de alta.")
+
             elif fecha_baja != "" and var.ui.rbtDisponprop.isChecked():
-                mbox = eventos.Eventos.crearMensajeError("Error", "No es posible guardar fecha de baja si el estado del inmueble es 'Disponible'.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Error", "No es posible guardar fecha de baja si el estado del inmueble es 'Disponible'.")
+
             elif Propiedades.hasCamposObligatoriosModif(propiedad) and Propiedades.checkPrecioAlquiler(precioAlquiler) and Propiedades.checkPrecioVenta(precioVenta) and conexion.Conexion.modifProp(propiedad):
-                mbox = eventos.Eventos.crearMensajeInfo("Aviso","Se ha modificado la propiedad correctamente.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeInfo("Aviso","Se ha modificado la propiedad correctamente.")
                 Propiedades.cargarTablaPropiedades()
+
             elif not Propiedades.hasCamposObligatoriosModif(propiedad):
-                mbox = Eventos.crearMensajeError("Error","Hay algunos campos obligatorios que están vacíos.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Error","Hay algunos campos obligatorios que están vacíos.")
+
             elif not Propiedades.checkPrecioAlquiler(precioAlquiler):
-                mbox = eventos.Eventos.crearMensajeError("Error","Para guardar una propiedad de tipo alquiler debe guardarse un precio y estar marcada la casilla 'Alquiler'.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Error","Para guardar una propiedad de tipo alquiler debe guardarse un precio y estar marcada la casilla 'Alquiler'.")
+
             elif not Propiedades.checkPrecioVenta(precioVenta):
-                mbox = eventos.Eventos.crearMensajeError("Error","Para guardar una propiedad de tipo venta debe guardarse un precio y estar marcada la casilla 'Venta'.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Error","Para guardar una propiedad de tipo venta debe guardarse un precio y estar marcada la casilla 'Venta'.")
+
             else:
-                mbox = Eventos.crearMensajeError("Error","Se ha producido un error al modificar la propiedad")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Error","Se ha producido un error al modificar la propiedad")
 
         except Exception as e:
             print("Error modificando cliente en propiedades.", e)
@@ -246,21 +241,21 @@ class Propiedades():
 
 
         if propiedad[2] == "" or propiedad[2] is None:
-            mbox = Eventos.crearMensajeError("Error","Es necesario elegir una fecha para dar de baja la propiedad.")
-            mbox.exec()
+            eventos.Eventos.crearMensajeError("Error","Es necesario elegir una fecha para dar de baja la propiedad.")
+
         elif not var.ui.rbtDisponprop.isChecked() and conexion.Conexion.bajaProp(propiedad) and Propiedades.esFechasValidas(propiedad):
-            mbox = Eventos.crearMensajeInfo("Aviso", "Se ha dado de baja la propiedad.")
-            mbox.exec()
+            eventos.Eventos.crearMensajeInfo("Aviso", "Se ha dado de baja la propiedad.")
             Propiedades.cargarTablaPropiedades()
+
         elif var.ui.rbtDisponprop.isChecked():
-            mbox = Eventos.crearMensajeError("Error","Para dar de baja el estado de la propiedad no puede ser disponible.")
-            mbox.exec()
+            eventos.Eventos.crearMensajeError("Error","Para dar de baja el estado de la propiedad no puede ser disponible.")
+
         elif not Propiedades.esFechasValidas(propiedad):
-            mbox = Eventos.crearMensajeError("Error", "La fecha de baja no puede ser anterior a la fecha de alta.")
-            mbox.exec()
+            eventos.Eventos.crearMensajeError("Error", "La fecha de baja no puede ser anterior a la fecha de alta.")
+
         else:
-            mbox = Eventos.crearMensajeError("Error","Se ha producido un error al dar de baja la propiedad.")
-            mbox.exec()
+            eventos.Eventos.crearMensajeError("Error","Se ha producido un error al dar de baja la propiedad.")
+
 
     @staticmethod
     def historicoProp():

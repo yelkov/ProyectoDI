@@ -21,8 +21,8 @@ class Conexion:
     def db_conexion():
         # Verifica si el archivo de base de datos existe
         if not os.path.isfile('bbdd.sqlite'):
-            mbox = eventos.Eventos.crearMensajeError("Error",'El archivo de la base de datos no existe.')
-            mbox.exec()
+            eventos.Eventos.crearMensajeError("Error",'El archivo de la base de datos no existe.')
+
             return False
         # Crear la conexión con la base de datos SQLite
         db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
@@ -34,16 +34,15 @@ class Conexion:
             query.exec("SELECT name FROM sqlite_master WHERE type='table';")
 
             if not query.next():  # Si no hay tablas
-                mbox = eventos.Eventos.crearMensajeError("Error","Base de datos vacía o no válida.")
-                mbox.exec()
+                eventos.Eventos.crearMensajeError("Error","Base de datos vacía o no válida.")
                 return False
+
             else:
-                mbox = eventos.Eventos.crearMensajeInfo("Aviso","Conexión Base de Datos realizada")
-                mbox.exec()
+                eventos.Eventos.crearMensajeInfo("Aviso","Conexión Base de Datos realizada")
                 return True
+
         else:
-            mbox = eventos.Eventos.crearMensajeError("Error","No se pudo abrir la base de datos.")
-            mbox.exec()
+            eventos.Eventos.crearMensajeError("Error","No se pudo abrir la base de datos.")
             return False
 
     '''

@@ -44,7 +44,7 @@ class Eventos():
         mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.No)
         mbox.button(QtWidgets.QMessageBox.StandardButton.Yes).setText('Sí')
         mbox.button(QtWidgets.QMessageBox.StandardButton.No).setText('No')
-        return mbox
+        mbox.exec()
 
     @staticmethod
     def crearMensajeInfo(titulo_ventana, mensaje):
@@ -56,7 +56,7 @@ class Eventos():
         mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
         mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
         mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
-        return mbox
+        mbox.exec()
 
     @staticmethod
     def crearMensajeError(titulo_ventana, mensaje):
@@ -68,7 +68,7 @@ class Eventos():
         mbox.setStandardButtons(QtWidgets.QMessageBox.StandardButton.Ok)
         mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.Ok)
         mbox.button(QtWidgets.QMessageBox.StandardButton.Ok).setText('Aceptar')
-        return mbox
+        mbox.exec()
 
     @staticmethod
     def cargarProv():
