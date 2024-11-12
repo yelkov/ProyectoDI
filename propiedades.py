@@ -3,6 +3,7 @@ import datetime
 import conexion
 import eventos
 import var
+import re
 from PyQt6 import QtWidgets, QtGui, QtCore
 
 from eventos import Eventos
@@ -71,15 +72,24 @@ class Propiedades():
             propiedad.append(var.ui.txtNomeprop.text())
             propiedad.append(var.ui.txtMovilprop.text())
 
-            if Propiedades.hasCamposObligatoriosAlta(propiedad) and conexion.Conexion.altaPropiedad(propiedad):
+            precioAlquiler = propiedad[8]
+            precioVenta = propiedad[9]
+
+            if Propiedades.hasCamposObligatoriosAlta(propiedad) and Propiedades.checkPrecioAlquiler(precioAlquiler) and Propiedades.checkPrecioVenta(precioVenta) and conexion.Conexion.altaPropiedad(propiedad):
                 mbox = eventos.Eventos.crearMensajeInfo("Aviso", "Se ha grabado la propiedad en la base de datos.")
                 mbox.exec()
                 Propiedades.cargarTablaPropiedades()
             elif not Propiedades.hasCamposObligatoriosAlta(propiedad):
-                mbox = eventos.Eventos.crearMensajeError("Aviso", "Hay campos vacíos que deben ser cubiertos.")
+                mbox = eventos.Eventos.crearMensajeError("Error", "Hay campos vacíos que deben ser cubiertos.")
+                mbox.exec()
+            elif not Propiedades.checkPrecioAlquiler(precioAlquiler):
+                mbox = eventos.Eventos.crearMensajeError("Error","Para guardar una propiedad de tipo alquiler debe guardarse un precio y estar marcada la casilla 'Alquiler'.")
+                mbox.exec()
+            elif not Propiedades.checkPrecioVenta(precioVenta):
+                mbox = eventos.Eventos.crearMensajeError("Error","Para guardar una propiedad de tipo venta debe guardarse un precio y estar marcada la casilla 'Venta'.")
                 mbox.exec()
             else:
-                mbox = eventos.Eventos.crearMensajeError("Aviso","Se ha producido un error al grabar la propiedad.")
+                mbox = eventos.Eventos.crearMensajeError("Error","Se ha producido un error al grabar la propiedad.")
                 mbox.exec()
         except Exception as e:
             print(str(e))
@@ -196,6 +206,8 @@ class Propiedades():
             propiedad.append(var.ui.txtMovilprop.text())
 
             fecha_baja = propiedad[2]
+            precioAlquiler = propiedad[10]
+            precioVenta = propiedad[11]
 
             if fecha_baja != "" and not Propiedades.esFechasValidas(propiedad):
                 mbox = eventos.Eventos.crearMensajeError("Error","La fecha de baja no puede ser posterior a la fecha de alta.")
@@ -203,12 +215,18 @@ class Propiedades():
             elif fecha_baja != "" and var.ui.rbtDisponprop.isChecked():
                 mbox = eventos.Eventos.crearMensajeError("Error", "No es posible guardar fecha de baja si el estado del inmueble es 'Disponible'.")
                 mbox.exec()
-            elif Propiedades.hasCamposObligatoriosModif(propiedad) and conexion.Conexion.modifProp(propiedad):
+            elif Propiedades.hasCamposObligatoriosModif(propiedad) and Propiedades.checkPrecioAlquiler(precioAlquiler) and Propiedades.checkPrecioVenta(precioVenta) and conexion.Conexion.modifProp(propiedad):
                 mbox = eventos.Eventos.crearMensajeInfo("Aviso","Se ha modificado la propiedad correctamente.")
                 mbox.exec()
                 Propiedades.cargarTablaPropiedades()
             elif not Propiedades.hasCamposObligatoriosModif(propiedad):
                 mbox = Eventos.crearMensajeError("Error","Hay algunos campos obligatorios que están vacíos.")
+                mbox.exec()
+            elif not Propiedades.checkPrecioAlquiler(precioAlquiler):
+                mbox = eventos.Eventos.crearMensajeError("Error","Para guardar una propiedad de tipo alquiler debe guardarse un precio y estar marcada la casilla 'Alquiler'.")
+                mbox.exec()
+            elif not Propiedades.checkPrecioVenta(precioVenta):
+                mbox = eventos.Eventos.crearMensajeError("Error","Para guardar una propiedad de tipo venta debe guardarse un precio y estar marcada la casilla 'Venta'.")
                 mbox.exec()
             else:
                 mbox = Eventos.crearMensajeError("Error","Se ha producido un error al modificar la propiedad")
@@ -299,7 +317,27 @@ class Propiedades():
             print("Error: Se esperaba una cadena de texto para la fecha.", e)
             return False
 
+    @staticmethod
+    def is_num(value):
+        return bool(re.match(r'^-?\d+(\.\d+)?$', str(value)))
 
+    @staticmethod
+    def checkPrecioAlquiler(precioAlquiler):
+        if Propiedades.is_num(precioAlquiler) and var.ui.chkAlquilprop.isChecked():
+            return True
+        elif (precioAlquiler == "" or precioAlquiler is None) and not var.ui.chkAlquilprop.isChecked():
+            return True
+        else:
+            return False
+
+    @staticmethod
+    def checkPrecioVenta(precioVenta):
+        if Propiedades.is_num(precioVenta) and var.ui.chkVentaprop.isChecked():
+            return True
+        elif (precioVenta == "" or precioVenta is None) and not var.ui.chkVentaprop.isChecked():
+            return True
+        else:
+            return False
 
 
     @staticmethod

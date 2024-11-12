@@ -1,4 +1,4 @@
-from PyQt6.QtGui import QIcon
+from PyQt6.QtGui import QIcon, QDoubleValidator, QIntValidator
 
 import clientes
 import conexion
@@ -30,6 +30,18 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.cargaMunicli(var.ui.cmbProvcli.currentText())
         eventos.Eventos.cargaMuniprop(var.ui.cmbProvprop.currentText())
         propiedades.Propiedades.cargarTipoprop()
+
+        '''
+        validadores
+        '''
+        validadorPrecios = QDoubleValidator(self)
+        var.ui.txtPrecioVentaprop.setValidator(validadorPrecios)
+        var.ui.txtPrecioAlquilerprop.setValidator(validadorPrecios)
+        validadorCP = QIntValidator(10000,99999,self)
+        var.ui.txtCpprop.setValidator(validadorCP)
+        validadorMovil = QIntValidator(0,999999999,self)
+        var.ui.txtMovilcli.setValidator(validadorMovil)
+        var.ui.txtMovilprop.setValidator(validadorMovil)
 
         '''
         zona de eventos de tablas

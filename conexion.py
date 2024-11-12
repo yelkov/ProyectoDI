@@ -379,7 +379,7 @@ class Conexion:
                         listado.append(fila)
             elif historico and filtrado:
                 query = QtSql.QSqlQuery()
-                query.prepare("SELECT * FROM PROPIEDADES where estado = 'Disponible' and tipo_propiedad = :tipo_propiedad and municipio = :municipio order by municipio asc" )
+                query.prepare("SELECT * FROM PROPIEDADES where tipo_propiedad = :tipo_propiedad and municipio = :municipio order by municipio asc" )
                 query.bindValue(":tipo_propiedad", str(tipoSeleccionado))
                 query.bindValue(":municipio", str(municipio))
                 if query.exec():

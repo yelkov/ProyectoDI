@@ -551,6 +551,7 @@ class Ui_venPrincipal(object):
         self.txtPrecioVentaprop = QtWidgets.QLineEdit(parent=self.tabConstruccion)
         self.txtPrecioVentaprop.setMinimumSize(QtCore.QSize(110, 0))
         self.txtPrecioVentaprop.setMaximumSize(QtCore.QSize(100, 16777215))
+        self.txtPrecioVentaprop.setInputMethodHints(QtCore.Qt.InputMethodHint.ImhDigitsOnly)
         self.txtPrecioVentaprop.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight|QtCore.Qt.AlignmentFlag.AlignTrailing|QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.txtPrecioVentaprop.setObjectName("txtPrecioVentaprop")
         self.horizontalLayout_15.addWidget(self.txtPrecioVentaprop)
