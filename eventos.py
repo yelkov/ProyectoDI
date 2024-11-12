@@ -44,7 +44,7 @@ class Eventos():
         mbox.setDefaultButton(QtWidgets.QMessageBox.StandardButton.No)
         mbox.button(QtWidgets.QMessageBox.StandardButton.Yes).setText('Sí')
         mbox.button(QtWidgets.QMessageBox.StandardButton.No).setText('No')
-        mbox.exec()
+        return mbox
 
     @staticmethod
     def crearMensajeInfo(titulo_ventana, mensaje):
