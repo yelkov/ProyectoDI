@@ -311,7 +311,7 @@ class Conexion:
                     query.bindValue(":nombre_propietario",str(propiedad[16]))
                     query.bindValue(":movil",str(propiedad[17]))
                     if propiedad[2] == "":
-                        query.bindValue(":bajacli",QtCore.QVariant()) #QVariant añade un null a la BD
+                        query.bindValue(":baja",QtCore.QVariant()) #QVariant añade un null a la BD
                     else:
                         query.bindValue(":baja",str(propiedad[2]))
 

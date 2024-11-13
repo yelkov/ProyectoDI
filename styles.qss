@@ -46,6 +46,11 @@ QPushButton{
     border-radius: 5px;
 }
 
+/*------- Estilo para Radio Button ----------*/
+
+QRadioButton:disabled{
+       color:#bbb;
+}
 /*---- Estilo boton de filtrado por Tipo de propiedad ------*/
 #btnBuscaTipoProp {
     background-color: #dFdFdF;

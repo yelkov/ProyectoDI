@@ -1466,8 +1466,24 @@
             <item row="4" column="0" colspan="6">
              <layout class="QHBoxLayout" name="horizontalLayout_23">
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_22">
-                <item>
+               <layout class="QGridLayout" name="gridLayout_6">
+                <item row="0" column="2">
+                 <spacer name="horizontalSpacer_18">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Expanding</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="0" column="0">
                  <widget class="QLabel" name="lblDescriprop">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
@@ -1495,7 +1511,7 @@
                   </property>
                  </widget>
                 </item>
-                <item>
+                <item row="0" column="1">
                  <widget class="QTextEdit" name="areatxtDescriprop">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
@@ -1517,18 +1533,34 @@
                   </property>
                  </widget>
                 </item>
-                <item>
-                 <spacer name="horizontalSpacer_18">
+                <item row="1" column="0">
+                 <spacer name="verticalSpacer_10">
                   <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                   <enum>Qt::Vertical</enum>
                   </property>
                   <property name="sizeType">
-                   <enum>QSizePolicy::Expanding</enum>
+                   <enum>QSizePolicy::Fixed</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
                     <width>20</width>
-                    <height>20</height>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="1" column="1">
+                 <spacer name="verticalSpacer_11">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
                    </size>
                   </property>
                  </spacer>
@@ -1760,6 +1792,22 @@
                     </item>
                    </layout>
                   </item>
+                  <item>
+                   <spacer name="verticalSpacer_9">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Fixed</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
                  </layout>
                 </item>
                </layout>
@@ -1834,22 +1882,6 @@
             <item row="4" column="6">
              <layout class="QVBoxLayout" name="verticalLayout_6">
               <item>
-               <spacer name="verticalSpacer_7">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Fixed</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>13</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
                <widget class="QCheckBox" name="chkHistoriaprop">
                 <property name="text">
                  <string>Histórico</string>
@@ -1857,9 +1889,25 @@
                </widget>
               </item>
               <item>
+               <spacer name="verticalSpacer_7">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
                <spacer name="verticalSpacer_6">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
@@ -2227,7 +2275,7 @@
            <enum>Qt::Vertical</enum>
           </property>
           <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
+           <enum>QSizePolicy::Expanding</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -2433,8 +2481,16 @@
     <property name="title">
      <string>Herramientas</string>
     </property>
+    <widget class="QMenu" name="menuExportar_datos">
+     <property name="title">
+      <string>Exportar datos</string>
+     </property>
+     <addaction name="actionExportar_Clientes_CSV"/>
+     <addaction name="actionExportar_Clientes_JSON"/>
+    </widget>
     <addaction name="actionCrear_backup"/>
     <addaction name="actionRestaurar_backup"/>
+    <addaction name="menuExportar_datos"/>
    </widget>
    <widget class="QMenu" name="menuAyuda">
     <property name="title">
@@ -2475,10 +2531,16 @@
    <property name="text">
     <string>Salir</string>
    </property>
+   <property name="shortcut">
+    <string>Alt+S</string>
+   </property>
   </action>
   <action name="actionCrear_backup">
    <property name="text">
     <string>Crear backup</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
    </property>
   </action>
   <action name="actionRestaurar_backup">
@@ -2494,9 +2556,6 @@
    </property>
    <property name="text">
     <string>Salir</string>
-   </property>
-   <property name="shortcut">
-    <string>Alt+S</string>
    </property>
   </action>
   <action name="actionbarLimpiar">
@@ -2516,6 +2575,9 @@
    <property name="text">
     <string>Tipo propiedades</string>
    </property>
+   <property name="shortcut">
+    <string>Alt+T</string>
+   </property>
   </action>
   <action name="actionbarAltaTipoprop">
    <property name="icon">
@@ -2524,9 +2586,6 @@
    </property>
    <property name="text">
     <string>Alta tipo de propiedad</string>
-   </property>
-   <property name="shortcut">
-    <string>Alt+T</string>
    </property>
   </action>
   <action name="actionFiltrar">
@@ -2542,6 +2601,16 @@
    </property>
    <property name="shortcut">
     <string>Alt+F</string>
+   </property>
+  </action>
+  <action name="actionExportar_Clientes_CSV">
+   <property name="text">
+    <string>Exportar Clientes CSV</string>
+   </property>
+  </action>
+  <action name="actionExportar_Clientes_JSON">
+   <property name="text">
+    <string>Exportar Clientes JSON</string>
    </property>
   </action>
  </widget>

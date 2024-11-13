@@ -353,6 +353,19 @@ class Propiedades():
         else:
             var.ui.chkAlquilprop.setChecked(False)
 
+    @staticmethod
+    def cambiarAvailableRbt():
+        if var.ui.txtBajaprop.text() == "" or var.ui.txtBajaprop.text() is None:
+            var.ui.rbtDisponprop.setEnabled(True)
+            var.ui.rbtAlquilprop.setEnabled(False)
+            var.ui.rbtVentaprop.setEnabled(False)
+            var.ui.rbtDisponprop.setChecked(True)
+        else:
+            var.ui.rbtAlquilprop.setEnabled(True)
+            var.ui.rbtAlquilprop.setChecked(True)
+            var.ui.rbtVentaprop.setEnabled(True)
+            var.ui.rbtDisponprop.setEnabled(False)
+
 
     @staticmethod
     def cargarTipoprop():

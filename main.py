@@ -33,6 +33,8 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.cargaMunicli(var.ui.cmbProvcli.currentText())
         eventos.Eventos.cargaMuniprop(var.ui.cmbProvprop.currentText())
         propiedades.Propiedades.cargarTipoprop()
+        var.ui.rbtAlquilprop.setEnabled(False)
+        var.ui.rbtVentaprop.setEnabled(False)
 
         '''
         validadores
@@ -90,6 +92,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtEmailcli.editingFinished.connect(lambda : clientes.Clientes.checkEmailCli(var.ui.txtEmailcli.text()))
         var.ui.txtMovilcli.editingFinished.connect(lambda : clientes.Clientes.checkMovilCli(var.ui.txtMovilcli.text()))
         var.ui.txtMovilprop.editingFinished.connect(lambda : propiedades.Propiedades.checkMovilProp(var.ui.txtMovilprop.text()))
+        var.ui.txtBajaprop.textChanged.connect(propiedades.Propiedades.cambiarAvailableRbt)
         var.ui.txtPrecioVentaprop.textChanged.connect(propiedades.Propiedades.activarCheckPrecios)
         var.ui.txtPrecioAlquilerprop.textChanged.connect(propiedades.Propiedades.activarCheckPrecios)
         '''
