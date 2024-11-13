@@ -22,8 +22,8 @@ class Conexion:
         # Verifica si el archivo de base de datos existe
         if not os.path.isfile('bbdd.sqlite'):
             eventos.Eventos.crearMensajeError("Error",'El archivo de la base de datos no existe.')
-
             return False
+
         # Crear la conexión con la base de datos SQLite
         db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
         db.setDatabaseName('bbdd.sqlite')
@@ -38,7 +38,7 @@ class Conexion:
                 return False
 
             else:
-                eventos.Eventos.crearMensajeInfo("Aviso","Conexión Base de Datos realizada")
+                eventos.Eventos.crearMensajeInfo("Aviso","Conexión a la Base de Datos realizada")
                 return True
 
         else:
@@ -360,38 +360,35 @@ class Conexion:
             municipio = var.ui.cmbMuniprop.currentText()
             filtrado = var.ui.btnBuscaTipoProp.isChecked()
             tipoSeleccionado = var.ui.cmbTipoprop.currentText()
-            if not historico and filtrado:
-                query = QtSql.QSqlQuery()
-                query.prepare("SELECT * FROM PROPIEDADES where baja is null and estado = 'Disponible' and tipo_propiedad = :tipo_propiedad  and municipio = :municipio order by municipio asc" )
-                query.bindValue(":tipo_propiedad", str(tipoSeleccionado))
-                query.bindValue(":municipio", str(municipio))
-                if query.exec():
-                    while query.next():
-                        fila = [query.value(i) for i in range(query.record().count())]
-                        listado.append(fila)
-            elif historico and not filtrado:
-                query = QtSql.QSqlQuery()
-                query.prepare("SELECT * FROM propiedades ORDER BY municipio ASC")
-                if query.exec():
-                    while query.next():
-                        fila = [query.value(i) for i in range(query.record().count())]
-                        listado.append(fila)
-            elif historico and filtrado:
-                query = QtSql.QSqlQuery()
-                query.prepare("SELECT * FROM PROPIEDADES where tipo_propiedad = :tipo_propiedad and municipio = :municipio order by municipio asc" )
-                query.bindValue(":tipo_propiedad", str(tipoSeleccionado))
-                query.bindValue(":municipio", str(municipio))
-                if query.exec():
-                    while query.next():
-                        fila = [query.value(i) for i in range(query.record().count())]
-                        listado.append(fila)
-            else:
-                query = QtSql.QSqlQuery()
-                query.prepare("SELECT * FROM propiedades where baja is null ORDER BY municipio ASC")
-                if query.exec():
-                    while query.next():
-                        fila = [query.value(i) for i in range(query.record().count())]
-                        listado.append(fila)
+
+            base_query = "SELECT * FROM propiedades"
+            condiciones = []
+            parametros_bind = {}
+
+            if not historico:
+                condiciones.append("baja is NULL")
+            if filtrado:
+                condiciones.append("tipo_propiedad = :tipo_propiedad")
+                parametros_bind[":tipo_propiedad"] = tipoSeleccionado
+                condiciones.append("municipio = :municipio")
+                parametros_bind[":municipio"] = municipio
+            elif not historico:
+                condiciones.append("estado = 'Disponible'")
+
+            if condiciones:
+                base_query += " WHERE " + " AND ".join(condiciones)
+            base_query += " ORDER BY municipio ASC"
+
+            query = QtSql.QSqlQuery()
+            query.prepare(base_query)
+            for clave, valor in parametros_bind.items():
+                query.bindValue(clave, valor)
+
+            if query.exec():
+                while query.next():
+                    fila = [query.value(i) for i in range(query.record().count())]
+                    listado.append(fila)
+
             return listado
 
         except Exception as e:
