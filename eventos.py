@@ -6,8 +6,9 @@ import time
 import re
 from datetime import datetime
 
+from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap
-from PyQt6.QtWidgets import QHeaderView
+from PyQt6.QtWidgets import QHeaderView, QCompleter
 from PyQt6.QtWidgets import QHeaderView
 
 import locale
@@ -333,6 +334,29 @@ class Eventos():
         except Exception as e:
             print("error en exportar cvs tipo prop: ", e)
 
+    @staticmethod
+    def onProvinciaEditTextChanged(cmbProv):
+        if cmbProv == var.ui.cmbProvcli:
+            Eventos.cargaMunicli(cmbProv.currentText())
+            Eventos.addCompleterCmbMuni(var.ui.cmbMunicli,cmbProv)
+        elif cmbProv == var.ui.cmbProvprop:
+            Eventos.cargaMuniprop(cmbProv.currentText())
+            Eventos.addCompleterCmbMuni(var.ui.cmbMuniprop,cmbProv)
+
+
+    @staticmethod
+    def addCompleterCmbProv(cmbProv):
+        cmbProv.setEditable(True)
+        completer = QCompleter(conexion.Conexion.listaProv(),cmbProv)
+        completer.setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
+        cmbProv.setCompleter(completer)
+
+    @staticmethod
+    def addCompleterCmbMuni(cmbMuni, cmbProv):
+        cmbMuni.setEditable(True)
+        completer = QCompleter(conexion.Conexion.listaMunicipio(cmbProv.currentText()),cmbMuni)
+        completer.setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
+        cmbMuni.setCompleter(completer)
 
 
 

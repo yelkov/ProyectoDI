@@ -2,7 +2,6 @@ from xml.dom.minidom import Notation
 
 from PyQt6.QtCore import QLocale, QRegularExpression, QDate, Qt
 from PyQt6.QtGui import QIcon, QDoubleValidator, QIntValidator, QRegularExpressionValidator
-from PyQt6.QtWidgets import QCompleter
 
 import clientes
 import conexion
@@ -49,7 +48,7 @@ class Main(QtWidgets.QMainWindow):
         validadorMovil = QIntValidator(0,999999999,self)
         var.ui.txtMovilcli.setValidator(validadorMovil)
         var.ui.txtMovilprop.setValidator(validadorMovil)
-        validadorFechas = QRegularExpressionValidator(QRegularExpression(r"^\d{2}/\d{2}/\d{4}$"))
+        validadorFechas = QRegularExpressionValidator(QRegularExpression(r"^(0?[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4}$"))
         var.ui.txtAltaprop.setValidator(validadorFechas)
         var.ui.txtBajaprop.setValidator(validadorFechas)
         var.ui.txtAltacli.setValidator(validadorFechas)
@@ -105,10 +104,10 @@ class Main(QtWidgets.QMainWindow):
         '''
         zona eventos comboBox
         '''
-        var.ui.cmbProvcli.currentIndexChanged.connect(lambda : eventos.Eventos.cargaMunicli(var.ui.cmbProvcli.currentText()))
-        var.ui.cmbProvprop.currentIndexChanged.connect(lambda : eventos.Eventos.cargaMuniprop(var.ui.cmbProvprop.currentText()))
-
-
+        var.ui.cmbProvcli.editTextChanged.connect(lambda : eventos.Eventos.onProvinciaEditTextChanged(var.ui.cmbProvcli))
+        var.ui.cmbProvprop.editTextChanged.connect(lambda : eventos.Eventos.onProvinciaEditTextChanged(var.ui.cmbProvprop))
+        eventos.Eventos.addCompleterCmbProv(var.ui.cmbProvcli)
+        eventos.Eventos.addCompleterCmbProv(var.ui.cmbProvprop)
         var.ui.cmbTipoprop.currentIndexChanged.connect(propiedades.Propiedades.cargarTablaPropiedades)
         var.ui.cmbMuniprop.currentIndexChanged.connect(propiedades.Propiedades.cargarTablaPropiedades)
 
