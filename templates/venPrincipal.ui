@@ -2424,8 +2424,8 @@
      <property name="title">
       <string>Exportar datos</string>
      </property>
-     <addaction name="actionExportar_Clientes_CSV"/>
-     <addaction name="actionExportar_Clientes_JSON"/>
+     <addaction name="actionExportar_Propiedades_CSV"/>
+     <addaction name="actionExportar_Propiedades_JSON"/>
     </widget>
     <addaction name="actionCrear_backup"/>
     <addaction name="actionRestaurar_backup"/>
@@ -2542,14 +2542,20 @@
     <string>Alt+F</string>
    </property>
   </action>
-  <action name="actionExportar_Clientes_CSV">
+  <action name="actionExportar_Propiedades_CSV">
    <property name="text">
-    <string>Exportar Clientes CSV</string>
+    <string>Exportar Propiedades CSV</string>
+   </property>
+   <property name="toolTip">
+    <string>Exporta rPropiedades CSV</string>
    </property>
   </action>
-  <action name="actionExportar_Clientes_JSON">
+  <action name="actionExportar_Propiedades_JSON">
    <property name="text">
-    <string>Exportar Clientes JSON</string>
+    <string>Exportar Propiedades JSON</string>
+   </property>
+   <property name="toolTip">
+    <string>Exportar Propiedades JSON</string>
    </property>
   </action>
  </widget>

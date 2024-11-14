@@ -1,3 +1,5 @@
+import csv
+import json
 import os
 import sys
 import time
@@ -292,6 +294,44 @@ class Eventos():
         except Exception as e:
             print("error en abrir tipo prop: ", e)
 
+    @staticmethod
+    def exportCSVprop():
+        try:
+            fecha = datetime.today()
+            fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')
+            file = str(fecha)+'_DatosPropiedades.csv'
+            directorio, fichero = var.dlgAbrir.getSaveFileName(None, "Exporta Datos a CSV", file, '.csv')
+            if fichero:
+                registros = conexion.Conexion.cargarAllPropiedadesBD()
+                with open(fichero, 'w', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile)
+                    writer.writerow(["Codigo","Alta","Baja","Dirección","Provincia","Municipio","Tipo","Nº habitaciones","Nº Baños","Superficie","Precio Alquiler","Precio Compra","Código postal", "Observaciones","Operación","Estado","Propietario","Móvil"])
+                    for registro in registros:
+                        writer.writerow(registro)
+                shutil.move(fichero, directorio)
+            else:
+                eventos.Eventos.crearMensajeError("Error","Se ha producido un error al exportar los datos en formato CSV.")
+        except Exception as e:
+            print("error en exportar cvs tipo prop: ", e)
+
+    @staticmethod
+    def exportJSONprop():
+        try:
+            fecha = datetime.today()
+            fecha = fecha.strftime('%Y_%m_%d_%H_%M_%S')
+            file = str(fecha)+'_DatosPropiedades.json'
+            directorio, fichero = var.dlgAbrir.getSaveFileName(None, "Exporta Datos a JSON", file, '.json')
+            if fichero:
+                keys = ["Codigo","Alta","Baja","Dirección","Provincia","Municipio","Tipo","Nº habitaciones","Nº Baños","Superficie","Precio Alquiler","Precio Compra","Código postal", "Observaciones","Operación","Estado","Propietario","Móvil"]
+                registros = conexion.Conexion.cargarAllPropiedadesBD()
+                lista_propiedades = [dict(zip(keys, registro)) for registro in registros]
+                with open(fichero, 'w', newline='', encoding='utf-8') as jsonFile:
+                    json.dump(lista_propiedades, jsonFile, ensure_ascii=False, indent=4)
+                shutil.move(fichero, directorio)
+            else:
+                eventos.Eventos.crearMensajeError("Error","Se ha producido un error al exportar los datos en formato CSV.")
+        except Exception as e:
+            print("error en exportar cvs tipo prop: ", e)
 
 
 

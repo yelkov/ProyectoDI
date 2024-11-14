@@ -206,7 +206,7 @@ class Propiedades():
             precioVenta = propiedad[11]
 
             if fecha_baja != "" and not Propiedades.esFechasValidas(propiedad):
-                eventos.Eventos.crearMensajeError("Error","La fecha de baja no puede ser posterior a la fecha de alta.")
+                eventos.Eventos.crearMensajeError("Error","La fecha de baja no puede ser anterior a la fecha de alta.")
 
             elif fecha_baja != "" and var.ui.rbtDisponprop.isChecked():
                 eventos.Eventos.crearMensajeError("Error", "No es posible guardar fecha de baja si el estado del inmueble es 'Disponible'.")

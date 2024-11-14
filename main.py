@@ -1,7 +1,8 @@
 from xml.dom.minidom import Notation
 
-from PyQt6.QtCore import QLocale, QRegularExpression
+from PyQt6.QtCore import QLocale, QRegularExpression, QDate, Qt
 from PyQt6.QtGui import QIcon, QDoubleValidator, QIntValidator, QRegularExpressionValidator
+from PyQt6.QtWidgets import QCompleter
 
 import clientes
 import conexion
@@ -48,6 +49,11 @@ class Main(QtWidgets.QMainWindow):
         validadorMovil = QIntValidator(0,999999999,self)
         var.ui.txtMovilcli.setValidator(validadorMovil)
         var.ui.txtMovilprop.setValidator(validadorMovil)
+        validadorFechas = QRegularExpressionValidator(QRegularExpression(r"^\d{2}/\d{2}/\d{4}$"))
+        var.ui.txtAltaprop.setValidator(validadorFechas)
+        var.ui.txtBajaprop.setValidator(validadorFechas)
+        var.ui.txtAltacli.setValidator(validadorFechas)
+        var.ui.txtBajacli.setValidator(validadorFechas)
 
         '''
         zona de eventos de tablas
@@ -69,7 +75,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionCrear_backup.triggered.connect(eventos.Eventos.crearBackup)
         var.ui.actionRestaurar_backup.triggered.connect(eventos.Eventos.restaurarBackup)
         var.ui.actionTipo_propiedades.triggered.connect(eventos.Eventos.abrirTipoprop)
-
+        var.ui.actionExportar_Propiedades_CSV.triggered.connect(eventos.Eventos.exportCSVprop)
+        var.ui.actionExportar_Propiedades_JSON.triggered.connect(eventos.Eventos.exportJSONprop)
         '''
         zona de eventos de botones
         '''
@@ -100,7 +107,10 @@ class Main(QtWidgets.QMainWindow):
         '''
         var.ui.cmbProvcli.currentIndexChanged.connect(lambda : eventos.Eventos.cargaMunicli(var.ui.cmbProvcli.currentText()))
         var.ui.cmbProvprop.currentIndexChanged.connect(lambda : eventos.Eventos.cargaMuniprop(var.ui.cmbProvprop.currentText()))
+
+
         var.ui.cmbTipoprop.currentIndexChanged.connect(propiedades.Propiedades.cargarTablaPropiedades)
+        var.ui.cmbMuniprop.currentIndexChanged.connect(propiedades.Propiedades.cargarTablaPropiedades)
 
         '''
         zona eventos toolBar
@@ -109,6 +119,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionbarLimpiar.triggered.connect(eventos.Eventos.limpiarPanel)
         var.ui.actionbarAltaTipoprop.triggered.connect(eventos.Eventos.abrirTipoprop)
         var.ui.actionFiltrar.triggered.connect(propiedades.Propiedades.filtrar)
+
         '''
         zona eventos checkbox
         '''

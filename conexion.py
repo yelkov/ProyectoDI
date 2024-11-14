@@ -393,3 +393,23 @@ class Conexion:
 
         except Exception as e:
             print("Error al listar propiedades en listadoPropiedades", e)
+
+    @staticmethod
+    def cargarAllPropiedadesBD():
+        try:
+            listado = []
+
+            base_query = "SELECT * FROM propiedades ORDER BY municipio ASC"
+
+            query = QtSql.QSqlQuery()
+            query.prepare(base_query)
+
+            if query.exec():
+                while query.next():
+                    fila = [query.value(i) for i in range(query.record().count())]
+                    listado.append(fila)
+
+            return listado
+
+        except Exception as e:
+            print("Error al listar propiedades en listadoPropiedades", e)
