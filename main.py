@@ -30,8 +30,8 @@ class Main(QtWidgets.QMainWindow):
 
         self.setStyleSheet(styles.load_stylesheet())
         eventos.Eventos.cargarProv()
-        eventos.Eventos.cargaMunicli(var.ui.cmbProvcli.currentText())
-        eventos.Eventos.cargaMuniprop(var.ui.cmbProvprop.currentText())
+        eventos.Eventos.cargaMunicli()
+        eventos.Eventos.cargaMuniprop()
         propiedades.Propiedades.cargarTipoprop()
         var.ui.rbtAlquilprop.setEnabled(False)
         var.ui.rbtVentaprop.setEnabled(False)
@@ -104,10 +104,31 @@ class Main(QtWidgets.QMainWindow):
         '''
         zona eventos comboBox
         '''
-        var.ui.cmbProvcli.editTextChanged.connect(lambda : eventos.Eventos.onProvinciaEditTextChanged(var.ui.cmbProvcli))
-        var.ui.cmbProvprop.editTextChanged.connect(lambda : eventos.Eventos.onProvinciaEditTextChanged(var.ui.cmbProvprop))
-        eventos.Eventos.addCompleterCmbProv(var.ui.cmbProvcli)
-        eventos.Eventos.addCompleterCmbProv(var.ui.cmbProvprop)
+        var.ui.cmbProvcli.currentIndexChanged.connect(eventos.Eventos.cargaMunicli)
+        var.ui.cmbProvprop.currentIndexChanged.connect(eventos.Eventos.cargaMuniprop)
+
+        var.ui.cmbMuniprop.setEditable(True)
+        var.ui.cmbProvprop.setEditable(True)
+        var.ui.cmbMunicli.setEditable(True)
+        var.ui.cmbProvcli.setEditable(True)
+
+        completer = QtWidgets.QCompleter(var.provincias, var.ui.cmbProvprop)
+        completer.setCaseSensitivity(QtCore.Qt.CaseSensitivity.CaseInsensitive)
+        completer.setFilterMode(QtCore.Qt.MatchFlag.MatchContains)
+        var.ui.cmbProvprop.setCompleter(completer)
+
+        completer = QtWidgets.QCompleter(var.provincias, var.ui.cmbProvcli)
+        completer.setCaseSensitivity(QtCore.Qt.CaseSensitivity.CaseInsensitive)
+        completer.setFilterMode(QtCore.Qt.MatchFlag.MatchContains)
+        var.ui.cmbProvcli.setCompleter(completer)
+
+        var.ui.cmbProvprop.lineEdit().editingFinished.connect(eventos.Eventos.checkProvinciaProp)
+        var.ui.cmbMuniprop.lineEdit().editingFinished.connect(eventos.Eventos.checkMunicipioProp)
+        var.ui.cmbProvcli.lineEdit().editingFinished.connect(eventos.Eventos.checkProvinciaCli)
+        var.ui.cmbMunicli.lineEdit().editingFinished.connect(eventos.Eventos.checkMunicipioCli)
+
+
+
         var.ui.cmbTipoprop.currentIndexChanged.connect(propiedades.Propiedades.cargarTablaPropiedades)
         var.ui.cmbMuniprop.currentIndexChanged.connect(propiedades.Propiedades.cargarTablaPropiedades)
 

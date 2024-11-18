@@ -17,7 +17,7 @@ import clientes
 import conexion
 import conexionserver
 import var
-from PyQt6 import QtWidgets, QtGui
+from PyQt6 import QtWidgets, QtGui, QtCore
 import zipfile
 import shutil
 
@@ -79,22 +79,60 @@ class Eventos():
         var.ui.cmbProvprop.clear()
         listado = conexion.Conexion.listaProv()
         #listado = conexionserver.ConexionServer.listaProv()
+        var.provincias = listado
+
         var.ui.cmbProvcli.addItems(listado)
         var.ui.cmbProvprop.addItems(listado)
 
     @staticmethod
-    def cargaMunicli(provincia):
+    def cargaMunicli():
         var.ui.cmbMunicli.clear()
-        listado = conexion.Conexion.listaMunicipio(provincia)
+        provinciaCli = var.ui.cmbProvcli.currentText()
+        listado = conexion.Conexion.listaMunicipio(provinciaCli)
         #listado = conexionserver.ConexionServer.listaMuniProv(provincia)
         var.ui.cmbMunicli.addItems(listado)
 
+        var.municli = listado
+
+        completer = QtWidgets.QCompleter(var.municli, var.ui.cmbMunicli)
+        completer.setCaseSensitivity(QtCore.Qt.CaseSensitivity.CaseInsensitive)
+        completer.setFilterMode(QtCore.Qt.MatchFlag.MatchContains)
+        var.ui.cmbMunicli.setCompleter(completer)
+
     @staticmethod
-    def cargaMuniprop(provincia):
+    def cargaMuniprop():
         var.ui.cmbMuniprop.clear()
-        listado = conexion.Conexion.listaMunicipio(provincia)
+        provinciaProp = var.ui.cmbProvprop.currentText()
+        listado = conexion.Conexion.listaMunicipio(provinciaProp)
         #listado = conexionserver.ConexionServer.listaMuniProv(provincia)
         var.ui.cmbMuniprop.addItems(listado)
+
+        var.muniprop = listado
+
+        completer = QtWidgets.QCompleter(var.muniprop, var.ui.cmbMuniprop)
+        completer.setCaseSensitivity(QtCore.Qt.CaseSensitivity.CaseInsensitive)
+        completer.setFilterMode(QtCore.Qt.MatchFlag.MatchContains)
+        var.ui.cmbMuniprop.setCompleter(completer)
+
+    @staticmethod
+    def checkMunicipioCli():
+        if var.ui.cmbMunicli.currentText() not in var.municli:
+            var.ui.cmbMunicli.setCurrentIndex(0)
+
+    @staticmethod
+    def checkProvinciaCli():
+        if var.ui.cmbProvcli.currentText() not in var.provincias:
+            var.ui.cmbProvcli.setCurrentIndex(0)
+
+    @staticmethod
+    def checkMunicipioProp():
+        if var.ui.cmbMuniprop.currentText() not in var.muniprop:
+            var.ui.cmbMuniprop.setCurrentIndex(0)
+
+    @staticmethod
+    def checkProvinciaProp():
+        if var.ui.cmbProvprop.currentText() not in var.provincias:
+            var.ui.cmbProvprop.setCurrentIndex(0)
 
     @staticmethod
     def isDniValido(dni):
@@ -334,29 +372,6 @@ class Eventos():
         except Exception as e:
             print("error en exportar cvs tipo prop: ", e)
 
-    @staticmethod
-    def onProvinciaEditTextChanged(cmbProv):
-        if cmbProv == var.ui.cmbProvcli:
-            Eventos.cargaMunicli(cmbProv.currentText())
-            Eventos.addCompleterCmbMuni(var.ui.cmbMunicli,cmbProv)
-        elif cmbProv == var.ui.cmbProvprop:
-            Eventos.cargaMuniprop(cmbProv.currentText())
-            Eventos.addCompleterCmbMuni(var.ui.cmbMuniprop,cmbProv)
-
-
-    @staticmethod
-    def addCompleterCmbProv(cmbProv):
-        cmbProv.setEditable(True)
-        completer = QCompleter(conexion.Conexion.listaProv(),cmbProv)
-        completer.setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
-        cmbProv.setCompleter(completer)
-
-    @staticmethod
-    def addCompleterCmbMuni(cmbMuni, cmbProv):
-        cmbMuni.setEditable(True)
-        completer = QCompleter(conexion.Conexion.listaMunicipio(cmbProv.currentText()),cmbMuni)
-        completer.setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
-        cmbMuni.setCompleter(completer)
 
 
 

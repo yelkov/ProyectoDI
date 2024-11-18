@@ -10,3 +10,6 @@ global panel
 global dlggestion
 global dlgAbrir
 global btnvar
+global provincias
+global municli
+global muniprop
