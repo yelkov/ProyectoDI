@@ -3,9 +3,11 @@ from datetime import datetime
 from PyQt6.uic.Compiler.qtproxies import QtWidgets, QtCore
 
 import conexion
+import dlgGestion
 import eventos
 import var
 import propiedades
+from dlgAbout import Ui_Dialog
 from dlgCalendar import *
 from dlgGestion import Ui_dlg_tipoprop
 
@@ -35,3 +37,10 @@ class dlg_Tipo_prop(QtWidgets.QDialog):
         self.ui.btnDelTipoprop.clicked.connect(lambda: propiedades.Propiedades.bajaTipoPropiedad(self))
         propiedades.Propiedades.cargarTipopropGestion(self)
         self.ui.cmbTipopropGestion.activated.connect(lambda: propiedades.Propiedades.seleccionarTipoGestion(self))
+
+class Dlg_About(QtWidgets.QDialog):
+    def __init__(self):
+        super(Dlg_About,self).__init__()
+        self.ui = Ui_Dialog()
+        self.ui.setupUi(self)
+        self.ui.btnAceptar.clicked.connect(self.close)

@@ -111,7 +111,7 @@ class Propiedades():
             index = 0
             var.ui.tablaProp.setRowCount(len(listado))
             for registro in listado:
-
+                var.ui.tablaProp.setSpan(0,0,1,1)
                 var.ui.tablaProp.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0]))) #codigo
                 var.ui.tablaProp.setItem(index, 1, QtWidgets.QTableWidgetItem(registro[5])) #municipio
                 var.ui.tablaProp.setItem(index, 2, QtWidgets.QTableWidgetItem(registro[6])) #tipo_provincia
@@ -139,6 +139,12 @@ class Propiedades():
                 var.ui.tablaProp.item(index, 7).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
                 var.ui.tablaProp.item(index, 8).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 index += 1
+
+            if len(listado) == 0:
+                var.ui.tablaProp.setRowCount(4)
+                var.ui.tablaProp.setItem(0, 0, QtWidgets.QTableWidgetItem("No hay propiedades con los filtros seleccionados"))
+                var.ui.tablaProp.setSpan(0,0,4,9)
+                var.ui.tablaProp.item(0,0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
         except Exception as e:
             print("Error al cargar propiedades en la tabla cargarTablaPropiedades", e)

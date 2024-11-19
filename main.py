@@ -26,6 +26,7 @@ class Main(QtWidgets.QMainWindow):
         var.uicalendar = Calendar()
         var.dlgAbrir = FileDialogAbrir()
         var.dlggestion = dlg_Tipo_prop()
+        var.dlgabout = Dlg_About()
 
 
         self.setStyleSheet(styles.load_stylesheet())
@@ -76,6 +77,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionTipo_propiedades.triggered.connect(eventos.Eventos.abrirTipoprop)
         var.ui.actionExportar_Propiedades_CSV.triggered.connect(eventos.Eventos.exportCSVprop)
         var.ui.actionExportar_Propiedades_JSON.triggered.connect(eventos.Eventos.exportJSONprop)
+        var.ui.actionAbout.triggered.connect(eventos.Eventos.abrir_about)
         '''
         zona de eventos de botones
         '''

@@ -372,6 +372,10 @@ class Eventos():
         except Exception as e:
             print("error en exportar cvs tipo prop: ", e)
 
-
-
+    @staticmethod
+    def abrir_about():
+        try:
+            var.dlgabout.show()
+        except Exception as e:
+            print("error en abrir about: ", e)
 

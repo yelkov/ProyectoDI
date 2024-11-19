@@ -13,3 +13,4 @@ global btnvar
 global provincias
 global municli
 global muniprop
+global dlgabout
