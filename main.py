@@ -88,10 +88,12 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnBajaprop.clicked.connect(lambda: eventos.Eventos.abrirCalendar(1,1))
         var.ui.btnModifcli.clicked.connect(clientes.Clientes.modifCliente)
         var.ui.btnDelcli.clicked.connect(clientes.Clientes.bajaCliente)
+        var.ui.btnBuscarDni.clicked.connect(clientes.Clientes.buscaOneCliente)
         var.ui.btnGrabarprop.clicked.connect(propiedades.Propiedades.altaPropiedad)
         var.ui.btnModifprop.clicked.connect(propiedades.Propiedades.modifProp)
         var.ui.btnDelprop.clicked.connect(propiedades.Propiedades.bajaProp)
         var.ui.btnBuscaTipoProp.clicked.connect(propiedades.Propiedades.cargarTablaPropiedades)
+
 
         '''
         zona de eventos de cajas de texto

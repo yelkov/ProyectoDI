@@ -158,6 +158,29 @@ class Clientes:
         except Exception as e:
             print("Error cargaClientes", e)
 
+
+    @staticmethod
+    def buscaOneCliente():
+        try:
+            dni = var.ui.txtDnicli.text()
+            registro = conexion.Conexion.datosOneCliente(dni)
+            if registro:
+                listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,
+                           var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli,var.ui.cmbMunicli,var.ui.txtBajacli]
+                for i in range(len(listado)):
+                    if i in (7,8):
+                        listado[i].setCurrentText(registro[i])
+                    else:
+                        listado[i].setText(registro[i])
+                        if i == 0:
+                            var.ui.lblTickcli.clear()
+            else:
+                eventos.Eventos.crearMensajeError("Error","El cliente con DNI "+ dni + " no existe en la base de datos")
+            #Clientes.cargarCliente(registro)
+
+        except Exception as e:
+            print("Error cargaClientes", e)
+
     @staticmethod
     def modifCliente():
         try:

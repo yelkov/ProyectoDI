@@ -64,6 +64,9 @@ QRadioButton:disabled{
     background-color: #FACFAD;
     border-radius: 5px;
 }
+#btnBuscarDni{
+    background-color: none;
+}
 
 /*----    Estilo para botones al pasar el ratón      -----*/
 QPushButton:hover{
