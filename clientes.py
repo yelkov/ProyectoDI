@@ -15,7 +15,8 @@ class Clientes:
             nuevoCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(),
                         var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),var.ui.cmbMunicli.currentText()]
 
-            if Clientes.hasCamposObligatoriosCli(nuevoCli) and conexion.Conexion.altaCliente(nuevoCli):
+            #if Clientes.hasCamposObligatoriosCli(nuevoCli) and conexion.Conexion.altaCliente(nuevoCli):
+            if Clientes.hasCamposObligatoriosCli(nuevoCli) and conexionserver.ConexionServer.altaCliente(nuevoCli):
                 eventos.Eventos.crearMensajeInfo("Aviso","Cliente dado de alta en Base de Datos")
 
                 Clientes.cargaTablaClientes()
@@ -113,8 +114,8 @@ class Clientes:
     @staticmethod
     def cargaTablaClientes():
         try:
-            listado = conexion.Conexion.listadoClientes()
-            #listado = conexionserver.ConexionServer.listadoClientes()
+            #listado = conexion.Conexion.listadoClientes()
+            listado = conexionserver.ConexionServer.listadoClientes()
             index = 0
             var.ui.tablaClientes.setRowCount(len(listado))
             for registro in listado:
@@ -136,7 +137,7 @@ class Clientes:
 
 
         except Exception as e:
-            print("Error cargaClientes", e)
+            print("Error cargaClientes en cargaTablaClientes", e)
 
     @staticmethod
     def cargaOneCliente():
@@ -144,6 +145,8 @@ class Clientes:
             fila = var.ui.tablaClientes.selectedItems()
             datos = [dato.text() for dato in fila]
             registro = conexion.Conexion.datosOneCliente(str(datos[0]))
+            #registro = conexionserver.ConexionServer.datosOneCliente(str(datos[0]))
+            #registro = [x if x != 'None' else "" for x in registro]
             listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,
                        var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli,var.ui.cmbMunicli,var.ui.txtBajacli]
             for i in range(len(listado)):
@@ -156,7 +159,7 @@ class Clientes:
             #Clientes.cargarCliente(registro)
 
         except Exception as e:
-            print("Error cargaClientes", e)
+            print("Error cargaClientes en cargaOneCliente", e)
 
 
     @staticmethod
@@ -164,6 +167,7 @@ class Clientes:
         try:
             dni = var.ui.txtDnicli.text()
             registro = conexion.Conexion.datosOneCliente(dni)
+            #registro = conexionserver.ConexionServer.datosOneCliente(dni)
             if registro:
                 listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,
                            var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli,var.ui.cmbMunicli,var.ui.txtBajacli]
