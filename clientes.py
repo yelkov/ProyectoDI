@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from PyQt6 import QtWidgets, QtGui, QtCore
 
@@ -12,8 +12,9 @@ class Clientes:
     @staticmethod
     def altaCliente():
         try:
-            nuevoCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(),
-                        var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),var.ui.cmbMunicli.currentText()]
+            '''nuevoCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtEmailcli.text(),
+                        var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),var.ui.cmbMunicli.currentText()]'''
+            nuevoCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtDircli.text(), var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.cmbProvcli.currentText(),var.ui.cmbMunicli.currentText()]
 
             #if Clientes.hasCamposObligatoriosCli(nuevoCli) and conexion.Conexion.altaCliente(nuevoCli):
             if Clientes.hasCamposObligatoriosCli(nuevoCli) and conexionserver.ConexionServer.altaCliente(nuevoCli):
@@ -144,9 +145,9 @@ class Clientes:
         try:
             fila = var.ui.tablaClientes.selectedItems()
             datos = [dato.text() for dato in fila]
-            registro = conexion.Conexion.datosOneCliente(str(datos[0]))
-            #registro = conexionserver.ConexionServer.datosOneCliente(str(datos[0]))
-            #registro = [x if x != 'None' else "" for x in registro]
+            #registro = conexion.Conexion.datosOneCliente(str(datos[0]))
+            registro = conexionserver.ConexionServer.datosOneCliente(str(datos[0]))
+            registro = [x if x != 'None' else "" for x in registro]
             listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,
                        var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli,var.ui.cmbMunicli,var.ui.txtBajacli]
             for i in range(len(listado)):
@@ -166,8 +167,8 @@ class Clientes:
     def buscaOneCliente():
         try:
             dni = var.ui.txtDnicli.text()
-            registro = conexion.Conexion.datosOneCliente(dni)
-            #registro = conexionserver.ConexionServer.datosOneCliente(dni)
+            #registro = conexion.Conexion.datosOneCliente(dni)
+            registro = conexionserver.ConexionServer.datosOneCliente(dni)
             if registro:
                 listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,
                            var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli,var.ui.cmbMunicli,var.ui.txtBajacli]
@@ -188,13 +189,17 @@ class Clientes:
     @staticmethod
     def modifCliente():
         try:
-            modifcli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(),
+            '''modifcli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(),
                         var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),
+                        var.ui.cmbMunicli.currentText(),var.ui.txtBajacli.text()]'''
+            modifcli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text(), var.ui.txtNomcli.text(), var.ui.txtDircli.text(),
+                        var.ui.txtEmailcli.text(), var.ui.txtMovilcli.text(), var.ui.cmbProvcli.currentText(),
                         var.ui.cmbMunicli.currentText(),var.ui.txtBajacli.text()]
             if  modifcli[9] != "" and not Clientes.esFechasValidas(modifcli):
                 eventos.Eventos.crearMensajeError("Aviso","La fecha de baja no puede anterior a la de alta.")
 
-            elif clientes.Clientes.hasCamposObligatoriosCli(modifcli[:-1]) and conexion.Conexion.modifCliente(modifcli):
+            #elif clientes.Clientes.hasCamposObligatoriosCli(modifcli[:-1]) and conexion.Conexion.modifCliente(modifcli):
+            elif clientes.Clientes.hasCamposObligatoriosCli(modifcli[:-1]) and conexionserver.ConexionServer.modifCliente(modifcli):
                 eventos.Eventos.crearMensajeInfo('Aviso',"El cliente fue modificado correctamente en la base de datos")
                 Clientes.cargaTablaClientes()
             elif not clientes.Clientes.hasCamposObligatoriosCli(modifcli):
@@ -209,7 +214,9 @@ class Clientes:
     def bajaCliente():
         try:
             dni = var.ui.txtDnicli.text()
-            if conexion.Conexion.bajaCliente(dni):
+            #if conexion.Conexion.bajaCliente(dni):
+            if conexionserver.ConexionServer.bajaCliente(dni):
+                #eventos.Eventos.crearMensajeInfo("Aviso","El cliente fue dado de baja a fecha de: " + datetime.now().strftime("%d/%m/%Y"))
                 eventos.Eventos.crearMensajeInfo("Aviso","El cliente fue dado de baja a fecha de: " + datetime.now().strftime("%d/%m/%Y"))
                 Clientes.cargaTablaClientes()
             else:

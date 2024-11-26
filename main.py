@@ -20,12 +20,12 @@ class Main(QtWidgets.QMainWindow):
         var.ui = Ui_venPrincipal()
         var.ui.setupUi(self)
 
-        #conexionserver.ConexionServer.crear_conexion()
-        conexion.Conexion.db_conexion()
+        conexionserver.ConexionServer.crear_conexion()
+        #conexion.Conexion.db_conexion()
 
         var.uicalendar = Calendar()
         var.dlgAbrir = FileDialogAbrir()
-        var.dlggestion = dlg_Tipo_prop()
+        #var.dlggestion = dlg_Tipo_prop()
         var.dlgabout = Dlg_About()
 
 
@@ -33,7 +33,7 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.cargarProv()
         eventos.Eventos.cargaMunicli()
         eventos.Eventos.cargaMuniprop()
-        propiedades.Propiedades.cargarTipoprop()
+        #propiedades.Propiedades.cargarTipoprop()
         var.ui.rbtAlquilprop.setEnabled(False)
         var.ui.rbtVentaprop.setEnabled(False)
 

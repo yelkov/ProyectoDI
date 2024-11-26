@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import mysql.connector
 from mysql.connector import Error
 import os
@@ -69,7 +71,7 @@ class ConexionServer():
             conexion = ConexionServer().crear_conexion()
             listadoclientes = []
             cursor = conexion.cursor()
-            cursor.execute("SELECT * FROM clientes ORDER BY apelcli, nomecli ASC")
+            cursor.execute("SELECT dnicli, altacli, apelcli, nomecli, emailcli, movilcli, dircli, provcli, municli, bajacli  FROM clientes ORDER BY apelcli, nomecli ASC")
             resultados = cursor.fetchall()
             # Procesar cada fila de los resultados
             for fila in resultados:
@@ -79,7 +81,6 @@ class ConexionServer():
             # Cerrar el cursor y la conexión si no los necesitas más
             cursor.close()
             conexion.close()
-            print(listadoclientes)
             return listadoclientes
         except Exception as e:
             print("error listado de clientes en conexión", e)
@@ -128,7 +129,7 @@ class ConexionServer():
             if conexion:
                 cursor = conexion.cursor()
                 # Definir la consulta de selección
-                query = '''SELECT * FROM clientes WHERE dnicli = %s'''  # Usa %s para el placeholder
+                query = '''SELECT dnicli, altacli, apelcli, nomecli, emailcli, movilcli, dircli, provcli, municli, bajacli FROM clientes WHERE dnicli = %s'''  # Usa %s para el placeholder
                 cursor.execute(query, (dni,))  # Pasar 'dni' como una tupla
                 # Recuperar los datos de la consulta
                 for row in cursor.fetchall():
@@ -138,3 +139,43 @@ class ConexionServer():
         except Exception as e:
             print("Error al obtener datos de un cliente:", e)
             return None  # Devolver None en caso de error
+
+
+    @staticmethod
+    def bajaCliente(dni):
+        try:
+            conexion = ConexionServer().crear_conexion()
+            if conexion:
+                cursor = conexion.cursor()
+                # Definir la consulta de inserción
+                query = """
+                UPDATE clientes SET bajacli = %s WHERE dnicli = %s
+                """
+                fecha_baja =  datetime.now().strftime("%d/%m/%Y")
+                cursor.execute(query, (fecha_baja,dni))
+                conexion.commit()  # Confirmar la transacción
+                cursor.close()   # Cerrar el cursor y la conexión
+                conexion.close()
+                return True
+        except Error as e:
+            print(f"Error al insertar el cliente: {e}")
+
+    @staticmethod
+    def modifCliente(cliente):
+        try:
+            conexion = ConexionServer().crear_conexion()
+            if conexion:
+                cursor = conexion.cursor()
+                # Definir la consulta de inserción
+                query = """
+                UPDATE clientes 
+                SET altacli = %s, apelcli = %s, nomecli = %s, dircli = %s, emailcli = %s, movilcli = %s, provcli = %s, municli = %s, bajacli = %s 
+                WHERE dnicli = %s
+                """
+                cursor.execute(query, cliente)          # Ejecutar la consulta pasando la lista directamente
+                conexion.commit()  # Confirmar la transacción
+                cursor.close()   # Cerrar el cursor y la conexión
+                conexion.close()
+                return True
+        except Error as e:
+            print(f"Error al insertar el cliente: {e}")

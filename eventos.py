@@ -77,8 +77,8 @@ class Eventos():
     def cargarProv():
         var.ui.cmbProvcli.clear()
         var.ui.cmbProvprop.clear()
-        listado = conexion.Conexion.listaProv()
-        #listado = conexionserver.ConexionServer.listaProv()
+        #listado = conexion.Conexion.listaProv()
+        listado = conexionserver.ConexionServer.listaProv()
         var.provincias = listado
 
         var.ui.cmbProvcli.addItems(listado)
@@ -88,8 +88,8 @@ class Eventos():
     def cargaMunicli():
         var.ui.cmbMunicli.clear()
         provinciaCli = var.ui.cmbProvcli.currentText()
-        listado = conexion.Conexion.listaMunicipio(provinciaCli)
-        #listado = conexionserver.ConexionServer.listaMuniProv(provinciaCli)
+        #listado = conexion.Conexion.listaMunicipio(provinciaCli)
+        listado = conexionserver.ConexionServer.listaMuniProv(provinciaCli)
         var.ui.cmbMunicli.addItems(listado)
 
         var.municli = listado
@@ -103,8 +103,8 @@ class Eventos():
     def cargaMuniprop():
         var.ui.cmbMuniprop.clear()
         provinciaProp = var.ui.cmbProvprop.currentText()
-        listado = conexion.Conexion.listaMunicipio(provinciaProp)
-        #listado = conexionserver.ConexionServer.listaMuniProv(provinciaProp)
+        #listado = conexion.Conexion.listaMunicipio(provinciaProp)
+        listado = conexionserver.ConexionServer.listaMuniProv(provinciaProp)
         var.ui.cmbMuniprop.addItems(listado)
 
         var.muniprop = listado
