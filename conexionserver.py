@@ -252,10 +252,10 @@ class ConexionServer():
                 query = """
                 
                 UPDATE propiedades 
-                SET altaprop = %s, dirprop = %s, provprop = %s,muniprop = %s, tipoprop = %s, habprop = %s, banprop = %s, superprop = %s, prealquiprop = %s , prevenprop = %s,cpprop = %s,obserprop = %s,tipooper = %s,estadoprop = %s,nomeprop = %s,movilprop = %s
+                SET altaprop = %s, bajaprop = %s, dirprop = %s, provprop = %s,muniprop = %s, tipoprop = %s, habprop = %s, banprop = %s, superprop = %s, prealquiprop = %s , prevenprop = %s,cpprop = %s,obserprop = %s,tipooper = %s,estadoprop = %s,nomeprop = %s,movilprop = %s
                 WHERE codigo = %s
                 """
-                propiedad[12] = str(propiedad[12])
+                reordenarPropiedad[13] = str(reordenarPropiedad[13])
                 cursor.execute(query, reordenarPropiedad)          # Ejecutar la consulta pasando la lista directamente
                 conexion.commit()  # Confirmar la transacción
                 cursor.close()   # Cerrar el cursor y la conexión
