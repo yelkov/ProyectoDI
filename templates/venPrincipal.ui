@@ -3035,13 +3035,13 @@
                       </property>
                       <property name="minimumSize">
                        <size>
-                        <width>90</width>
+                        <width>100</width>
                         <height>0</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>60</width>
+                        <width>100</width>
                         <height>16777215</height>
                        </size>
                       </property>
@@ -3606,6 +3606,29 @@
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>NUEVO PANEL</string>
+       </attribute>
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>560</x>
+          <y>230</y>
+          <width>281</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>17</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>PANEL EN CONSTRUCCIÓN</string>
+        </property>
+       </widget>
       </widget>
      </widget>
     </item>

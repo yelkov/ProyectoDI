@@ -215,13 +215,16 @@ class Conexion:
     '''
     @staticmethod
     def cargarTipoprop():
-        query = QtSql.QSqlQuery()
-        query.prepare("SELECT tipo from tipopropiedad ")
-        if query.exec():
-            registro = []
-            while query.next():
-                registro.append(str(query.value(0)))
-            return registro
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT tipo from tipopropiedad ")
+            if query.exec():
+                registro = []
+                while query.next():
+                    registro.append(str(query.value(0)))
+                return registro
+        except Exception as e:
+            print("error cargando tipos de propiedad", e)
 
     @staticmethod
     def altaTipoprop(tipo):

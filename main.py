@@ -33,7 +33,7 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.cargarProv()
         eventos.Eventos.cargaMunicli()
         eventos.Eventos.cargaMuniprop()
-        #propiedades.Propiedades.cargarTipoprop()
+        propiedades.Propiedades.cargarTipoprop()
         var.ui.rbtAlquilprop.setEnabled(False)
         var.ui.rbtVentaprop.setEnabled(False)
 
