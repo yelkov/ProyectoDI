@@ -20,8 +20,15 @@ class Main(QtWidgets.QMainWindow):
         var.ui = Ui_venPrincipal()
         var.ui.setupUi(self)
 
-        conexionserver.ConexionServer.crear_conexion()
-        #conexion.Conexion.db_conexion()
+        isServerConnected = False
+
+        if isServerConnected:
+            var.claseConexion = conexionserver.ConexionServer
+            var.claseConexion.crear_conexion()
+        else:
+            var.claseConexion = conexion.Conexion
+            conexion.Conexion.db_conexion()
+
 
         var.uicalendar = Calendar()
         var.dlgAbrir = FileDialogAbrir()

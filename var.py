@@ -14,3 +14,4 @@ global provincias
 global municli
 global muniprop
 global dlgabout
+global claseConexion

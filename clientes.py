@@ -15,8 +15,7 @@ class Clientes:
             nuevoCli = [var.ui.txtDnicli.text(), var.ui.txtAltacli.text(), var.ui.txtApelcli.text().title(), var.ui.txtNomcli.text().title(), var.ui.txtEmailcli.text(),
                         var.ui.txtMovilcli.text(), var.ui.txtDircli.text(), var.ui.cmbProvcli.currentText(),var.ui.cmbMunicli.currentText()]
 
-            #if Clientes.hasCamposObligatoriosCli(nuevoCli) and conexion.Conexion.altaCliente(nuevoCli):
-            if Clientes.hasCamposObligatoriosCli(nuevoCli) and conexionserver.ConexionServer.altaCliente(nuevoCli):
+            if Clientes.hasCamposObligatoriosCli(nuevoCli) and var.claseConexion.altaCliente(nuevoCli):
                 eventos.Eventos.crearMensajeInfo("Aviso","Cliente dado de alta en Base de Datos")
 
                 Clientes.cargaTablaClientes()
@@ -102,6 +101,8 @@ class Clientes:
 
     @staticmethod
     def esFechasValidas(datosClientes):
+        import datetime
+
         datos = datosClientes[:]
         alta = datos[1]
         baja = datos[9]
@@ -114,8 +115,7 @@ class Clientes:
     @staticmethod
     def cargaTablaClientes():
         try:
-            #listado = conexion.Conexion.listadoClientes()
-            listado = conexionserver.ConexionServer.listadoClientes()
+            listado = var.claseConexion.listadoClientes()
             index = 0
             var.ui.tablaClientes.setRowCount(len(listado))
             for registro in listado:
@@ -144,8 +144,7 @@ class Clientes:
         try:
             fila = var.ui.tablaClientes.selectedItems()
             datos = [dato.text() for dato in fila]
-            #registro = conexion.Conexion.datosOneCliente(str(datos[0]))
-            registro = conexionserver.ConexionServer.datosOneCliente(str(datos[0]))
+            registro = var.claseConexion.datosOneCliente(str(datos[0]))
             registro = [x if x != 'None' else "" for x in registro]
             listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,
                        var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli,var.ui.cmbMunicli,var.ui.txtBajacli]
@@ -166,8 +165,7 @@ class Clientes:
     def buscaOneCliente():
         try:
             dni = var.ui.txtDnicli.text()
-            #registro = conexion.Conexion.datosOneCliente(dni)
-            registro = conexionserver.ConexionServer.datosOneCliente(dni)
+            registro = var.claseConexion.datosOneCliente(dni)
             if registro:
                 listado = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,
                            var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli,var.ui.cmbMunicli,var.ui.txtBajacli]
@@ -193,9 +191,7 @@ class Clientes:
                         var.ui.cmbMunicli.currentText(),var.ui.txtBajacli.text()]
             if  modifcli[9] != "" and not Clientes.esFechasValidas(modifcli):
                 eventos.Eventos.crearMensajeError("Aviso","La fecha de baja no puede anterior a la de alta.")
-
-            #elif clientes.Clientes.hasCamposObligatoriosCli(modifcli[:-1]) and conexion.Conexion.modifCliente(modifcli):
-            elif clientes.Clientes.hasCamposObligatoriosCli(modifcli[:-1]) and conexionserver.ConexionServer.modifCliente(modifcli):
+            elif clientes.Clientes.hasCamposObligatoriosCli(modifcli[:-1]) and var.claseConexion.modifCliente(modifcli):
                 eventos.Eventos.crearMensajeInfo('Aviso',"El cliente fue modificado correctamente en la base de datos")
                 Clientes.cargaTablaClientes()
             elif not clientes.Clientes.hasCamposObligatoriosCli(modifcli):
@@ -210,9 +206,7 @@ class Clientes:
     def bajaCliente():
         try:
             dni = var.ui.txtDnicli.text()
-            #if conexion.Conexion.bajaCliente(dni):
-            if conexionserver.ConexionServer.bajaCliente(dni):
-                #eventos.Eventos.crearMensajeInfo("Aviso","El cliente fue dado de baja a fecha de: " + datetime.now().strftime("%d/%m/%Y"))
+            if var.claseConexion.bajaCliente(dni):
                 eventos.Eventos.crearMensajeInfo("Aviso","El cliente fue dado de baja a fecha de: " + datetime.now().strftime("%d/%m/%Y"))
                 Clientes.cargaTablaClientes()
             else:

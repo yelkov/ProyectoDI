@@ -17,7 +17,8 @@ class Propiedades():
         try:
             tipo = var.dlggestion.ui.txtTipoprop.text().title()
             #registro = conexion.Conexion.altaTipoprop(tipo)
-            registro = conexionserver.ConexionServer.altaTipoprop(tipo)
+            #registro = conexionserver.ConexionServer.altaTipoprop(tipo)
+            registro = var.claseConexion.altaTipoprop(tipo)
             if registro:
                 var.ui.cmbTipoprop.clear()
                 var.ui.cmbTipoprop.addItems(registro)
@@ -36,7 +37,8 @@ class Propiedades():
         try:
             tipo = var.dlggestion.ui.txtTipoprop.text().title()
             #if conexion.Conexion.bajaTipoprop(tipo):
-            if conexionserver.ConexionServer.bajaTipoprop(tipo):
+            #if conexionserver.ConexionServer.bajaTipoprop(tipo):
+            if var.claseConexion.bajaTipoprop(tipo):
                 eventos.Eventos.crearMensajeInfo("Aviso","Tipo de propiedad eliminada.")
                 Propiedades.cargarTipoprop()
                 var.dlggestion.ui.txtTipoprop.setText("")
@@ -77,7 +79,8 @@ class Propiedades():
             precioVenta = propiedad[9]
 
             #if Propiedades.hasCamposObligatoriosAlta(propiedad) and Propiedades.checkPrecioAlquiler(precioAlquiler) and Propiedades.checkPrecioVenta(precioVenta) and conexion.Conexion.altaPropiedad(propiedad):
-            if Propiedades.hasCamposObligatoriosAlta(propiedad) and Propiedades.checkPrecioAlquiler(precioAlquiler) and Propiedades.checkPrecioVenta(precioVenta) and conexionserver.ConexionServer.altaPropiedad(propiedad):
+            #if Propiedades.hasCamposObligatoriosAlta(propiedad) and Propiedades.checkPrecioAlquiler(precioAlquiler) and Propiedades.checkPrecioVenta(precioVenta) and conexionserver.ConexionServer.altaPropiedad(propiedad):
+            if Propiedades.hasCamposObligatoriosAlta(propiedad) and Propiedades.checkPrecioAlquiler(precioAlquiler) and Propiedades.checkPrecioVenta(precioVenta) and var.claseConexion.altaPropiedad(propiedad):
                 eventos.Eventos.crearMensajeInfo("Aviso", "Se ha grabado la propiedad en la base de datos.")
                 Propiedades.cargarTablaPropiedades()
 
@@ -110,8 +113,7 @@ class Propiedades():
     @staticmethod
     def cargarTablaPropiedades():
         try:
-            #listado = conexion.Conexion.listadoPropiedades()
-            listado = conexionserver.ConexionServer.listadoPropiedades()
+            listado = var.claseConexion.listadoPropiedades()
             index = 0
             var.ui.tablaProp.setRowCount(len(listado))
             for registro in listado:
@@ -123,20 +125,20 @@ class Propiedades():
                 var.ui.tablaProp.setItem(index, 3, QtWidgets.QTableWidgetItem(str(registro[7]))) #num_habitaciones
                 var.ui.tablaProp.setItem(index, 4, QtWidgets.QTableWidgetItem(str(registro[8]))) #num_baños
 
-                '''
-                precio_alquiler = f"{registro[10]:,.1f} €" if registro[10] != ""  else " - €"
-                var.ui.tablaProp.setItem(index, 5, QtWidgets.QTableWidgetItem(precio_alquiler)) #precio_alqui
+                if var.claseConexion == conexion.Conexion:
+                    precio_alquiler = f"{registro[10]:,.1f} €" if registro[10] != ""  else " - €"
+                    var.ui.tablaProp.setItem(index, 5, QtWidgets.QTableWidgetItem(precio_alquiler)) #precio_alqui
 
-                precio_venta = f"{registro[11]:,.1f} €" if registro[11] != ""  else " - €"
-                var.ui.tablaProp.setItem(index, 6, QtWidgets.QTableWidgetItem(precio_venta)) #precio_venta
+                    precio_venta = f"{registro[11]:,.1f} €" if registro[11] != ""  else " - €"
+                    var.ui.tablaProp.setItem(index, 6, QtWidgets.QTableWidgetItem(precio_venta)) #precio_venta
 
-                tipo_operacion = registro[14].replace('[', '').replace(']', '').replace("'","")
-                var.ui.tablaProp.setItem(index, 7, QtWidgets.QTableWidgetItem(tipo_operacion)) #tipo_operacion
-                '''
+                    tipo_operacion = registro[14].replace('[', '').replace(']', '').replace("'","")
+                    var.ui.tablaProp.setItem(index, 7, QtWidgets.QTableWidgetItem(tipo_operacion)) #tipo_operacion
 
-                var.ui.tablaProp.setItem(index, 5, QtWidgets.QTableWidgetItem(str(registro[10]) + " €"))
-                var.ui.tablaProp.setItem(index, 6, QtWidgets.QTableWidgetItem(str(registro[11]) + " €"))
-                var.ui.tablaProp.setItem(index, 7, QtWidgets.QTableWidgetItem(str(registro[14].replace('[', '').replace(']', '').replace("'",""))))
+                elif var.claseConexion == conexionserver.ConexionServer:
+                    var.ui.tablaProp.setItem(index, 5, QtWidgets.QTableWidgetItem(str(registro[10]) + " €"))
+                    var.ui.tablaProp.setItem(index, 6, QtWidgets.QTableWidgetItem(str(registro[11]) + " €"))
+                    var.ui.tablaProp.setItem(index, 7, QtWidgets.QTableWidgetItem(str(registro[14].replace('[', '').replace(']', '').replace("'",""))))
 
                 var.ui.tablaProp.setItem(index, 8, QtWidgets.QTableWidgetItem(str(registro[2]))) #fecha de baja
 
@@ -165,8 +167,7 @@ class Propiedades():
         try:
             fila = var.ui.tablaProp.selectedItems()
             datos = [dato.text() for dato in fila]
-            #registro = conexion.Conexion.datosOnePropiedad(str(datos[0]))
-            registro = conexionserver.ConexionServer.datosOnePropiedad(str(datos[0]))
+            registro = var.claseConexion.datosOnePropiedad(str(datos[0]))
 
             listado = [var.ui.lblProp,var.ui.txtAltaprop, var.ui.txtBajaprop, var.ui.txtDirprop,var.ui.cmbProvprop,var.ui.cmbMuniprop,var.ui.cmbTipoprop,var.ui.spinHabprop, var.ui.spinBanosprop, var.ui.txtSuperprop,var.ui.txtPrecioAlquilerprop,var.ui.txtPrecioVentaprop,var.ui.txtCpprop,var.ui.areatxtDescriprop, var.ui.rbtDisponprop, var.ui.rbtAlquilprop,var.ui.rbtVentaprop,var.ui.chkInterprop,var.ui.chkAlquilprop,var.ui.chkVentaprop,var.ui.txtNomeprop,var.ui.txtMovilprop]
 
@@ -229,8 +230,7 @@ class Propiedades():
             elif fecha_baja != "" and var.ui.rbtDisponprop.isChecked():
                 eventos.Eventos.crearMensajeError("Error", "No es posible guardar fecha de baja si el estado del inmueble es 'Disponible'.")
 
-            #elif Propiedades.hasCamposObligatoriosModif(propiedad) and Propiedades.checkPrecioAlquiler(precioAlquiler) and Propiedades.checkPrecioVenta(precioVenta) and conexion.Conexion.modifProp(propiedad):
-            elif Propiedades.hasCamposObligatoriosModif(propiedad) and Propiedades.checkPrecioAlquiler(precioAlquiler) and Propiedades.checkPrecioVenta(precioVenta) and conexionserver.ConexionServer.modifPropiedad(propiedad):
+            elif Propiedades.hasCamposObligatoriosModif(propiedad) and Propiedades.checkPrecioAlquiler(precioAlquiler) and Propiedades.checkPrecioVenta(precioVenta) and var.claseConexion.modifProp(propiedad):
                 eventos.Eventos.crearMensajeInfo("Aviso","Se ha modificado la propiedad correctamente.")
                 Propiedades.cargarTablaPropiedades()
 
@@ -262,8 +262,7 @@ class Propiedades():
         if propiedad[2] == "" or propiedad[2] is None:
             eventos.Eventos.crearMensajeError("Error","Es necesario elegir una fecha para dar de baja la propiedad.")
 
-        #elif not var.ui.rbtDisponprop.isChecked() and conexion.Conexion.bajaProp(propiedad) and Propiedades.esFechasValidas(propiedad):
-        elif not var.ui.rbtDisponprop.isChecked() and conexionserver.ConexionServer.bajaPropiedad(propiedad) and Propiedades.esFechasValidas(propiedad):
+        elif not var.ui.rbtDisponprop.isChecked() and var.claseConexion.bajaProp(propiedad) and Propiedades.esFechasValidas(propiedad):
             eventos.Eventos.crearMensajeInfo("Aviso", "Se ha dado de baja la propiedad.")
             Propiedades.cargarTablaPropiedades()
 
@@ -389,8 +388,7 @@ class Propiedades():
 
     @staticmethod
     def cargarTipoprop():
-        #registro = conexion.Conexion.cargarTipoprop()
-        registro = conexionserver.ConexionServer.cargarTipoprop()
+        registro = var.claseConexion.cargarTipoprop()
         var.ui.cmbTipoprop.clear()
         var.ui.cmbTipoprop.addItems(registro)
 
@@ -399,8 +397,7 @@ class Propiedades():
         self.ui.txtTipoprop.setText(tipo)
 
     def cargarTipopropGestion(self):
-        #registro = conexion.Conexion.cargarTipoprop()
-        registro = conexionserver.ConexionServer.cargarTipoprop()
+        registro = var.claseConexion.cargarTipoprop()
         self.ui.cmbTipopropGestion.clear()
         self.ui.cmbTipopropGestion.addItems(registro)
 

@@ -77,8 +77,7 @@ class Eventos():
     def cargarProv():
         var.ui.cmbProvcli.clear()
         var.ui.cmbProvprop.clear()
-        #listado = conexion.Conexion.listaProv()
-        listado = conexionserver.ConexionServer.listaProv()
+        listado = var.claseConexion.listaProv()
         var.provincias = listado
 
         var.ui.cmbProvcli.addItems(listado)
@@ -88,8 +87,7 @@ class Eventos():
     def cargaMunicli():
         var.ui.cmbMunicli.clear()
         provinciaCli = var.ui.cmbProvcli.currentText()
-        #listado = conexion.Conexion.listaMunicipio(provinciaCli)
-        listado = conexionserver.ConexionServer.listaMuniProv(provinciaCli)
+        listado = var.claseConexion.listaMunicipio(provinciaCli)
         var.ui.cmbMunicli.addItems(listado)
 
         var.municli = listado
@@ -103,8 +101,7 @@ class Eventos():
     def cargaMuniprop():
         var.ui.cmbMuniprop.clear()
         provinciaProp = var.ui.cmbProvprop.currentText()
-        #listado = conexion.Conexion.listaMunicipio(provinciaProp)
-        listado = conexionserver.ConexionServer.listaMuniProv(provinciaProp)
+        listado = var.claseConexion.listaMunicipio(provinciaProp)
         var.ui.cmbMuniprop.addItems(listado)
 
         var.muniprop = listado
@@ -341,7 +338,7 @@ class Eventos():
             file = str(fecha)+'_DatosPropiedades.csv'
             directorio, fichero = var.dlgAbrir.getSaveFileName(None, "Exporta Datos a CSV", file, '.csv')
             if fichero:
-                registros = conexion.Conexion.cargarAllPropiedadesBD()
+                registros = var.claseConexion.cargarAllPropiedadesBD()
                 with open(fichero, 'w', newline='', encoding='utf-8') as csvfile:
                     writer = csv.writer(csvfile)
                     writer.writerow(["Codigo","Alta","Baja","Dirección","Provincia","Municipio","Tipo","Nº habitaciones","Nº Baños","Superficie","Precio Alquiler","Precio Compra","Código postal", "Observaciones","Operación","Estado","Propietario","Móvil"])
@@ -362,7 +359,7 @@ class Eventos():
             directorio, fichero = var.dlgAbrir.getSaveFileName(None, "Exporta Datos a JSON", file, '.json')
             if fichero:
                 keys = ["Codigo","Alta","Baja","Dirección","Provincia","Municipio","Tipo","Nº habitaciones","Nº Baños","Superficie","Precio Alquiler","Precio Compra","Código postal", "Observaciones","Operación","Estado","Propietario","Móvil"]
-                registros = conexion.Conexion.cargarAllPropiedadesBD()
+                registros = var.claseConexion.cargarAllPropiedadesBD()
                 lista_propiedades = [dict(zip(keys, registro)) for registro in registros]
                 with open(fichero, 'w', newline='', encoding='utf-8') as jsonFile:
                     json.dump(lista_propiedades, jsonFile, ensure_ascii=False, indent=4)

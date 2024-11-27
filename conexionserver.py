@@ -50,7 +50,7 @@ class ConexionServer():
         return listaprov
 
     @staticmethod
-    def listaMuniProv(provincia):
+    def listaMunicipio(provincia):
         try:
             conexion = ConexionServer().crear_conexion()
             listamunicipios = []
@@ -307,7 +307,7 @@ class ConexionServer():
             print(f"Error al insertar una propiedad", e)
 
     @staticmethod
-    def modifPropiedad(propiedad):
+    def modifProp(propiedad):
         try:
             conexion = ConexionServer().crear_conexion()
             if conexion:
@@ -330,7 +330,7 @@ class ConexionServer():
             print(f"Error al insertar el cliente: {e}")
 
     @staticmethod
-    def bajaPropiedad(propiedad):
+    def bajaProp(propiedad):
         try:
             conexion = ConexionServer().crear_conexion()
             if conexion:
@@ -349,3 +349,17 @@ class ConexionServer():
                 return True
         except Error as e:
             print(f"Error al insertar el cliente: {e}")
+
+    @staticmethod
+    def cargarAllPropiedadesBD():
+        try:
+            listado = []
+            conexion = ConexionServer.crear_conexion()
+            cursor = conexion.cursor()
+            cursor.execute("SELECT codigo,altaprop,bajaprop,dirprop,provprop,muniprop,tipoprop,habprop,banprop,superprop,prealquiprop,prevenprop,cpprop,obserprop,tipooper,estadoprop,nomeprop,movilprop  FROM propiedades ORDER BY muniprop ASC")
+            for fila in cursor.fetchall():
+                listado.extend([str(col) for col in fila])
+            return listado
+
+        except Exception as e:
+            print("Error al listar propiedades en cargarAllpropiedades", e)

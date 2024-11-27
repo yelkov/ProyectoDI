@@ -415,4 +415,4 @@ class Conexion:
             return listado
 
         except Exception as e:
-            print("Error al listar propiedades en listadoPropiedades", e)
+            print("Error al listar propiedades en cargarAllpropiedades", e)
