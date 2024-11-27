@@ -5,6 +5,9 @@ from mysql.connector import Error
 import os
 from PyQt6 import QtSql, QtWidgets
 
+import var
+
+
 class ConexionServer():
     @staticmethod
     def crear_conexion():
@@ -71,12 +74,22 @@ class ConexionServer():
             conexion = ConexionServer().crear_conexion()
             listadoclientes = []
             cursor = conexion.cursor()
-            cursor.execute("SELECT dnicli, altacli, apelcli, nomecli, emailcli, movilcli, dircli, provcli, municli, bajacli  FROM clientes ORDER BY apelcli, nomecli ASC")
-            resultados = cursor.fetchall()
-            # Procesar cada fila de los resultados
-            for fila in resultados:
-                # Crear una lista con los valores de la fila
-                listadoclientes.append(list(fila))  # Convierte la tupla en una lista y la añade a listadoclientes
+            historico = var.ui.chkHistoriacli.isChecked()
+
+            if historico:
+                cursor.execute("SELECT dnicli, altacli, apelcli, nomecli, emailcli, movilcli, dircli, provcli, municli, bajacli  FROM clientes ORDER BY apelcli, nomecli ASC")
+                resultados = cursor.fetchall()
+                # Procesar cada fila de los resultados
+                for fila in resultados:
+                    # Crear una lista con los valores de la fila
+                    listadoclientes.append(list(fila))  # Convierte la tupla en una lista y la añade a listadoclientes
+            else:
+                cursor.execute("SELECT dnicli, altacli, apelcli, nomecli, emailcli, movilcli, dircli, provcli, municli, bajacli  FROM clientes WHERE bajacli is null or bajacli = '' ORDER BY apelcli, nomecli ASC")
+                resultados = cursor.fetchall()
+                # Procesar cada fila de los resultados
+                for fila in resultados:
+                    # Crear una lista con los valores de la fila
+                    listadoclientes.append(list(fila))
 
             # Cerrar el cursor y la conexión si no los necesitas más
             cursor.close()
@@ -186,12 +199,64 @@ class ConexionServer():
             print("error cargando tipos de propiedad", e)
 
     @staticmethod
+    def altaTipoprop(tipo):
+        try:
+            conexion = ConexionServer().crear_conexion()
+            registro = []
+            cursor = conexion.cursor()
+            query = """INSERT into tipopropiedad (tipo) values (%s) """
+            cursor.execute(query, (tipo,))
+            conexion.commit()
+
+            registro = ConexionServer.cargarTipoprop()
+            return registro
+        except Exception as e:
+            print("Error en conexion al dar de alta tipo propiedad", e)
+
+    @staticmethod
+    def bajaTipoprop(tipo):
+        try:
+            conexion = ConexionServer().crear_conexion()
+            query = """DELETE from tipopropiedad where tipo = %s """
+            cursor = conexion.cursor()
+            cursor.execute(query, (tipo,))
+
+            if cursor.rowcount == 1:
+                conexion.commit()
+                return True
+            else:
+                conexion.rollback()
+                return False
+        except Exception as e:
+            print("Error en conexion al dar de baja tipo propiedad", e)
+        finally:
+            cursor.close()
+            conexion.close()
+
+    @staticmethod
     def listadoPropiedades():
         try:
             conexion = ConexionServer().crear_conexion()
             listadoPropiedades = []
             cursor = conexion.cursor()
-            cursor.execute("SELECT codigo,altaprop,bajaprop,dirprop,provprop,muniprop,tipoprop,habprop,banprop,superprop,prealquiprop,prevenprop,cpprop,obserprop,tipooper,estadoprop,nomeprop,movilprop FROM propiedades ORDER BY muniprop ASC")
+            historico = var.ui.chkHistoriaprop.isChecked()
+            municipio = var.ui.cmbMuniprop.currentText()
+            filtrado = var.ui.btnBuscaTipoProp.isChecked()
+            tipoSeleccionado = var.ui.cmbTipoprop.currentText()
+
+            if historico and filtrado:
+                query = """SELECT codigo,altaprop,bajaprop,dirprop,provprop,muniprop,tipoprop,habprop,banprop,superprop,prealquiprop,prevenprop,cpprop,obserprop,tipooper,estadoprop,nomeprop,movilprop FROM propiedades WHERE muniprop = %s and tipoprop = %s ORDER BY muniprop ASC"""
+                cursor.execute(query, (municipio,tipoSeleccionado))
+            elif historico and not filtrado:
+                query = """SELECT codigo,altaprop,bajaprop,dirprop,provprop,muniprop,tipoprop,habprop,banprop,superprop,prealquiprop,prevenprop,cpprop,obserprop,tipooper,estadoprop,nomeprop,movilprop FROM propiedades ORDER BY muniprop ASC"""
+                cursor.execute(query)
+            elif not historico and filtrado:
+                query = """SELECT codigo,altaprop,bajaprop,dirprop,provprop,muniprop,tipoprop,habprop,banprop,superprop,prealquiprop,prevenprop,cpprop,obserprop,tipooper,estadoprop,nomeprop,movilprop FROM propiedades WHERE muniprop = %s and tipoprop = %s and (bajaprop is null or bajaprop = '') ORDER BY muniprop ASC"""
+                cursor.execute(query, (municipio,tipoSeleccionado))
+            elif not historico and not filtrado:
+                query = """SELECT codigo,altaprop,bajaprop,dirprop,provprop,muniprop,tipoprop,habprop,banprop,superprop,prealquiprop,prevenprop,cpprop,obserprop,tipooper,estadoprop,nomeprop,movilprop FROM propiedades WHERE bajaprop is null or bajaprop = '' ORDER BY muniprop ASC"""
+                cursor.execute(query)
+
             resultados = cursor.fetchall()
             for fila in resultados:
                 listadoPropiedades.append(list(fila))
@@ -257,6 +322,27 @@ class ConexionServer():
                 """
                 reordenarPropiedad[13] = str(reordenarPropiedad[13])
                 cursor.execute(query, reordenarPropiedad)          # Ejecutar la consulta pasando la lista directamente
+                conexion.commit()  # Confirmar la transacción
+                cursor.close()   # Cerrar el cursor y la conexión
+                conexion.close()
+                return True
+        except Error as e:
+            print(f"Error al insertar el cliente: {e}")
+
+    @staticmethod
+    def bajaPropiedad(propiedad):
+        try:
+            conexion = ConexionServer().crear_conexion()
+            if conexion:
+                cursor = conexion.cursor()
+                # Definir la consulta de inserción
+                query = """
+                UPDATE propiedades SET bajaprop = %s, estadoprop = %s WHERE codigo = %s
+                """
+                fecha = propiedad[2]
+                estado = propiedad[3]
+                codigo = propiedad[0]
+                cursor.execute(query, (fecha,estado, codigo))
                 conexion.commit()  # Confirmar la transacción
                 cursor.close()   # Cerrar el cursor y la conexión
                 conexion.close()

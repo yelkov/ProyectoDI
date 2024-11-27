@@ -16,7 +16,8 @@ class Propiedades():
     def altaTipoPropiedad(venDialogo):
         try:
             tipo = var.dlggestion.ui.txtTipoprop.text().title()
-            registro = conexion.Conexion.altaTipoprop(tipo)
+            #registro = conexion.Conexion.altaTipoprop(tipo)
+            registro = conexionserver.ConexionServer.altaTipoprop(tipo)
             if registro:
                 var.ui.cmbTipoprop.clear()
                 var.ui.cmbTipoprop.addItems(registro)
@@ -34,7 +35,8 @@ class Propiedades():
     def bajaTipoPropiedad(venDialogo):
         try:
             tipo = var.dlggestion.ui.txtTipoprop.text().title()
-            if conexion.Conexion.bajaTipoprop(tipo):
+            #if conexion.Conexion.bajaTipoprop(tipo):
+            if conexionserver.ConexionServer.bajaTipoprop(tipo):
                 eventos.Eventos.crearMensajeInfo("Aviso","Tipo de propiedad eliminada.")
                 Propiedades.cargarTipoprop()
                 var.dlggestion.ui.txtTipoprop.setText("")
@@ -113,6 +115,7 @@ class Propiedades():
             index = 0
             var.ui.tablaProp.setRowCount(len(listado))
             for registro in listado:
+                registro = [x if x != None else '' for x in registro]
                 var.ui.tablaProp.setSpan(0,0,1,1)
                 var.ui.tablaProp.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0]))) #codigo
                 var.ui.tablaProp.setItem(index, 1, QtWidgets.QTableWidgetItem(registro[5])) #municipio
@@ -259,7 +262,8 @@ class Propiedades():
         if propiedad[2] == "" or propiedad[2] is None:
             eventos.Eventos.crearMensajeError("Error","Es necesario elegir una fecha para dar de baja la propiedad.")
 
-        elif not var.ui.rbtDisponprop.isChecked() and conexion.Conexion.bajaProp(propiedad) and Propiedades.esFechasValidas(propiedad):
+        #elif not var.ui.rbtDisponprop.isChecked() and conexion.Conexion.bajaProp(propiedad) and Propiedades.esFechasValidas(propiedad):
+        elif not var.ui.rbtDisponprop.isChecked() and conexionserver.ConexionServer.bajaPropiedad(propiedad) and Propiedades.esFechasValidas(propiedad):
             eventos.Eventos.crearMensajeInfo("Aviso", "Se ha dado de baja la propiedad.")
             Propiedades.cargarTablaPropiedades()
 
@@ -395,7 +399,8 @@ class Propiedades():
         self.ui.txtTipoprop.setText(tipo)
 
     def cargarTipopropGestion(self):
-        registro = conexion.Conexion.cargarTipoprop()
+        #registro = conexion.Conexion.cargarTipoprop()
+        registro = conexionserver.ConexionServer.cargarTipoprop()
         self.ui.cmbTipopropGestion.clear()
         self.ui.cmbTipopropGestion.addItems(registro)
 

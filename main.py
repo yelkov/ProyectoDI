@@ -25,7 +25,7 @@ class Main(QtWidgets.QMainWindow):
 
         var.uicalendar = Calendar()
         var.dlgAbrir = FileDialogAbrir()
-        #var.dlggestion = dlg_Tipo_prop()
+        var.dlggestion = dlg_Tipo_prop()
         var.dlgabout = Dlg_About()
 
 
