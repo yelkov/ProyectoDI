@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from PyQt6 import QtWidgets, QtGui, QtCore
+from matplotlib.rcsetup import validate_any
 
 import clientes
 import conexion
@@ -116,9 +117,24 @@ class Clientes:
     def cargaTablaClientes():
         try:
             listado = var.claseConexion.listadoClientes()
+            var.lenClientes = len(listado)
+
+            inicioListado = var.paginaActualCli * var.maxClientesPagina
+            sublistado = listado[inicioListado: inicioListado + var.maxClientesPagina]
+
+            if listado[0] == sublistado[0]:
+                var.ui.btnAnterior.setDisabled(True)
+            else:
+                var.ui.btnAnterior.setDisabled(False)
+
+            if listado[-1] == sublistado[-1]:
+                var.ui.btnSiguiente.setDisabled(True)
+            else:
+                var.ui.btnSiguiente.setDisabled(False)
+
+            var.ui.tablaClientes.setRowCount(len(sublistado))
             index = 0
-            var.ui.tablaClientes.setRowCount(len(listado))
-            for registro in listado:
+            for registro in sublistado:
                 var.ui.tablaClientes.setItem(index, 0, QtWidgets.QTableWidgetItem(registro[0])) #dni
                 var.ui.tablaClientes.setItem(index, 1, QtWidgets.QTableWidgetItem(registro[2])) #apellido
                 var.ui.tablaClientes.setItem(index, 2, QtWidgets.QTableWidgetItem(registro[3])) #nombre

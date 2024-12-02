@@ -376,3 +376,14 @@ class Eventos():
         except Exception as e:
             print("error en abrir about: ", e)
 
+
+    @staticmethod
+    def siguienteCli():
+        var.paginaActualCli += 1
+        clientes.Clientes.cargaTablaClientes()
+
+    @staticmethod
+    def anteriorCli():
+        if var.paginaActualCli > 0:
+            var.paginaActualCli -= 1
+            clientes.Clientes.cargaTablaClientes()

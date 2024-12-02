@@ -68,6 +68,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.tablaClientes.setAlternatingRowColors(True)
         var.ui.tablaProp.setAlternatingRowColors(True)
 
+        var.paginaActualCli = 0
         clientes.Clientes.cargaTablaClientes()
         eventos.Eventos.resizeTablaClientes()
         var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
@@ -100,6 +101,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnModifprop.clicked.connect(propiedades.Propiedades.modifProp)
         var.ui.btnDelprop.clicked.connect(propiedades.Propiedades.bajaProp)
         var.ui.btnBuscaTipoProp.clicked.connect(propiedades.Propiedades.cargarTablaPropiedades)
+        var.ui.btnSiguiente.clicked.connect(eventos.Eventos.siguienteCli)
+        var.ui.btnAnterior.clicked.connect(eventos.Eventos.anteriorCli)
 
 
         '''

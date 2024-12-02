@@ -46,6 +46,13 @@ QPushButton{
     border-radius: 5px;
 }
 
+QPushButton:disabled{
+    background-color: #CCC;
+    font-weight: bold;
+    color: white;
+    border-radius: 5px;
+}
+
 /*------- Estilo para Radio Button ----------*/
 
 QRadioButton:disabled{

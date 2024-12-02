@@ -15,3 +15,7 @@ global municli
 global muniprop
 global dlgabout
 global claseConexion
+global lenClientes
+global paginaActualCli
+global maxClientesPagina
+maxClientesPagina = 10
