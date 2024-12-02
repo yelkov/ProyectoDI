@@ -234,6 +234,7 @@ class Clientes:
     @staticmethod
     def historicoCli():
         try:
+            var.paginaActualCli = 0
             Clientes.cargaTablaClientes()
         except Exception as e:
             print("checkbox historico no funciona correcatamente", e)

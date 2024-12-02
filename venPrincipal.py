@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_venPrincipal(object):
     def setupUi(self, venPrincipal):
         venPrincipal.setObjectName("venPrincipal")
-        venPrincipal.resize(1383, 701)
+        venPrincipal.resize(1383, 793)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -38,7 +38,7 @@ class Ui_venPrincipal(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.panPrincipal.sizePolicy().hasHeightForWidth())
         self.panPrincipal.setSizePolicy(sizePolicy)
-        self.panPrincipal.setMinimumSize(QtCore.QSize(1350, 450))
+        self.panPrincipal.setMinimumSize(QtCore.QSize(1350, 630))
         self.panPrincipal.setObjectName("panPrincipal")
         self.pesClientes = QtWidgets.QWidget()
         self.pesClientes.setObjectName("pesClientes")
@@ -464,6 +464,7 @@ class Ui_venPrincipal(object):
         self.line.setObjectName("line")
         self.verticalLayout_5.addWidget(self.line)
         self.tablaClientes = QtWidgets.QTableWidget(parent=self.pesClientes)
+        self.tablaClientes.setMinimumSize(QtCore.QSize(0, 330))
         self.tablaClientes.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers)
         self.tablaClientes.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.SingleSelection)
         self.tablaClientes.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectionBehavior.SelectRows)
