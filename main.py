@@ -1,5 +1,3 @@
-from xml.dom.minidom import Notation
-
 from PyQt6.QtCore import QLocale, QRegularExpression, QDate, Qt
 from PyQt6.QtGui import QIcon, QDoubleValidator, QIntValidator, QRegularExpressionValidator
 

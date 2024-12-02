@@ -1,7 +1,6 @@
 from datetime import datetime
 
 from PyQt6 import QtWidgets, QtGui, QtCore
-from matplotlib.rcsetup import validate_any
 
 import clientes
 import conexion
@@ -131,6 +130,9 @@ class Clientes:
                 var.ui.btnSiguiente.setDisabled(True)
             else:
                 var.ui.btnSiguiente.setDisabled(False)
+
+            numPaginas = (var.lenClientes // var.maxClientesPagina) + 1
+            var.ui.lblPaginas.setText("Página "+str(var.paginaActualCli + 1)+"/"+str(numPaginas))
 
             var.ui.tablaClientes.setRowCount(len(sublistado))
             index = 0
