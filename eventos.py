@@ -387,3 +387,29 @@ class Eventos():
         if var.paginaActualCli > 0:
             var.paginaActualCli -= 1
             clientes.Clientes.cargaTablaClientes()
+
+    @staticmethod
+    def siguienteProp():
+        import propiedades
+        var.paginaActualProp += 1
+        propiedades.Propiedades.cargarTablaPropiedades()
+
+    @staticmethod
+    def anteriorProp():
+        import propiedades
+        if var.paginaActualProp > 0:
+            var.paginaActualProp -= 1
+            propiedades.Propiedades.cargarTablaPropiedades()
+
+    @staticmethod
+    def cambiarCliMaxpPagina():
+        var.paginaActualCli = 0
+        var.maxClientesPagina = int(var.ui.spinClipPag.text())
+        clientes.Clientes.cargaTablaClientes()
+
+    @staticmethod
+    def cambiarPropMaxpPagina():
+        import propiedades
+        var.paginaActualProp = 0
+        var.maxPropPagina = int(var.ui.spinProppPag.text())
+        propiedades.Propiedades.cargarTablaPropiedades()

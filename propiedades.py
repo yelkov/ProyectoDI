@@ -114,50 +114,76 @@ class Propiedades():
     def cargarTablaPropiedades():
         try:
             listado = var.claseConexion.listadoPropiedades()
-            index = 0
-            var.ui.tablaProp.setRowCount(len(listado))
-            for registro in listado:
-                registro = [x if x != None else '' for x in registro]
-                var.ui.tablaProp.setSpan(0,0,1,1)
-                var.ui.tablaProp.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0]))) #codigo
-                var.ui.tablaProp.setItem(index, 1, QtWidgets.QTableWidgetItem(registro[5])) #municipio
-                var.ui.tablaProp.setItem(index, 2, QtWidgets.QTableWidgetItem(registro[6])) #tipo_provincia
-                var.ui.tablaProp.setItem(index, 3, QtWidgets.QTableWidgetItem(str(registro[7]))) #num_habitaciones
-                var.ui.tablaProp.setItem(index, 4, QtWidgets.QTableWidgetItem(str(registro[8]))) #num_baños
+            var.lenPropiedades = len(listado)
 
-                if var.claseConexion == conexion.Conexion:
-                    precio_alquiler = f"{registro[10]:,.1f} €" if registro[10] != ""  else " - €"
-                    var.ui.tablaProp.setItem(index, 5, QtWidgets.QTableWidgetItem(precio_alquiler)) #precio_alqui
-
-                    precio_venta = f"{registro[11]:,.1f} €" if registro[11] != ""  else " - €"
-                    var.ui.tablaProp.setItem(index, 6, QtWidgets.QTableWidgetItem(precio_venta)) #precio_venta
-
-                    tipo_operacion = registro[14].replace('[', '').replace(']', '').replace("'","")
-                    var.ui.tablaProp.setItem(index, 7, QtWidgets.QTableWidgetItem(tipo_operacion)) #tipo_operacion
-
-                elif var.claseConexion == conexionserver.ConexionServer:
-                    var.ui.tablaProp.setItem(index, 5, QtWidgets.QTableWidgetItem(str(registro[10]) + " €"))
-                    var.ui.tablaProp.setItem(index, 6, QtWidgets.QTableWidgetItem(str(registro[11]) + " €"))
-                    var.ui.tablaProp.setItem(index, 7, QtWidgets.QTableWidgetItem(str(registro[14].replace('[', '').replace(']', '').replace("'",""))))
-
-                var.ui.tablaProp.setItem(index, 8, QtWidgets.QTableWidgetItem(str(registro[2]))) #fecha de baja
-
-                var.ui.tablaProp.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                var.ui.tablaProp.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
-                var.ui.tablaProp.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
-                var.ui.tablaProp.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                var.ui.tablaProp.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                var.ui.tablaProp.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                var.ui.tablaProp.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                var.ui.tablaProp.item(index, 7).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
-                var.ui.tablaProp.item(index, 8).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-                index += 1
+            var.ui.spinProppPag.setValue(var.maxPropPagina)
 
             if len(listado) == 0:
+                var.ui.btnSiguienteProp.setDisabled(True)
+                var.ui.btnAnteriorProp.setDisabled(True)
                 var.ui.tablaProp.setRowCount(4)
                 var.ui.tablaProp.setItem(0, 0, QtWidgets.QTableWidgetItem("No hay propiedades con los filtros seleccionados"))
                 var.ui.tablaProp.setSpan(0,0,4,9)
                 var.ui.tablaProp.item(0,0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            else:
+
+                inicioListado = var.paginaActualProp * var.maxPropPagina
+                sublistado = listado[inicioListado: inicioListado + var.maxPropPagina]
+
+                if listado[0] == sublistado[0]:
+                    var.ui.btnAnteriorProp.setDisabled(True)
+                else:
+                    var.ui.btnAnteriorProp.setDisabled(False)
+
+                if listado[-1] == sublistado[-1]:
+                    var.ui.btnSiguienteProp.setDisabled(True)
+                else:
+                    var.ui.btnSiguienteProp.setDisabled(False)
+
+                numPaginas = (var.lenPropiedades // var.maxPropPagina) + 1
+                if len(listado) % var.maxPropPagina == 0:
+                    numPaginas -= 1
+                var.ui.lblPaginasProp.setText("Página "+str(var.paginaActualProp + 1)+"/"+str(numPaginas))
+
+                var.ui.tablaProp.setRowCount(len(sublistado))
+                index = 0
+                for registro in sublistado:
+                    registro = [x if x != None else '' for x in registro]
+                    var.ui.tablaProp.setSpan(0,0,1,1)
+                    var.ui.tablaProp.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0]))) #codigo
+                    var.ui.tablaProp.setItem(index, 1, QtWidgets.QTableWidgetItem(registro[5])) #municipio
+                    var.ui.tablaProp.setItem(index, 2, QtWidgets.QTableWidgetItem(registro[6])) #tipo_provincia
+                    var.ui.tablaProp.setItem(index, 3, QtWidgets.QTableWidgetItem(str(registro[7]))) #num_habitaciones
+                    var.ui.tablaProp.setItem(index, 4, QtWidgets.QTableWidgetItem(str(registro[8]))) #num_baños
+
+                    if var.claseConexion == conexion.Conexion:
+                        precio_alquiler = f"{registro[10]:,.1f} €" if registro[10] != ""  else " - €"
+                        var.ui.tablaProp.setItem(index, 5, QtWidgets.QTableWidgetItem(precio_alquiler)) #precio_alqui
+
+                        precio_venta = f"{registro[11]:,.1f} €" if registro[11] != ""  else " - €"
+                        var.ui.tablaProp.setItem(index, 6, QtWidgets.QTableWidgetItem(precio_venta)) #precio_venta
+
+                        tipo_operacion = registro[14].replace('[', '').replace(']', '').replace("'","")
+                        var.ui.tablaProp.setItem(index, 7, QtWidgets.QTableWidgetItem(tipo_operacion)) #tipo_operacion
+
+                    elif var.claseConexion == conexionserver.ConexionServer:
+                        var.ui.tablaProp.setItem(index, 5, QtWidgets.QTableWidgetItem(str(registro[10]) + " €"))
+                        var.ui.tablaProp.setItem(index, 6, QtWidgets.QTableWidgetItem(str(registro[11]) + " €"))
+                        var.ui.tablaProp.setItem(index, 7, QtWidgets.QTableWidgetItem(str(registro[14].replace('[', '').replace(']', '').replace("'",""))))
+
+                    var.ui.tablaProp.setItem(index, 8, QtWidgets.QTableWidgetItem(str(registro[2]))) #fecha de baja
+
+                    var.ui.tablaProp.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                    var.ui.tablaProp.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                    var.ui.tablaProp.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                    var.ui.tablaProp.item(index, 3).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                    var.ui.tablaProp.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                    var.ui.tablaProp.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                    var.ui.tablaProp.item(index, 6).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                    var.ui.tablaProp.item(index, 7).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignLeft.AlignVCenter)
+                    var.ui.tablaProp.item(index, 8).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                    index += 1
+
 
         except Exception as e:
             print("Error al cargar propiedades en la tabla cargarTablaPropiedades", e)
@@ -264,6 +290,7 @@ class Propiedades():
 
         elif not var.ui.rbtDisponprop.isChecked() and var.claseConexion.bajaProp(propiedad) and Propiedades.esFechasValidas(propiedad):
             eventos.Eventos.crearMensajeInfo("Aviso", "Se ha dado de baja la propiedad.")
+            var.paginaActualProp = 0
             Propiedades.cargarTablaPropiedades()
 
         elif var.ui.rbtDisponprop.isChecked():
@@ -279,9 +306,18 @@ class Propiedades():
     @staticmethod
     def historicoProp():
         try:
+            var.paginaActualProp = 0
             Propiedades.cargarTablaPropiedades()
         except Exception as e:
             print("checkbox historico no funciona correcatamente", e)
+
+    @staticmethod
+    def buscaProp():
+        try:
+            var.paginaActualProp = 0
+            Propiedades.cargarTablaPropiedades()
+        except Exception as e:
+            print("búsqueda filtrada no funciona correcatamente", e)
 
     @staticmethod
     def hasCamposObligatoriosAlta(datosPropiedades):

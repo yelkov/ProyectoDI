@@ -118,6 +118,8 @@ class Clientes:
             listado = var.claseConexion.listadoClientes()
             var.lenClientes = len(listado)
 
+            var.ui.spinClipPag.setValue(var.maxClientesPagina)
+
             inicioListado = var.paginaActualCli * var.maxClientesPagina
             sublistado = listado[inicioListado: inicioListado + var.maxClientesPagina]
 
@@ -132,6 +134,8 @@ class Clientes:
                 var.ui.btnSiguiente.setDisabled(False)
 
             numPaginas = (var.lenClientes // var.maxClientesPagina) + 1
+            if len(listado) % var.maxClientesPagina == 0:
+                numPaginas -= 1
             var.ui.lblPaginas.setText("Página "+str(var.paginaActualCli + 1)+"/"+str(numPaginas))
 
             var.ui.tablaClientes.setRowCount(len(sublistado))
@@ -226,6 +230,7 @@ class Clientes:
             dni = var.ui.txtDnicli.text()
             if var.claseConexion.bajaCliente(dni):
                 eventos.Eventos.crearMensajeInfo("Aviso","El cliente fue dado de baja a fecha de: " + datetime.now().strftime("%d/%m/%Y"))
+                var.paginaActualCli = 0
                 Clientes.cargaTablaClientes()
             else:
                 eventos.Eventos.crearMensajeError("Error","El cliente no existe o ya ha sido dado de baja.")

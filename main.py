@@ -67,6 +67,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.tablaProp.setAlternatingRowColors(True)
 
         var.paginaActualCli = 0
+        var.paginaActualProp = 0
         clientes.Clientes.cargaTablaClientes()
         eventos.Eventos.resizeTablaClientes()
         var.ui.tablaClientes.clicked.connect(clientes.Clientes.cargaOneCliente)
@@ -98,9 +99,11 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnGrabarprop.clicked.connect(propiedades.Propiedades.altaPropiedad)
         var.ui.btnModifprop.clicked.connect(propiedades.Propiedades.modifProp)
         var.ui.btnDelprop.clicked.connect(propiedades.Propiedades.bajaProp)
-        var.ui.btnBuscaTipoProp.clicked.connect(propiedades.Propiedades.cargarTablaPropiedades)
+        var.ui.btnBuscaTipoProp.clicked.connect(propiedades.Propiedades.buscaProp)
         var.ui.btnSiguiente.clicked.connect(eventos.Eventos.siguienteCli)
         var.ui.btnAnterior.clicked.connect(eventos.Eventos.anteriorCli)
+        var.ui.btnSiguienteProp.clicked.connect(eventos.Eventos.siguienteProp)
+        var.ui.btnAnteriorProp.clicked.connect(eventos.Eventos.anteriorProp)
 
 
         '''
@@ -157,6 +160,12 @@ class Main(QtWidgets.QMainWindow):
         '''
         var.ui.chkHistoriacli.stateChanged.connect(clientes.Clientes.historicoCli)
         var.ui.chkHistoriaprop.stateChanged.connect(propiedades.Propiedades.historicoProp)
+        '''
+        zona eventos spinbox
+        '''
+        var.ui.spinClipPag.valueChanged.connect(eventos.Eventos.cambiarCliMaxpPagina)
+        var.ui.spinProppPag.valueChanged.connect(eventos.Eventos.cambiarPropMaxpPagina)
+
 
 
 

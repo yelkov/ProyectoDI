@@ -16,6 +16,10 @@ global muniprop
 global dlgabout
 global claseConexion
 global lenClientes
+global lenPropiedades
 global paginaActualCli
+global paginaActualProp
 global maxClientesPagina
+global maxPropPagina
 maxClientesPagina = 10
+maxPropPagina = 7
