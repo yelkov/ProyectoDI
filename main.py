@@ -33,6 +33,10 @@ class Main(QtWidgets.QMainWindow):
         var.dlggestion = dlg_Tipo_prop()
         var.dlgabout = Dlg_About()
 
+        var.ui.cmbMuniprop.setEditable(True)
+        var.ui.cmbProvprop.setEditable(True)
+        var.ui.cmbMunicli.setEditable(True)
+        var.ui.cmbProvcli.setEditable(True)
 
         self.setStyleSheet(styles.load_stylesheet())
         eventos.Eventos.cargarProv()
@@ -121,11 +125,6 @@ class Main(QtWidgets.QMainWindow):
         '''
         var.ui.cmbProvcli.currentIndexChanged.connect(eventos.Eventos.cargaMunicli)
         var.ui.cmbProvprop.currentIndexChanged.connect(eventos.Eventos.cargaMuniprop)
-
-        var.ui.cmbMuniprop.setEditable(True)
-        var.ui.cmbProvprop.setEditable(True)
-        var.ui.cmbMunicli.setEditable(True)
-        var.ui.cmbProvcli.setEditable(True)
 
         completer = QtWidgets.QCompleter(var.provincias, var.ui.cmbProvprop)
         completer.setCaseSensitivity(QtCore.Qt.CaseSensitivity.CaseInsensitive)

@@ -125,7 +125,9 @@ class Propiedades():
                 var.ui.tablaProp.setItem(0, 0, QtWidgets.QTableWidgetItem("No hay propiedades con los filtros seleccionados"))
                 var.ui.tablaProp.setSpan(0,0,4,9)
                 var.ui.tablaProp.item(0,0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                var.ui.lblPaginasProp.setText("Página 0/0")
             else:
+                var.ui.tablaProp.clearSpans()
 
                 inicioListado = var.paginaActualProp * var.maxPropPagina
                 sublistado = listado[inicioListado: inicioListado + var.maxPropPagina]
@@ -149,7 +151,6 @@ class Propiedades():
                 index = 0
                 for registro in sublistado:
                     registro = [x if x != None else '' for x in registro]
-                    var.ui.tablaProp.setSpan(0,0,1,1)
                     var.ui.tablaProp.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0]))) #codigo
                     var.ui.tablaProp.setItem(index, 1, QtWidgets.QTableWidgetItem(registro[5])) #municipio
                     var.ui.tablaProp.setItem(index, 2, QtWidgets.QTableWidgetItem(registro[6])) #tipo_provincia
