@@ -405,6 +405,8 @@ class Eventos():
     def cambiarCliMaxpPagina():
         var.paginaActualCli = 0
         var.maxClientesPagina = int(var.ui.spinClipPag.text())
+        if var.maxClientesPagina > 15:
+            var.maxClientesPagina = 15
         clientes.Clientes.cargaTablaClientes()
 
     @staticmethod
@@ -412,4 +414,6 @@ class Eventos():
         import propiedades
         var.paginaActualProp = 0
         var.maxPropPagina = int(var.ui.spinProppPag.text())
+        if var.maxPropPagina > 10:
+            var.maxPropPagina = 10
         propiedades.Propiedades.cargarTablaPropiedades()
