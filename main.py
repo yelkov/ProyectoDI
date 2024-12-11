@@ -37,6 +37,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.cmbProvprop.setEditable(True)
         var.ui.cmbMunicli.setEditable(True)
         var.ui.cmbProvcli.setEditable(True)
+        var.ui.cmbDeleVen.setEditable(True)
 
         self.setStyleSheet(styles.load_stylesheet())
         eventos.Eventos.cargarProv()
@@ -95,8 +96,10 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnGrabarcli.clicked.connect(clientes.Clientes.altaCliente)
         var.ui.btnAltacli.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0,0))
         var.ui.btnAltaprop.clicked.connect(lambda: eventos.Eventos.abrirCalendar(1,0))
+        var.ui.btnAltaVen.clicked.connect(lambda: eventos.Eventos.abrirCalendar(2,0))
         var.ui.btnBajacli.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0,1))
         var.ui.btnBajaprop.clicked.connect(lambda: eventos.Eventos.abrirCalendar(1,1))
+        var.ui.btnBajaVen.clicked.connect(lambda: eventos.Eventos.abrirCalendar(2,1))
         var.ui.btnModifcli.clicked.connect(clientes.Clientes.modifCliente)
         var.ui.btnDelcli.clicked.connect(clientes.Clientes.bajaCliente)
         var.ui.btnBuscarDni.clicked.connect(clientes.Clientes.buscaOneCliente)
@@ -136,10 +139,16 @@ class Main(QtWidgets.QMainWindow):
         completer.setFilterMode(QtCore.Qt.MatchFlag.MatchContains)
         var.ui.cmbProvcli.setCompleter(completer)
 
+        completer = QtWidgets.QCompleter(var.provincias, var.ui.cmbDeleVen)
+        completer.setCaseSensitivity(QtCore.Qt.CaseSensitivity.CaseInsensitive)
+        completer.setFilterMode(QtCore.Qt.MatchFlag.MatchContains)
+        var.ui.cmbDeleVen.setCompleter(completer)
+
         var.ui.cmbProvprop.lineEdit().editingFinished.connect(eventos.Eventos.checkProvinciaProp)
         var.ui.cmbMuniprop.lineEdit().editingFinished.connect(eventos.Eventos.checkMunicipioProp)
         var.ui.cmbProvcli.lineEdit().editingFinished.connect(eventos.Eventos.checkProvinciaCli)
         var.ui.cmbMunicli.lineEdit().editingFinished.connect(eventos.Eventos.checkMunicipioCli)
+        var.ui.cmbDeleVen.lineEdit().editingFinished.connect(eventos.Eventos.checkProvinciaVen)
 
 
 

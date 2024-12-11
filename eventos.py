@@ -82,6 +82,7 @@ class Eventos():
 
         var.ui.cmbProvcli.addItems(listado)
         var.ui.cmbProvprop.addItems(listado)
+        var.ui.cmbDeleVen.addItems(listado)
 
     @staticmethod
     def cargaMunicli():
@@ -130,6 +131,11 @@ class Eventos():
     def checkProvinciaProp():
         if var.ui.cmbProvprop.currentText() not in var.provincias:
             var.ui.cmbProvprop.setCurrentIndex(0)
+
+    @staticmethod
+    def checkProvinciaVen():
+        if var.ui.cmbDeleVen.currentText() not in var.provincias:
+            var.ui.cmbDeleVen.setCurrentIndex(0)
 
     @staticmethod
     def isDniValido(dni):
@@ -186,10 +192,14 @@ class Eventos():
                 var.ui.txtAltacli.setText(str(data))
             elif var.panel == 1 and var.btn == 0:
                 var.ui.txtAltaprop.setText(str(data))
+            elif var.panel == 2 and var.btn == 0:
+                var.ui.txtAltaVen.setText(str(data))
             elif var.panel == 0 and var.btn == 1:
                 var.ui.txtBajacli.setText(str(data))
             elif var.panel == 1 and var.btn == 1:
                 var.ui.txtBajaprop.setText(str(data))
+            elif var.panel == 2 and var.btn == 1:
+                var.ui.txtBajaVen.setText(str(data))
             time.sleep(0.5)
             var.uicalendar.hide()
             return data
