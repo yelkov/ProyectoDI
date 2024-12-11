@@ -7,6 +7,7 @@ import conexionserver
 import eventos
 import propiedades
 import styles
+import vendedores
 from venAux import *
 from venPrincipal import *
 import sys
@@ -123,6 +124,9 @@ class Main(QtWidgets.QMainWindow):
         var.ui.txtBajaprop.textChanged.connect(propiedades.Propiedades.cambiarAvailableRbt)
         var.ui.txtPrecioVentaprop.textChanged.connect(propiedades.Propiedades.activarCheckPrecios)
         var.ui.txtPrecioAlquilerprop.textChanged.connect(propiedades.Propiedades.activarCheckPrecios)
+        var.ui.txtDniVen.editingFinished.connect(lambda: vendedores.Vendedores.checkDniVen(var.ui.txtDniVen.text()))
+        var.ui.txtMovilVen.editingFinished.connect(lambda : vendedores.Vendedores.checkMovilVen(var.ui.txtMovilVen.text()))
+        var.ui.txtEmailVen.editingFinished.connect(lambda : vendedores.Vendedores.checkEmailVen(var.ui.txtEmailVen.text()))
         '''
         zona eventos comboBox
         '''
