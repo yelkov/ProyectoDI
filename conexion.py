@@ -416,3 +416,140 @@ class Conexion:
 
         except Exception as e:
             print("Error al listar propiedades en cargarAllpropiedades", e)
+
+    '''
+    GESTION DE VENDEDORES
+    '''
+
+    @staticmethod
+    def altaVendedor(nuevoVendedor):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("INSERT into vendedores (dniVendedor,nombreVendedor,altaVendedor,movilVendedor,mailVendedor,delegacionVendedor) values (:dniVendedor, :nombreVendedor, :altaVendedor, :movilVendedor, :mailVendedor, :delegacionVendedor)")
+            query.bindValue(":dniVendedor", str(nuevoVendedor[0]))
+            query.bindValue(":nombreVendedor", str(nuevoVendedor[1]))
+            query.bindValue(":altaVendedor", str(nuevoVendedor[2]))
+            query.bindValue(":movilVendedor", str(nuevoVendedor[3]))
+            query.bindValue(":mailVendedor", str(nuevoVendedor[4]))
+            query.bindValue(":delegacionVendedor", str(nuevoVendedor[5]))
+
+            if query.exec():
+                return True
+            else:
+                return False
+
+        except Exception as e:
+            print("Error alta vendedor en conexion", e)
+
+    @staticmethod
+    def datosOneVendedor(valor, tipo_busqueda = "idVendedor"):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM vendedores WHERE "+tipo_busqueda+" = :valor")
+            query.bindValue(":valor", str(valor))
+            if query.exec():
+                while query.next():
+                    for i in range(query.record().count()):
+                        registro.append(str(query.value(i)))
+            return registro
+        except Exception as e:
+            print("Error al cargar UN cliente en la tabla.", e)
+
+    @staticmethod
+    def listadoVendedores():
+        try:
+            listado = []
+            historico = var.ui.chkHistoriaVen.isChecked()
+            if historico:
+                query = QtSql.QSqlQuery()
+                query.prepare("SELECT * FROM vendedores ORDER BY idVendedor ASC")
+                if query.exec():
+                    while query.next():
+                        fila = [query.value(i) for i in range(query.record().count())]
+                        listado.append(fila)
+
+            else:
+                query = QtSql.QSqlQuery()
+                query.prepare("SELECT * FROM vendedores WHERE bajaVendedor is null ORDER BY idVendedor ASC")
+                if query.exec():
+                    while query.next():
+                        fila = [query.value(i) for i in range(query.record().count())]
+                        listado.append(fila)
+            return listado
+        except Exception as e:
+            print("Error al listar vendedores")
+
+    @staticmethod
+    def bajaVendedor(dni):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT COUNT(*) from vendedores where dniVendedor = :dni")
+            query.bindValue(":dni", str(dni))
+            if query.exec() and query.next():
+                count = query.value(0)
+                if count == 1:
+                    query.prepare("UPDATE vendedores SET bajaVendedor = :bajaVendedor WHERE dniVendedor = :dni")
+                    query.bindValue(":bajaVendedor", datetime.now().strftime("%d/%m/%Y"))
+                    query.bindValue(":dni", str(dni))
+                    if query.exec():
+                        return True
+                    else:
+                        return False
+                else:
+                    return False
+            else:
+                return False
+        except Exception as e:
+            print("Error en la conexión al dar de baja vendedor", e)
+
+    @staticmethod
+    def modifVendedor(registro):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("select count(*) from vendedores where idVendedor = :id")
+            query.bindValue(":id", str(registro[0]))
+            if query.exec() and query.next():
+                count = query.value(0)
+                if count == 1: #verificamos que solo nos devuelve un resultado, la fila para el dni que buscamos
+
+                    query.prepare("UPDATE vendedores set nombreVendedor= :nombreVendedor, altaVendedor = :altaVendedor, bajaVendedor= :bajaVendedor, movilVendedor = :movilVendedor, mailVendedor = :mailVendedor, delegacionVendedor = :delegacionVendedor WHERE idVendedor = :id")
+                    query.bindValue(":id", str(registro[0]))
+                    query.bindValue(":nombreVendedor", str(registro[1]))
+                    query.bindValue(":altaVendedor", str(registro[2]))
+                    query.bindValue(":movilVendedor", str(registro[3]))
+                    query.bindValue(":mailVendedor", str(registro[4]))
+                    query.bindValue(":delegacionVendedor", str(registro[5]))
+                    if registro[6] == "":
+                        query.bindValue(":bajaVendedor",QtCore.QVariant()) #QVariant añade un null a la BD
+                    else:
+                        query.bindValue(":bajaVendedor", str(registro[6]))
+
+                    if query.exec():
+                        return True
+                else:
+                    return False
+            else:
+                return False
+        except Exception as e:
+            print("Error al modificar un vendedor en conexion.", e)
+
+    @staticmethod
+    def cargarAllVendedoresBD():
+        try:
+            listado = []
+
+            base_query = "SELECT * FROM vendedores ORDER BY idVendedor ASC"
+
+            query = QtSql.QSqlQuery()
+            query.prepare(base_query)
+
+            if query.exec():
+                while query.next():
+                    fila = [query.value(i) for i in range(query.record().count())]
+                    listado.append(fila)
+
+            return listado
+
+        except Exception as e:
+            print("Error al listar vendedores en cargarAllpropiedades", e)

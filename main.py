@@ -81,6 +81,10 @@ class Main(QtWidgets.QMainWindow):
         propiedades.Propiedades.cargarTablaPropiedades()
         eventos.Eventos.resizeTablaPropiedades()
         var.ui.tablaProp.clicked.connect(propiedades.Propiedades.cargaOnePropiedad)
+
+        vendedores.Vendedores.cargaTablaVendedores()
+        eventos.Eventos.resizeTablaVendedores()
+        var.ui.tablaVendedores.clicked.connect(vendedores.Vendedores.cargaOneVendedor)
         '''
         zona de eventos del menubar
         '''
@@ -90,6 +94,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionTipo_propiedades.triggered.connect(eventos.Eventos.abrirTipoprop)
         var.ui.actionExportar_Propiedades_CSV.triggered.connect(eventos.Eventos.exportCSVprop)
         var.ui.actionExportar_Propiedades_JSON.triggered.connect(eventos.Eventos.exportJSONprop)
+        var.ui.actionExportar_Vendedores_JSON.triggered.connect(eventos.Eventos.exportJSONven)
         var.ui.actionAbout.triggered.connect(eventos.Eventos.abrir_about)
         '''
         zona de eventos de botones
@@ -112,6 +117,10 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnAnterior.clicked.connect(eventos.Eventos.anteriorCli)
         var.ui.btnSiguienteProp.clicked.connect(eventos.Eventos.siguienteProp)
         var.ui.btnAnteriorProp.clicked.connect(eventos.Eventos.anteriorProp)
+        var.ui.btnGrabarVen.clicked.connect(vendedores.Vendedores.altaVendedor)
+        var.ui.btnDelVen.clicked.connect(vendedores.Vendedores.bajaVendedor)
+        var.ui.btnModifVen.clicked.connect(vendedores.Vendedores.modifVendedor)
+        var.ui.btnBuscaMovil.clicked.connect(vendedores.Vendedores.buscaOneVendedor)
 
 
         '''
@@ -172,6 +181,7 @@ class Main(QtWidgets.QMainWindow):
         '''
         var.ui.chkHistoriacli.stateChanged.connect(clientes.Clientes.historicoCli)
         var.ui.chkHistoriaprop.stateChanged.connect(propiedades.Propiedades.historicoProp)
+        var.ui.chkHistoriaVen.stateChanged.connect(vendedores.Vendedores.historicoVendedores)
         '''
         zona eventos spinbox
         '''

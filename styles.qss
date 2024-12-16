@@ -75,6 +75,10 @@ QRadioButton:disabled{
     background-color: none;
 }
 
+#btnBuscaMovil{
+    background-color: none;
+}
+
 /*----    Estilo para botones al pasar el ratón      -----*/
 QPushButton:hover{
     background-color: #F6AC51;
