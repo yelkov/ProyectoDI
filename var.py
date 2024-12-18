@@ -15,6 +15,9 @@ global municli
 global muniprop
 global dlgabout
 global claseConexion
+
+global report
+
 global lenClientes
 global lenPropiedades
 global paginaActualCli

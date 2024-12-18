@@ -5105,9 +5105,17 @@
     </property>
     <addaction name="actionTipo_propiedades"/>
    </widget>
+   <widget class="QMenu" name="menuInformes">
+    <property name="title">
+     <string>Informes</string>
+    </property>
+    <addaction name="actionListado_clientes"/>
+    <addaction name="actionListado_propiedades"/>
+   </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuGesti_n"/>
    <addaction name="menuHerramientas"/>
+   <addaction name="menuInformes"/>
    <addaction name="menuAyuda"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -5229,6 +5237,16 @@
   <action name="actionExportar_Vendedores_JSON">
    <property name="text">
     <string>Exportar Vendedores JSON</string>
+   </property>
+  </action>
+  <action name="actionListado_clientes">
+   <property name="text">
+    <string>Listado clientes</string>
+   </property>
+  </action>
+  <action name="actionListado_propiedades">
+   <property name="text">
+    <string>Listado propiedades</string>
    </property>
   </action>
  </widget>

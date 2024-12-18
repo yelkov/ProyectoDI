@@ -5,6 +5,7 @@ import clientes
 import conexion
 import conexionserver
 import eventos
+import informes
 import propiedades
 import styles
 import vendedores
@@ -96,6 +97,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionExportar_Propiedades_JSON.triggered.connect(eventos.Eventos.exportJSONprop)
         var.ui.actionExportar_Vendedores_JSON.triggered.connect(eventos.Eventos.exportJSONven)
         var.ui.actionAbout.triggered.connect(eventos.Eventos.abrir_about)
+        var.ui.actionListado_clientes.triggered.connect(informes.Informes.reportClientes)
         '''
         zona de eventos de botones
         '''
