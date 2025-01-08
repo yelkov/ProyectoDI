@@ -3,12 +3,18 @@ from datetime import datetime
 from PIL import Image
 from reportlab.pdfgen import canvas
 import os, shutil
+from PyQt6 import QtSql, QtWidgets, QtCore
+import sqlite3
 
 import var
 
 class Informes:
     @staticmethod
     def reportClientes():
+        ymax = 680
+        ymmin = 90
+        ystep = 20
+        xmin = 60
         try:
             rootPath = '.\\informes'
             if not os.path.exists(rootPath):
@@ -24,11 +30,54 @@ class Informes:
             var.report.setFont('Helvetica-Bold',size=10)
             var.report.drawString(55,700,str(items[0]))
             var.report.drawString(100,700,str(items[1]))
-            var.report.drawString(190, 700, str(items[2]))
+            var.report.drawString(200, 700, str(items[2]))
             var.report.drawString(285, 700, str(items[3]))
             var.report.drawString(360, 700, str(items[4]))
             var.report.drawString(450, 700, str(items[5]))
             var.report.line(50, 695, 525, 695)
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT count(*) FROM clientes")
+            if query.exec() and query.next():
+                registros = query.value(0)
+                paginas = int(registros/20) +1
+
+
+            query.prepare("SELECT dnicli, apelcli, nomecli, movilcli, provcli, municli from clientes order by apelcli")
+            if query.exec():
+                x = xmin
+                y = ymax
+                while query.next():
+                    if y <= ymmin:
+                        var.report.setFont('Helvetica-Oblique',size=8)
+                        var.report.drawString(450,80,"Página siguiente...")
+                        var.report.showPage() #crea una pagina nueva
+                        Informes.footInforme(titulo)
+                        Informes.topInforme(titulo)
+                        items = ['DNI', 'APELLIDOS', 'NOMBRE', 'MOVIL', 'PROVINCIA', 'MUNICIPIO']
+                        var.report.setFont('Helvetica-Bold', size=10)
+                        var.report.drawString(55, 700, str(items[0]))
+                        var.report.drawString(100, 700, str(items[1]))
+                        var.report.drawString(200, 700, str(items[2]))
+                        var.report.drawString(285, 700, str(items[3]))
+                        var.report.drawString(360, 700, str(items[4]))
+                        var.report.drawString(450, 700, str(items[5]))
+                        var.report.line(50, 695, 525, 695)
+                        x = xmin
+                        y = ymax
+
+
+                    var.report.setFont('Helvetica',size=9)
+                    dni = '***' + str(query.value(0)[3:6])  + '***'
+                    var.report.drawCentredString(x + 5, y, str(dni))
+                    var.report.drawString(x + 40, y, str(query.value(1)))
+                    var.report.drawString(x + 140, y, str(query.value(2)))
+                    var.report.drawString(x + 215, y, str(query.value(3)))
+                    var.report.drawString(x + 300, y, str(query.value(4)))
+                    var.report.drawString(x + 380, y, str(query.value(5)))
+                    y -= ystep
+            else:
+                print(query.lastError().text())
+
 
             var.report.save()
 
@@ -55,7 +104,7 @@ class Informes:
                 var.report.line(50, 800, 525, 800)
                 var.report.setFont('Helvetica-Bold', size=14)
                 var.report.drawString(55, 785, 'InmoTeis')
-                var.report.drawString(230, 720, titulo)
+                var.report.drawString(230, 725, titulo)
                 var.report.line(50, 715, 525, 715)
 
 
