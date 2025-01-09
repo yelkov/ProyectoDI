@@ -19,6 +19,15 @@ class Conexion:
 
     @staticmethod
     def db_conexion():
+        """
+
+        :return: conexion con la base de datos.
+        :rtype: bool
+
+        Método para establecer conexión con la base de datos
+        Si éxito devuelve True, en caso contrario devuelve False.
+
+        """
         # Verifica si el archivo de base de datos existe
         if not os.path.isfile('bbdd.sqlite'):
             eventos.Eventos.crearMensajeError("Error",'El archivo de la base de datos no existe.')
@@ -51,6 +60,14 @@ class Conexion:
 
     @staticmethod
     def listaProv():
+        """
+
+        :return: lista de provincias
+        :rtype: list
+
+        Método que devuelve la lista de provincias
+
+        """
         listaprov = []
         query = QtSql.QSqlQuery()
         query.prepare("SELECT * FROM provincias")
@@ -61,6 +78,16 @@ class Conexion:
 
     @staticmethod
     def listaMunicipio(provincia):
+        """
+
+        :param provincia: nombre de la provincia
+        :type provincia: str
+        :return: lista de municipios de una provincia
+        :rtype: list
+
+        Método que devuelve todos los municipios de una provincia
+
+        """
         try:
             listamunicipio = []
             query = QtSql.QSqlQuery()
@@ -75,6 +102,16 @@ class Conexion:
 
     @staticmethod
     def altaCliente(nuevocli):
+        """
+
+        :param nuevocli: lista de datos del cliente
+        :type nuevocli: list
+        :return: éxito en la creación de un cliente
+        :rtype: bool
+
+        Método que inserta datos cliente en la base de datos
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("INSERT into clientes (dnicli, altacli, apelcli, nomecli, emailcli, movilcli, dircli, provcli, municli) values (:dnicli, :altacli, :apelcli, :nomecli, :emailcli, :movilcli, :dircli, :provcli, :municli)")
@@ -98,6 +135,14 @@ class Conexion:
 
     @staticmethod
     def listadoClientes():
+        """
+
+        :return: devuelve la lista de clientes
+        :rtype: list
+
+        Método que devuelve el listado total de clientes de la base de datos
+
+        """
         try:
             listado = []
             historico = var.ui.chkHistoriacli.isChecked()
@@ -123,6 +168,16 @@ class Conexion:
 
     @staticmethod
     def datosOneCliente(dni):
+        """
+
+        :param dni: dni de un cliente
+        :type dni: str
+        :return: datos de un cliente
+        :rtype: list
+
+        Método que devuelve los datos de un cliente al introducir su dni
+
+        """
         try:
             registro = []
             query = QtSql.QSqlQuery()
@@ -136,24 +191,19 @@ class Conexion:
         except Exception as e:
             print("Error al cargar UN cliente en la tabla.", e)
 
-    @staticmethod
-    def datosOnePropiedad(codigo):
-        try:
-            registro = []
-            query = QtSql.QSqlQuery()
-            query.prepare("SELECT * FROM propiedades WHERE codigo = :codigo")
-            query.bindValue(":codigo", str(codigo))
-            if query.exec():
-                while query.next():
-                    for i in range(query.record().count()):
-                        registro.append(str(query.value(i)))
-            return registro
-        except Exception as e:
-            print("Error al cargar UNA propiedad en conexion.", e)
-
 
     @staticmethod
     def modifCliente(registro):
+        """
+
+        :param registro: datos de un cliente
+        :type registro: list
+        :return: éxito en la modificación de detos de un cliente
+        :rtype: bool
+
+        Método que modifica los datos de un cliente en la base de datos
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("select count(*) from clientes where dnicli = :dni")
@@ -189,6 +239,16 @@ class Conexion:
 
     @staticmethod
     def bajaCliente(dni):
+        """
+
+        :param dni: dni de un cliente
+        :type dni: str
+        :return: éxito al dar de baja a un cliente
+        :rtype: bool
+
+        Método que añade fecha de baja a un cliente
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("SELECT COUNT(*) from clientes where dnicli = :dni")
@@ -215,6 +275,14 @@ class Conexion:
     '''
     @staticmethod
     def cargarTipoprop():
+        """
+
+        :return: todos los tipos de propiedad
+        :rtype: list
+
+        Método que devuelve todos los tipos de propiedad almacenados en la bd
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("SELECT tipo from tipopropiedad ")
@@ -228,6 +296,16 @@ class Conexion:
 
     @staticmethod
     def altaTipoprop(tipo):
+        """
+
+        :param tipo: nuevo tipo de propiedad
+        :type tipo: str
+        :return: tipos de propiedad
+        :rtype: list
+
+        Método que introduce un nuevo tipo de propiedad y devuelve la lista de tipos de propiedad
+
+        """
         try:
             registro = []
             query = QtSql.QSqlQuery()
@@ -243,6 +321,16 @@ class Conexion:
 
     @staticmethod
     def bajaTipoprop(tipo):
+        """
+
+        :param tipo: tipo de propiedad
+        :type tipo: str
+        :return: éxito o no en la eliminación de un tipo de propiedad
+        :rtype: bool
+
+        Método que elimina un tipo de propiedad
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("DELETE from tipopropiedad where tipo = :tipo ")
@@ -256,6 +344,16 @@ class Conexion:
 
     @staticmethod
     def altaPropiedad(propiedad):
+        """
+
+        :param propiedad: datos de una propiedad
+        :type propiedad: list
+        :return: éxito al introducir propiedad en la base de datos
+        :rtype: bool
+
+        Método que introduce una nueva propiedad en la base de datos
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("INSERT into propiedades (alta,direccion,provincia,municipio,tipo_propiedad,num_habitaciones,num_banos,superficie,precio_alquiler,precio_venta,codigo_postal,descripcion,tipo_operacion,estado,nombre_propietario,movil) values (:alta,:direccion,:provincia,:municipio,:tipo_propiedad,:num_habitaciones,:num_banos,:superficie,:precio_alquiler,:precio_venta,:codigo_postal,:descripcion,:tipo_operacion,:estado,:nombre_propietario,:movil) ")
@@ -287,6 +385,16 @@ class Conexion:
 
     @staticmethod
     def modifProp(propiedad):
+        """
+
+        :param propiedad: datos de propiedad
+        :type propiedad: list
+        :return: éxito en la modificación de los datos de una propiedad
+        :rtype: bool
+
+        Método que modifica los datos de propiedad en la base de datos
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("select count(*) from propiedades where codigo = :codigo")
@@ -332,6 +440,13 @@ class Conexion:
 
     @staticmethod
     def bajaProp(propiedad):
+        """
+
+        :param propiedad: datos de una propiedad
+        :type propiedad: list
+        :return: éxito al dar de baja a una propiedad
+        :rtype: bool
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("select count(*) from propiedades where codigo = :codigo")
@@ -357,6 +472,11 @@ class Conexion:
 
     @staticmethod
     def listadoPropiedades():
+        """
+
+        :return: datos filtrados de todas las propiedades
+        :rtype: list
+        """
         try:
             listado = []
             historico = var.ui.chkHistoriaprop.isChecked()
@@ -398,7 +518,37 @@ class Conexion:
             print("Error al listar propiedades en listadoPropiedades", e)
 
     @staticmethod
+    def datosOnePropiedad(codigo):
+        """
+
+        :param codigo: codigo de propiedad
+        :type codigo: int
+        :return: datos de una propiedad
+        :rtype: list
+        """
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM propiedades WHERE codigo = :codigo")
+            query.bindValue(":codigo", str(codigo))
+            if query.exec():
+                while query.next():
+                    for i in range(query.record().count()):
+                        registro.append(str(query.value(i)))
+            return registro
+        except Exception as e:
+            print("Error al cargar UNA propiedad en conexion.", e)
+
+    @staticmethod
     def cargarAllPropiedadesBD():
+        """
+
+        :return: datos de todas las propiedades
+        :rtype: list
+
+        Método que devuelve los datos de todas las propiedades almacenadasen la BD
+
+        """
         try:
             listado = []
 
@@ -423,6 +573,16 @@ class Conexion:
 
     @staticmethod
     def altaVendedor(nuevoVendedor):
+        """
+
+        :param nuevoVendedor: datos de un vendedor
+        :type nuevoVendedor: list
+        :return: éxito en añadir a un vendedor a la base de datos
+        :rtype: bool
+
+        Método que añade un nuevo vendedor a la base de datos
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("INSERT into vendedores (dniVendedor,nombreVendedor,altaVendedor,movilVendedor,mailVendedor,delegacionVendedor) values (:dniVendedor, :nombreVendedor, :altaVendedor, :movilVendedor, :mailVendedor, :delegacionVendedor)")
@@ -443,6 +603,18 @@ class Conexion:
 
     @staticmethod
     def datosOneVendedor(valor, tipo_busqueda = "idVendedor"):
+        """
+
+        :param valor: valor del tipo de búsqueda que se introduzca introducida
+        :type valor: object
+        :param tipo_busqueda: nombre de la columna de bd por la que se va a realizar la búsqueda
+        :type tipo_busqueda: str
+        :return: datos de un vendedor
+        :rtype: list
+
+        Método que devuelve los datos de un vendedor en función de un parámetro de búsqueda, siendo su id el predeterminado
+
+        """
         try:
             registro = []
             query = QtSql.QSqlQuery()
@@ -458,6 +630,14 @@ class Conexion:
 
     @staticmethod
     def listadoVendedores():
+        """
+
+        :return: datos de vendedores
+        :rtype: list
+
+        Método que devuelve la lista de vendedores
+
+        """
         try:
             listado = []
             historico = var.ui.chkHistoriaVen.isChecked()
@@ -482,6 +662,16 @@ class Conexion:
 
     @staticmethod
     def bajaVendedor(dni):
+        """
+
+        :param dni: dni de un vendedor
+        :type dni: str
+        :return: éxito al dar de baja a un vendedor en la base de datos
+        :rtype: bool
+
+        Método que añade una fecha de baja al vendedor
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("SELECT COUNT(*) from vendedores where dniVendedor = :dni")
@@ -505,6 +695,16 @@ class Conexion:
 
     @staticmethod
     def modifVendedor(registro):
+        """
+
+        :param registro: datos de vendedor
+        :type registro: list
+        :return: éxito al modificar datos de vendedor en la base de datos
+        :rtype: bool
+
+        Método que modifica los datos de un vendedor en la base de datos
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("select count(*) from vendedores where idVendedor = :id")
@@ -536,6 +736,14 @@ class Conexion:
 
     @staticmethod
     def cargarAllVendedoresBD():
+        """
+
+        :return: datos de todos los vendedores
+        :rtype: list
+
+        Método que devuelve todos los datos de los vendedores en la base de datos
+
+        """
         try:
             listado = []
 
