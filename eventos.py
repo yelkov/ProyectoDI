@@ -87,6 +87,7 @@ class Eventos():
         var.ui.cmbProvprop.addItems(listado)
         var.ui.cmbDeleVen.addItems(listado)
 
+
     @staticmethod
     def cargaMunicli():
         var.ui.cmbMunicli.clear()
@@ -412,6 +413,14 @@ class Eventos():
                 eventos.Eventos.crearMensajeError("Error","Se ha producido un error al exportar los datos en formato JSON.")
         except Exception as e:
             print("error en exportar cvs tipo prop: ", e)
+
+    @staticmethod
+    def abrir_informeProp():
+        try:
+            var.dlgInformeProp.show()
+        except Exception as e:
+            print("error en abrir informe propiedades: ", e)
+
 
     @staticmethod
     def abrir_about():

@@ -49,6 +49,7 @@ class Propiedades():
             print("Error baja tipo propiedad" + e)
 
 
+
     @staticmethod
     def altaPropiedad():
         try:
@@ -438,3 +439,14 @@ class Propiedades():
         self.ui.cmbTipopropGestion.clear()
         self.ui.cmbTipopropGestion.addItems(registro)
 
+
+    def cargaMuniInformeProp(self):
+        registro = var.claseConexion.cargarMunicipios()
+        registro.insert(0,"")
+        self.ui.cmbInformeMuniProp.setEditable(True)
+        self.ui.cmbInformeMuniProp.clear()
+        self.ui.cmbInformeMuniProp.addItems(registro)
+        completer = QtWidgets.QCompleter(registro, self.ui.cmbInformeMuniProp)
+        completer.setCaseSensitivity(QtCore.Qt.CaseSensitivity.CaseInsensitive)
+        completer.setFilterMode(QtCore.Qt.MatchFlag.MatchContains)
+        self.ui.cmbInformeMuniProp.setCompleter(completer)

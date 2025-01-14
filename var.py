@@ -15,6 +15,8 @@ global municli
 global muniprop
 global dlgabout
 global claseConexion
+global dlgInformeProp
+
 
 global report
 

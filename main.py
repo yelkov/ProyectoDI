@@ -34,12 +34,14 @@ class Main(QtWidgets.QMainWindow):
         var.dlgAbrir = FileDialogAbrir()
         var.dlggestion = dlg_Tipo_prop()
         var.dlgabout = Dlg_About()
+        var.dlgInformeProp = Dlg_InformeProp()
 
         var.ui.cmbMuniprop.setEditable(True)
         var.ui.cmbProvprop.setEditable(True)
         var.ui.cmbMunicli.setEditable(True)
         var.ui.cmbProvcli.setEditable(True)
         var.ui.cmbDeleVen.setEditable(True)
+
 
         self.setStyleSheet(styles.load_stylesheet())
         eventos.Eventos.cargarProv()
@@ -98,6 +100,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.actionExportar_Vendedores_JSON.triggered.connect(eventos.Eventos.exportJSONven)
         var.ui.actionAbout.triggered.connect(eventos.Eventos.abrir_about)
         var.ui.actionListado_clientes.triggered.connect(informes.Informes.reportClientes)
+        var.ui.actionListado_propiedades.triggered.connect(eventos.Eventos.abrir_informeProp)
         '''
         zona de eventos de botones
         '''
