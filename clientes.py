@@ -177,6 +177,7 @@ class Clientes:
                     listado[i].setText(registro[i])
                     if i == 0:
                         var.ui.lblTickcli.clear()
+            var.ui.txtdniclifac.setText(registro[0])
             #Clientes.cargarCliente(registro)
 
         except Exception as e:

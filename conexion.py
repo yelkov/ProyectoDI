@@ -776,3 +776,26 @@ class Conexion:
 
         except Exception as e:
             print("Error al listar vendedores en cargarAllpropiedades", e)
+
+
+    '''
+    GESTION DE FACTURAS
+    '''
+
+    @staticmethod
+    def altaFactura(registro):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("INSERT INTO FACTURAS (fechafac, dnicli) values (:fechafac,:dnicli)")
+            query.bindValue(":fechafac", str(registro[0]))
+            query.bindValue(":dnicli", str(registro[1]))
+
+            if query.exec():
+                return True
+            else:
+                return False
+
+        except Exception as e:
+            print("Error al dar de alta factura en conexion.", e)
+
+

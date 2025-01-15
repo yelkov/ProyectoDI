@@ -138,15 +138,15 @@ class Informes:
                         var.report.showPage() #crea una pagina nueva
                         Informes.footInforme(titulo)
                         Informes.topInforme(titulo, municipio)
-                        items = ['CODIGO','DIRECCION','TIPO PROP','OPERACION','PRECIO ALQUILER','PRECIO COMPRA']
-                        var.report.setFont('Helvetica-Bold', size=10)
-                        var.report.drawString(55, 700, str(items[0]))
-                        var.report.drawString(100, 700, str(items[1]))
-                        var.report.drawString(200, 700, str(items[2]))
-                        var.report.drawString(285, 700, str(items[3]))
-                        var.report.drawString(360, 700, str(items[4]))
-                        var.report.drawString(450, 700, str(items[5]))
-                        var.report.line(40, 695, 540, 695)
+                        items = ['COD','DIRECCION','TIPO PROP.','OPERACION','PRECIO ALQ.','PRECIO VENTA']
+                        var.report.setFont('Helvetica-Bold',size=10)
+                        var.report.drawString(55,680,str(items[0]))
+                        var.report.drawString(100,680,str(items[1]))
+                        var.report.drawString(210, 680, str(items[2]))
+                        var.report.drawString(295, 680, str(items[3]))
+                        var.report.drawString(380, 680, str(items[4]))
+                        var.report.drawString(460, 680, str(items[5]))
+                        var.report.line(40, 675, 540, 675)
                         x = xmin
                         y = ymax
 
@@ -199,7 +199,7 @@ class Informes:
                 var.report.setFont('Helvetica-Bold', size=14)
                 var.report.drawString(55, 785, 'InmoTeis')
                 if municipio:
-                    var.report.drawString(230, 725, titulo)
+                    var.report.drawCentredString(300, 725, titulo)
                     var.report.drawCentredString(300, 705, municipio)
                 else:
                     var.report.drawString(230, 715, titulo)

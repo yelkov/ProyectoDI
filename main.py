@@ -1,3 +1,5 @@
+from xmlrpc.client import DateTime
+
 from PyQt6.QtCore import QLocale, QRegularExpression, QDate, Qt
 from PyQt6.QtGui import QIcon, QDoubleValidator, QIntValidator, QRegularExpressionValidator
 
@@ -5,6 +7,7 @@ import clientes
 import conexion
 import conexionserver
 import eventos
+import facturas
 import informes
 import propiedades
 import styles
@@ -51,6 +54,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.rbtAlquilprop.setEnabled(False)
         var.ui.rbtVentaprop.setEnabled(False)
 
+        var.ui.txtFechaFactura.setText(datetime.today().strftime('%d/%m/%Y'))
+
         '''
         validadores
         '''
@@ -88,6 +93,8 @@ class Main(QtWidgets.QMainWindow):
         vendedores.Vendedores.cargaTablaVendedores()
         eventos.Eventos.resizeTablaVendedores()
         var.ui.tablaVendedores.clicked.connect(vendedores.Vendedores.cargaOneVendedor)
+
+        eventos.Eventos.resizeTablaFacturas()
         '''
         zona de eventos del menubar
         '''
@@ -111,6 +118,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnBajacli.clicked.connect(lambda: eventos.Eventos.abrirCalendar(0,1))
         var.ui.btnBajaprop.clicked.connect(lambda: eventos.Eventos.abrirCalendar(1,1))
         var.ui.btnBajaVen.clicked.connect(lambda: eventos.Eventos.abrirCalendar(2,1))
+        var.ui.btnFechaFactura.clicked.connect(lambda: eventos.Eventos.abrirCalendar(3,0))
         var.ui.btnModifcli.clicked.connect(clientes.Clientes.modifCliente)
         var.ui.btnDelcli.clicked.connect(clientes.Clientes.bajaCliente)
         var.ui.btnBuscarDni.clicked.connect(clientes.Clientes.buscaOneCliente)
@@ -126,6 +134,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnDelVen.clicked.connect(vendedores.Vendedores.bajaVendedor)
         var.ui.btnModifVen.clicked.connect(vendedores.Vendedores.modifVendedor)
         var.ui.btnBuscaMovil.clicked.connect(vendedores.Vendedores.buscaOneVendedor)
+        var.ui.btnGrabarFactura.clicked.connect(facturas.Facturas.altaFactura)
 
 
         '''
