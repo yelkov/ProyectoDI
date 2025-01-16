@@ -94,6 +94,7 @@ class Main(QtWidgets.QMainWindow):
         eventos.Eventos.resizeTablaVendedores()
         var.ui.tablaVendedores.clicked.connect(vendedores.Vendedores.cargaOneVendedor)
 
+        facturas.Facturas.cargaTablaFacturas()
         eventos.Eventos.resizeTablaFacturas()
         '''
         zona de eventos del menubar

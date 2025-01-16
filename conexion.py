@@ -133,6 +133,7 @@ class Conexion:
         except Exception as e:
             print("Error alta cliente", e)
 
+
     @staticmethod
     def listadoClientes():
         """
@@ -797,5 +798,19 @@ class Conexion:
 
         except Exception as e:
             print("Error al dar de alta factura en conexion.", e)
+
+    @staticmethod
+    def listadoFacturas():
+        try:
+            listado = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT id, dnicli, fechafac FROM facturas")
+            if query.exec():
+                while query.next():
+                    fila = [query.value(i) for i in range(query.record().count())]
+                    listado.append(fila)
+            return listado
+        except Exception as e:
+            print("Error listando facturas en listadoFacturas - conexión",e)
 
 
