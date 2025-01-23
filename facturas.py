@@ -154,7 +154,7 @@ class Facturas:
 
                 index += 1
 
-            iva = subtotal * 0.21
+            iva = subtotal * 0.1
             total = subtotal + iva
             subTotalStr = f"{subtotal:,.1f} €"
             ivaStr = f"{iva:,.1f} €"

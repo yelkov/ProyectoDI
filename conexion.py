@@ -462,6 +462,9 @@ class Conexion:
         :type propiedad: list
         :return: éxito al dar de baja a una propiedad
         :rtype: bool
+
+        Método que añade una fecha de baja a una propiedad y modifica su estado
+
         """
         try:
             query = QtSql.QSqlQuery()
@@ -492,6 +495,9 @@ class Conexion:
 
         :return: datos filtrados de todas las propiedades
         :rtype: list
+
+        Método que devuelve los datos de todas las propiedades que cumplan con los filtros seleccionados
+
         """
         try:
             listado = []
@@ -541,6 +547,9 @@ class Conexion:
         :type codigo: int
         :return: datos de una propiedad
         :rtype: list
+
+        Método que devuelve los datos de la propiedad seleccionada
+
         """
         try:
             registro = []
@@ -785,6 +794,16 @@ class Conexion:
 
     @staticmethod
     def altaFactura(registro):
+        """
+
+        :param registro: contiene la fecha de creacion de la factura y el dni del cliente
+        :type registro: list
+        :return: éxito al dar de alta una factura en la base de datos
+        :rtype: bool
+
+        Método que da de alta una nueva factura en la base de datos
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("INSERT INTO FACTURAS (fechafac, dnicli) values (:fechafac,:dnicli)")
@@ -801,6 +820,14 @@ class Conexion:
 
     @staticmethod
     def listadoFacturas():
+        """
+
+        :return: datos de las facturas
+        :rtype: list
+
+        Método que devuelve todas las facturas de la base de datos
+
+        """
         try:
             listado = []
             query = QtSql.QSqlQuery()
@@ -816,6 +843,16 @@ class Conexion:
 
     @staticmethod
     def deleteFactura(idFactura):
+        """
+
+        :param idFactura: id de una factura
+        :type idFactura: int
+        :return: éxito en la eliminación de una factura, eliminación de las ventas y actualización de estado disponible para las propiedades
+        :rtype: bool
+
+        Método que modifica el estado de una propiedad, elimina las ventas relacionadas con una factura y la propia factura en cascada, haciendo rollback si algo falla
+
+        """
         try:
             db = QtSql.QSqlDatabase.database()
             if not db.transaction():
@@ -867,6 +904,16 @@ class Conexion:
 
     @staticmethod
     def datosOneFactura(idFactura):
+        """
+
+        :param idFactura: id de la factura
+        :type idFactura: int
+        :return: datos de la factura buscada
+        :rtype: list
+
+        Método que devuelve los datos de la factura seleccionada
+
+        """
         try:
             registro = []
             query = QtSql.QSqlQuery()
@@ -882,6 +929,16 @@ class Conexion:
 
     @staticmethod
     def altaVenta(registro):
+        """
+
+        :param registro: datos de la venta: id de la factura, codigo de propiedad e id del vendedor
+        :type registro: list
+        :return: éxito al dar de alta una venta
+        :rtype: bool
+
+        Método que da de alta una nueva venta en la base de datos
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("INSERT INTO VENTAS (facventa,codprop,agente) values (:facventa,:codprop,:agente)")
@@ -899,6 +956,16 @@ class Conexion:
 
     @staticmethod
     def venderPropiedad(codigoPropiedad):
+        """
+
+        :param codigoPropiedad: id de la propiedad
+        :type codigoPropiedad: int
+        :return: éxito al cambiar el estado de la propiedad a vendida
+        :rtype: bool
+
+        Método que actualiza el estado de una propiedad a vendido y actualiza la fecha de baja
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("UPDATE propiedades SET estado = 'Vendido', baja = :fechaBaja WHERE codigo = :codigo")
@@ -915,6 +982,16 @@ class Conexion:
 
     @staticmethod
     def listadoVentas(idFactura):
+        """
+
+        :param idFactura: id de la factura que contiene las ventas
+        :type idFactura: int
+        :return: datos de todas las ventas relacionadas con la factura
+        :rtype: list
+
+        Método que devuelve todos los datos de las ventas relacionadas con una factura
+
+        """
         try:
             listado = []
             query = QtSql.QSqlQuery()
@@ -930,6 +1007,16 @@ class Conexion:
 
     @staticmethod
     def datosOneVenta(idVenta):
+        """
+
+        :param idVenta: id de la venta seleccioanda
+        :type idVenta: int
+        :return: datos de la venta buscada
+        :rtype: list
+
+        Método que devuelve los datos de una venta seleccionada
+
+        """
         try:
             registro = []
             query = QtSql.QSqlQuery()
