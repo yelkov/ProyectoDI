@@ -1,4 +1,5 @@
 from datetime import datetime
+from xmlrpc.client import DateTime
 
 from PyQt6 import QtWidgets, QtGui, QtCore
 
@@ -177,7 +178,11 @@ class Clientes:
                     listado[i].setText(registro[i])
                     if i == 0:
                         var.ui.lblTickcli.clear()
+            var.ui.lblNumFactura.clear()
+            var.ui.txtFechaFactura.setText(datetime.now().strftime("%d/%m/%Y"))
             var.ui.txtdniclifac.setText(registro[0])
+            var.ui.txtapelclifac.setText(registro[2])
+            var.ui.txtnomeclifac.setText(registro[3])
             #Clientes.cargarCliente(registro)
 
         except Exception as e:

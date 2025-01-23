@@ -223,6 +223,23 @@ class Propiedades():
                 else:
                     listado[i].setText(registro[i])
 
+            var.ui.txtcodpropfac.setText(registro[0])
+            var.ui.txtdirpropfac.setText(registro[3])
+            var.ui.txtmunipropfac.setText(registro[5])
+            var.ui.txttipopropfac.setText(registro[6])
+            precio_venta = registro[11]
+            if precio_venta is not None and precio_venta != "":
+                precio_venta_float = float(precio_venta)
+                precio_venta_formateado = f"{precio_venta_float:,.1f} €"
+                var.ui.txtpreciofac.setText(precio_venta_formateado)
+                var.ui.txtpreciofac.setStyleSheet('border-bottom: 1px solid black; background-color: rgb(255, 255, 255);')
+            else:
+                var.ui.txtpreciofac.setStyleSheet('border: 1px solid #de6767; border-radius: 5px; font-style: italic; background-color: #de6767')
+                var.ui.txtpreciofac.setText(None)
+
+
+
+
         except Exception as e:
             print("Error cargando UNA propiedad en propiedades.", e)
 

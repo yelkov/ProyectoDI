@@ -79,6 +79,17 @@ QRadioButton:disabled{
     background-color: none;
 }
 
+QPushButton#botonEliminar {
+        background-color: transparent;
+        border: none;
+    }
+    QPushButton#botonEliminar:hover {
+        background-color: rgba(255, 0, 0, 0.1);
+    }
+    QPushButton#botonEliminar:pressed {
+        background-color: rgba(255, 0, 0, 0.2);
+    }
+
 /*----    Estilo para botones al pasar el ratón      -----*/
 QPushButton:hover{
     background-color: #F6AC51;

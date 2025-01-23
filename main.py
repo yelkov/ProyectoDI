@@ -1,6 +1,6 @@
 from xmlrpc.client import DateTime
 
-from PyQt6.QtCore import QLocale, QRegularExpression, QDate, Qt
+from PyQt6.QtCore import QRegularExpression
 from PyQt6.QtGui import QIcon, QDoubleValidator, QIntValidator, QRegularExpressionValidator
 
 import clientes
@@ -96,6 +96,10 @@ class Main(QtWidgets.QMainWindow):
 
         facturas.Facturas.cargaTablaFacturas()
         eventos.Eventos.resizeTablaFacturas()
+        var.ui.tablaFacturas.clicked.connect(facturas.Facturas.cargaOneFactura)
+
+        eventos.Eventos.resizeTablaVentas()
+        var.ui.tablaVentas.clicked.connect(facturas.Facturas.cargaOneVenta)
         '''
         zona de eventos del menubar
         '''
@@ -136,6 +140,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnModifVen.clicked.connect(vendedores.Vendedores.modifVendedor)
         var.ui.btnBuscaMovil.clicked.connect(vendedores.Vendedores.buscaOneVendedor)
         var.ui.btnGrabarFactura.clicked.connect(facturas.Facturas.altaFactura)
+        var.ui.btnGrabarVenta.clicked.connect(facturas.Facturas.altaVenta)
 
 
         '''

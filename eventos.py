@@ -31,7 +31,7 @@ locale.setlocale(locale.LC_MONETARY,'es_ES.UTF-8')
 class Eventos():
     @staticmethod
     def mensajeSalir():
-        mbox = Eventos.crearMensajeSalida('Salir',"¿Desea salir?")
+        mbox = Eventos.crearMensajeConfirmacion('Salir', "¿Desea salir?")
 
         if mbox.exec() == QtWidgets.QMessageBox.StandardButton.Yes:
             sys.exit()
@@ -39,7 +39,7 @@ class Eventos():
             mbox.hide()
 
     @staticmethod
-    def crearMensajeSalida(titulo_ventana, mensaje):
+    def crearMensajeConfirmacion(titulo_ventana, mensaje):
         mbox = QtWidgets.QMessageBox()
         mbox.setIcon(QtWidgets.QMessageBox.Icon.Question)
         mbox.setWindowIcon(QtGui.QIcon('./img/icono.png'))
@@ -256,7 +256,7 @@ class Eventos():
                 header_items.setFont(font)
 
         except Exception as e:
-            print("error en resize tabla clientes ", e)
+            print("error en resize tabla propiedades ", e)
 
     @staticmethod
     def resizeTablaVendedores():
@@ -274,7 +274,7 @@ class Eventos():
                 header_items.setFont(font)
 
         except Exception as e:
-            print("error en resize tabla clientes ", e)
+            print("error en resize tabla vendedores ", e)
 
     @staticmethod
     def resizeTablaFacturas():
@@ -286,13 +286,31 @@ class Eventos():
                 else:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
 
-                header_items = var.ui.tablaVendedores.horizontalHeaderItem(i)
+                header_items = var.ui.tablaFacturas.horizontalHeaderItem(i)
                 font = header_items.font()
                 font.setBold(True)
                 header_items.setFont(font)
 
         except Exception as e:
-            print("error en resize tabla clientes ", e)
+            print("error en resize tabla facturas ", e)
+
+    @staticmethod
+    def resizeTablaVentas():
+        try:
+            header = var.ui.tablaVentas.horizontalHeader()
+            for i in range(header.count()):
+                if i not in (0,1):
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                else:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+
+                header_items = var.ui.tablaVentas.horizontalHeaderItem(i)
+                font = header_items.font()
+                font.setBold(True)
+                header_items.setFont(font)
+
+        except Exception as e:
+            print("error en resize tabla ventas ", e)
 
     @staticmethod
     def crearBackup():
