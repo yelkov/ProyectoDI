@@ -590,6 +590,7 @@ class Eventos():
         for dato in objetosPanelVentas:
             dato.setText("")
         facturas.Facturas.cargaTablaVentas(0)
+        var.ui.btnGrabarVenta.setDisabled(True)
 
 
     @staticmethod

@@ -6110,6 +6110,11 @@
                <string>Precio</string>
               </property>
              </column>
+             <column>
+              <property name="text">
+               <string>Gestión</string>
+              </property>
+             </column>
             </widget>
             <widget class="QWidget" name="layoutWidget">
              <property name="geometry">
@@ -6320,6 +6325,11 @@
          </spacer>
         </item>
        </layout>
+      </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>ALQUILERES</string>
+       </attribute>
       </widget>
      </widget>
     </item>

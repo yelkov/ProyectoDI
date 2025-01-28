@@ -1,5 +1,4 @@
 import sys
-from idlelib.window import registry
 
 from PyQt6.QtWidgets import QHBoxLayout, QWidget
 
@@ -19,6 +18,8 @@ class Facturas:
                 eventos.Eventos.crearMensajeError("Error al grabar factura","Recuerda seleccionar un cliente antes de grabar una factura")
             elif var.ui.txtFechaFactura.text() == "" or var.ui.txtFechaFactura.text() is None:
                 eventos.Eventos.crearMensajeError("Error al grabar factura","No es posible grabar una factura sin seleccionar una fecha")
+            elif var.ui.lblNumFactura.text() != "" and var.ui.lblNumFactura.text() is not None:
+                eventos.Eventos.crearMensajeError("Error","No es posible crear una nueva factura si hay otra factura seleccionada. Recuerde limpiar el panel para crear una nueva factura.")
             elif conexion.Conexion.altaFactura(nuevaFactura):
                 eventos.Eventos.crearMensajeInfo("Factura grabada","Se ha grabado una nueva factura")
                 Facturas.cargaTablaFacturas()
@@ -72,7 +73,9 @@ class Facturas:
         try:
             mbox = eventos.Eventos.crearMensajeConfirmacion('Eliminar factura', "¿Desea eliminar la factura seleccionada? Tenga en cuenta que la acción es irreversible.")
             if mbox.exec() == QtWidgets.QMessageBox.StandardButton.Yes:
-                if var.claseConexion.deleteFactura(idFactura):
+                if var.claseConexion.facturaHasVentas(idFactura):
+                    eventos.Eventos.crearMensajeError("Error","No es posible eliminar una factura que contenga ventas.")
+                elif var.claseConexion.deleteFactura(idFactura):
                     eventos.Eventos.crearMensajeInfo("Factura eliminada correctamente","Se ha eliminado la factura seleccionada.")
                     Facturas.cargaTablaFacturas()
                     Facturas.cargaTablaVentas(idFactura)
@@ -87,6 +90,7 @@ class Facturas:
     @staticmethod
     def cargaOneFactura():
         try:
+            var.ui.btnGrabarVenta.setDisabled(False)
             fila = var.ui.tablaFacturas.selectedItems()
             datos = [dato.text() for dato in fila]
             registro = var.claseConexion.datosOneFactura(str(datos[0]))
@@ -115,12 +119,12 @@ class Facturas:
         precio = var.ui.txtpreciofac.text()
         if nuevaVenta[0] == "":
             eventos.Eventos.crearMensajeError("Error","Recuerde seleccionar una factura de la tabla de facturas.")
-        elif precio == "":
-            eventos.Eventos.crearMensajeError("Error","La propiedad seleccionada no está disponible para venta. Se debe modificar o seleccione otra disponible.")
-        elif nuevaVenta[1] == "":
-            eventos.Eventos.crearMensajeError("Error","No se posible crear una nueva venta si no se ha seleccionado una propiedad")
         elif nuevaVenta[2] == "":
             eventos.Eventos.crearMensajeError("Error","No es posible crear una nueva venta si no se ha seleccionado a un vendedor previamente.")
+        elif nuevaVenta[1] == "":
+            eventos.Eventos.crearMensajeError("Error","No se posible crear una nueva venta si no se ha seleccionado una propiedad")
+        elif precio == "":
+            eventos.Eventos.crearMensajeError("Error","La propiedad seleccionada no está disponible para venta. Se debe modificar la actual o seleccionar otra disponible para venta.")
         elif var.claseConexion.altaVenta(nuevaVenta) and var.claseConexion.venderPropiedad(nuevaVenta[1]):
             eventos.Eventos.crearMensajeInfo("Aviso","Se ha grabado una venta exitosamente.")
             Facturas.cargaTablaVentas(var.ui.lblNumFactura.text())
@@ -150,6 +154,26 @@ class Facturas:
                 var.ui.tablaVentas.item(index, 4).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaVentas.item(index, 5).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
 
+                #creamos el boton
+                var.botondelven = QtWidgets.QPushButton()
+                var.botondelven.setFixedSize(20,20)
+                var.botondelven.setIconSize(QtCore.QSize(20, 20))
+                var.botondelven.setObjectName("botonEliminar")
+                var.botondelven.setIcon(QtGui.QIcon('./img/delete.png'))
+
+                #creamos layout para centrar el boton
+                layout = QHBoxLayout()
+                layout.addWidget(var.botondelven)
+                layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                layout.setContentsMargins(0, 0, 0, 0)
+                layout.setSpacing(0)
+
+                # Crear un widget contenedor para el layout y agregarlo a la celda
+                container = QWidget()
+                container.setLayout(layout)
+                var.ui.tablaVentas.setCellWidget(index, 6, container)
+                var.botondelven.clicked.connect(lambda checked, idVenta=registro[0], codProp=registro[1]: Facturas.eliminarVenta(idVenta,codProp, idFactura))
+
                 subtotal += registro[5]
 
                 index += 1
@@ -167,8 +191,25 @@ class Facturas:
             print("Error cargaVentas en cargaTablaVentas", e)
 
     @staticmethod
+    def eliminarVenta(idVenta,codProp, idFactura):
+        try:
+            mbox = eventos.Eventos.crearMensajeConfirmacion('Eliminar factura', "¿Desea eliminar la factura seleccionada? Tenga en cuenta que la acción es irreversible.")
+            if mbox.exec() == QtWidgets.QMessageBox.StandardButton.Yes:
+                if var.claseConexion.deleteVenta(idVenta, codProp):
+                    eventos.Eventos.crearMensajeInfo("Aviso","Se ha eliminado la venta correctamente.")
+                    Facturas.cargaTablaVentas(idFactura)
+                else:
+                    eventos.Eventos.crearMensajeError("Error","Se ha producido un error no esperado, no se ha eliminado la venta.")
+
+        except Exception as e:
+            print("Error eliminar venta en facturas", str(e))
+
+
+    @staticmethod
     def cargaOneVenta():
         try:
+
+            var.ui.btnGrabarVenta.setDisabled(True)
             fila = var.ui.tablaVentas.selectedItems()
             datos = [dato.text() for dato in fila]
             registro = var.claseConexion.datosOneVenta(str(datos[0]))

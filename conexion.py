@@ -840,7 +840,7 @@ class Conexion:
         except Exception as e:
             print("Error listando facturas en listadoFacturas - conexión",e)
 
-
+    '''
     @staticmethod
     def deleteFactura(idFactura):
         """
@@ -901,6 +901,73 @@ class Conexion:
             if db.isOpen():
                 db.rollback()  # Asegúrate de revertir en caso de excepción
             return False
+    '''
+
+    @staticmethod
+    def deleteFactura(idFactura):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("DELETE FROM facturas WHERE id = :idFactura")
+            query.bindValue(":idFactura", str(idFactura))
+            if query.exec():
+                return True
+            else:
+                return False
+
+        except Exception as e:
+            print("Error al borrar factura en conexion",e)
+
+    @staticmethod
+    def facturaHasVentas(idFactura):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT count(*) FROM ventas WHERE facventa = :idFactura")
+            query.bindValue(":idFactura", str(idFactura))
+            if query.exec() and query.first():
+                count = query.value(0)
+                return count > 0
+            else:
+                return False
+        except Exception as e:
+            print("Error al comprobar si factura tiene ventas en conexion",str(e))
+
+    @staticmethod
+    def deleteVenta(idVenta,codProp):
+        try:
+            db = QtSql.QSqlDatabase.database()
+            if not db.transaction():
+                print("No se pudo iniciar la transacción.")
+                return False
+
+            query_prop = QtSql.QSqlQuery()
+            query_prop.prepare("""
+                                UPDATE propiedades 
+                                SET estado = 'Disponible', baja = NULL
+                                WHERE codigo = :codProp
+                                """)
+            query_prop.bindValue(":codProp", str(codProp))
+            if not query_prop.exec():
+                db.rollback()
+                print("Error al cambiar estado de propiedad")
+                print(query_prop.lastError().text())
+                return False
+
+            query = QtSql.QSqlQuery()
+            query.prepare("DELETE FROM ventas WHERE idventa = :idVenta")
+            query.bindValue(":idVenta", str(idVenta))
+            if not query.exec():
+                db.rollback()
+                print("Error al eliminar venta")
+                return False
+
+            if not db.commit():
+                print("Error al confirmar la transacción.")
+                return False
+
+            return True
+        except Exception as e:
+            print("Error al eliminar venta en conexion", str(e))
+
 
     @staticmethod
     def datosOneFactura(idFactura):

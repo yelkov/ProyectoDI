@@ -142,6 +142,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnGrabarFactura.clicked.connect(facturas.Facturas.altaFactura)
         var.ui.btnGrabarVenta.clicked.connect(facturas.Facturas.altaVenta)
 
+        var.ui.btnGrabarVenta.setDisabled(True)
 
         '''
         zona de eventos de cajas de texto

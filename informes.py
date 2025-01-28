@@ -12,6 +12,11 @@ import var
 class Informes:
     @staticmethod
     def reportClientes():
+        """
+
+        Método que genera un informe en formato pdf de todos los clientes almacenados en la base de datos usando la biblioteca reportlab
+
+        """
         ymax = 660
         ymin = 90
         ystep = 20
@@ -91,6 +96,13 @@ class Informes:
 
     @staticmethod
     def reportPropiedades(municipio):
+        """
+
+        :param municipio: el municipio del que queremos extraer las propiedades
+        :type municipio: str
+
+        Método que genera un informe en pdf de las propiedades almacenadas en la base de datos para un municipio que indique el usuario usando la biblioteca reportlab
+        """
         try:
             ymax = 655
             ymin = 90
@@ -176,10 +188,36 @@ class Informes:
 
     @staticmethod
     def getMaxElementosPpag(ymax, ymin, ystep, numRegistros):
+        """
+
+        :param ymax: altura máxima donde comenzará a mostrarse el elemento
+        :type ymax: int
+        :param ymin: altura mínima hasta donde se mostrarán elementos en el informe
+        :type ymin: int
+        :param ystep: diferencia de altura entre distintos elementos
+        :type ystep: int
+        :param numRegistros: cantidad de registros que hay de un tipo en la base de datos
+        :type numRegistros: int
+        :return: el número de elementos que se van a mostrar por página
+        :rtype: int
+
+        Método para calcular el número de elementos que se van a mostrar como máximo en una página teniendo en cuenta la altura total a mostrar y la cantidad de elementos que caben en ese espacio
+
+        """
         numPpagina = math.ceil(numRegistros/(ymax - ymin) / ystep)
         return numPpagina
 
     def topInforme(titulo, municipio):
+        """
+
+        :param titulo: titulo del informe
+        :type titulo: str
+        :param municipio: nombre del municipio sobre el que vamos a crear el informe
+        :type municipio: str
+
+        Método para crear una cabecera genérica para todos los informes en pdf. Si se le pasa el parámetro municipio, se añade a la cabecera del informe
+
+        """
         try:
             if municipio:
                 municipio = municipio.upper()
@@ -221,6 +259,15 @@ class Informes:
             print('Error en cabecera informe:', error)
 
     def footInforme(titulo, paginas):
+        """
+        :param titulo: titulo del informe
+        :type titulo: str
+        :param paginas: número de páginas que va a contener el informe
+        :type paginas: int
+
+        Método para generar un pie de informes genérico en pdf, indicando la página actual del informe respecto del total de páginas que contenga este
+
+        """
         try:
             total_pages = 0
             var.report.line(40, 50, 540, 50)
