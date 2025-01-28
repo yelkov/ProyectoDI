@@ -5223,7 +5223,7 @@
                  <item row="2" column="2" colspan="2">
                   <widget class="QLineEdit" name="txtdniclifac">
                    <property name="enabled">
-                    <bool>false</bool>
+                    <bool>true</bool>
                    </property>
                    <property name="minimumSize">
                     <size>
@@ -5236,6 +5236,9 @@
                      <width>80</width>
                      <height>16777215</height>
                     </size>
+                   </property>
+                   <property name="readOnly">
+                    <bool>true</bool>
                    </property>
                   </widget>
                  </item>
@@ -5510,7 +5513,7 @@
                   <item>
                    <widget class="QLineEdit" name="txtcodpropfac">
                     <property name="enabled">
-                     <bool>false</bool>
+                     <bool>true</bool>
                     </property>
                     <property name="minimumSize">
                      <size>
@@ -5523,6 +5526,9 @@
                       <width>70</width>
                       <height>20</height>
                      </size>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
                     </property>
                    </widget>
                   </item>
@@ -5568,7 +5574,7 @@
                   <item>
                    <widget class="QLineEdit" name="txtpreciofac">
                     <property name="enabled">
-                     <bool>false</bool>
+                     <bool>true</bool>
                     </property>
                     <property name="minimumSize">
                      <size>
@@ -5581,6 +5587,9 @@
                       <width>80</width>
                       <height>20</height>
                      </size>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
                     </property>
                    </widget>
                   </item>
@@ -5626,7 +5635,7 @@
                   <item>
                    <widget class="QLineEdit" name="txtdirpropfac">
                     <property name="enabled">
-                     <bool>false</bool>
+                     <bool>true</bool>
                     </property>
                     <property name="minimumSize">
                      <size>
@@ -5639,6 +5648,9 @@
                       <width>270</width>
                       <height>20</height>
                      </size>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
                     </property>
                    </widget>
                   </item>
@@ -5681,7 +5693,7 @@
                   <item>
                    <widget class="QLineEdit" name="txtmunipropfac">
                     <property name="enabled">
-                     <bool>false</bool>
+                     <bool>true</bool>
                     </property>
                     <property name="minimumSize">
                      <size>
@@ -5694,6 +5706,9 @@
                       <width>270</width>
                       <height>20</height>
                      </size>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
                     </property>
                    </widget>
                   </item>
@@ -5736,7 +5751,7 @@
                   <item>
                    <widget class="QLineEdit" name="txttipopropfac">
                     <property name="enabled">
-                     <bool>false</bool>
+                     <bool>true</bool>
                     </property>
                     <property name="minimumSize">
                      <size>
@@ -5749,6 +5764,9 @@
                       <width>120</width>
                       <height>20</height>
                      </size>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
                     </property>
                    </widget>
                   </item>
@@ -5829,7 +5847,7 @@
                   <item>
                    <widget class="QLineEdit" name="txtnomeclifac">
                     <property name="enabled">
-                     <bool>false</bool>
+                     <bool>true</bool>
                     </property>
                     <property name="minimumSize">
                      <size>
@@ -5842,6 +5860,9 @@
                       <width>16777215</width>
                       <height>20</height>
                      </size>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
                     </property>
                    </widget>
                   </item>
@@ -5912,7 +5933,7 @@
                   <item>
                    <widget class="QLineEdit" name="txtapelclifac">
                     <property name="enabled">
-                     <bool>false</bool>
+                     <bool>true</bool>
                     </property>
                     <property name="minimumSize">
                      <size>
@@ -5925,6 +5946,9 @@
                       <width>220</width>
                       <height>20</height>
                      </size>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
                     </property>
                    </widget>
                   </item>
@@ -5999,7 +6023,7 @@
                   <item>
                    <widget class="QLineEdit" name="txtidvenfac">
                     <property name="enabled">
-                     <bool>false</bool>
+                     <bool>true</bool>
                     </property>
                     <property name="minimumSize">
                      <size>
@@ -6012,6 +6036,9 @@
                       <width>50</width>
                       <height>20</height>
                      </size>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
                     </property>
                    </widget>
                   </item>

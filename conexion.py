@@ -905,6 +905,16 @@ class Conexion:
 
     @staticmethod
     def deleteFactura(idFactura):
+        """
+
+        :param idFactura: identificador de facturas
+        :type idFactura: int
+        :return: éxito en la eliminación de una factura
+        :rtype: bool
+
+        Método para eliminar una factura de la base de datos
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("DELETE FROM facturas WHERE id = :idFactura")
@@ -919,6 +929,16 @@ class Conexion:
 
     @staticmethod
     def facturaHasVentas(idFactura):
+        """
+
+        :param idFactura: identificador de factura
+        :type idFactura: int
+        :return: si existen ventas asociadas a la factura o no
+        :rtype: bool
+
+        Método que comprueba si una factura tiene ventas asociadas en la base de datos
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("SELECT count(*) FROM ventas WHERE facventa = :idFactura")
@@ -933,6 +953,18 @@ class Conexion:
 
     @staticmethod
     def deleteVenta(idVenta,codProp):
+        """
+
+        :param idVenta: identificador de venta
+        :type idVenta: int
+        :param codProp: código de identificador de propiedad
+        :type codProp: str
+        :return: éxito en la eliminación de la venta o no
+        :rtype: bool
+
+        Método para eliminar una venta y cambiar el estado de la propiedad a disponible
+
+        """
         try:
             db = QtSql.QSqlDatabase.database()
             if not db.transaction():
@@ -1096,3 +1128,27 @@ class Conexion:
             return registro
         except Exception as e:
             print("Error en datosOneVenta en conexion", e)
+
+    @staticmethod
+    def propiedadIsVendida(codigo):
+        """
+
+        :param codigo: codigo identificador de propiedad
+        :type codigo: str
+        :return: si la propiedad se encuentra vendida o no
+        :rtype: bool
+
+        Método de conexión a la base de datos para comprobar si una propiedad se encuentra vendida o no
+
+        """
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT estado FROM propiedades WHERE codigo = :codigo")
+            query.bindValue(":codigo", str(codigo))
+            if query.exec() and query.next():
+                estado = query.value(0)
+                return estado == "Vendido"
+            else:
+                return False
+        except Exception as e:
+            print("Error en propiedadIsVendida en conexion", str(e))

@@ -2,7 +2,6 @@
 def load_stylesheet():
     '''
 
-
     :return: boolean
     Carga y devuelve el contenido de styles.qss como una cadena
     '''

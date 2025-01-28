@@ -16,6 +16,9 @@ from dlgInformeProp import Ui_dlgInformeProp
 
 class Calendar(QtWidgets.QDialog):
     def __init__(self):
+        """
+        Constructor de la clase Calendar. Usado para abrir un popup con un calendario.
+        """
         super(Calendar, self).__init__()
         var.uicalendar = Ui_dlgCalendar()
         var.uicalendar.setupUi(self)
@@ -28,10 +31,16 @@ class Calendar(QtWidgets.QDialog):
 
 class FileDialogAbrir(QtWidgets.QFileDialog):
     def __init__(self):
+        """
+        Constructor de la clase FileDialog. Genera una ventana de selección de ficheros en el equipo.
+        """
         super(FileDialogAbrir,self).__init__()
 
 class dlg_Tipo_prop(QtWidgets.QDialog):
     def __init__(self):
+        """
+        Constructor de la clase dlg_Tipo_prop. Genera una ventana emergente para gestionar los tipos de propiedades usadas en la aplicación.
+        """
         super(dlg_Tipo_prop,self).__init__()
         self.ui = Ui_dlg_tipoprop()
         self.ui.setupUi(self)
@@ -42,6 +51,9 @@ class dlg_Tipo_prop(QtWidgets.QDialog):
 
 class Dlg_About(QtWidgets.QDialog):
     def __init__(self):
+        """
+        Constructor de la clase Dlg_About. Abre una ventana con datos sobre la aplicación.
+        """
         super(Dlg_About,self).__init__()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
@@ -49,6 +61,9 @@ class Dlg_About(QtWidgets.QDialog):
 
 class Dlg_InformeProp(QtWidgets.QDialog):
     def __init__(self):
+        """
+        Constructor de la clase Dlg_InformeProp. Abre una ventana que permite seleccionar al usuario un municipio para crear un informe sobre las propiedades presentes en ese municipio.
+        """
         super(Dlg_InformeProp,self).__init__()
         self.ui = Ui_dlgInformeProp()
         self.ui.setupUi(self)

@@ -12,6 +12,11 @@ class Facturas:
 
     @staticmethod
     def altaFactura():
+        """
+
+        Método para dar de alta una factura. Comprueba que se haya seleccionado antes a un cliente, que existan una fecha seleccionada para la factura y que no haya seleccionada una factura ya creada previamente al crear la nueva.
+
+        """
         try:
             nuevaFactura = [var.ui.txtFechaFactura.text(),var.ui.txtdniclifac.text()]
             if var.ui.txtdniclifac.text() == "" or var.ui.txtdniclifac.text() is None:
@@ -31,6 +36,11 @@ class Facturas:
 
     @staticmethod
     def cargaTablaFacturas():
+        """
+
+        Método para mostrar todas las facturas existentes en la base de datos. Se muestra el id de la factura, el dni del cliente, la fecha de creación de la factura y un botón para eliminarla
+
+        """
         try:
             listado = var.claseConexion.listadoFacturas()
             var.ui.tablaFacturas.setRowCount(len(listado))
@@ -70,6 +80,14 @@ class Facturas:
 
     @staticmethod
     def eliminarFactura(idFactura):
+        """
+
+        :param idFactura: identificador de factura
+        :type idFactura: int
+
+        Método que elimina una factura, comprobando que no existan ventas asociadas.
+
+        """
         try:
             mbox = eventos.Eventos.crearMensajeConfirmacion('Eliminar factura', "¿Desea eliminar la factura seleccionada? Tenga en cuenta que la acción es irreversible.")
             if mbox.exec() == QtWidgets.QMessageBox.StandardButton.Yes:
@@ -89,6 +107,11 @@ class Facturas:
 
     @staticmethod
     def cargaOneFactura():
+        """
+
+        Método para leer los datos de una factura seleccionada de la tabla y cargarlos en los campos respectivos del panel de Facturas. Tambíen limpia los campos relacionados con las ventas cuando se selecciona una factura de la tabla para permitir grabar nuevas ventas asociadas.
+
+        """
         try:
             var.ui.btnGrabarVenta.setDisabled(False)
             fila = var.ui.tablaFacturas.selectedItems()
@@ -115,8 +138,14 @@ class Facturas:
 
     @staticmethod
     def altaVenta():
+        """
+
+        Método para dar de alta una nueva venta. Comprueba y avisa al usuario en los siguientes casos: que se haya seleccionado una factura de la tabla, que se haya seleccionado a un vendedor y que se haya seleccionado una propiedad disponible para venta.
+
+        """
         nuevaVenta = [var.ui.lblNumFactura.text(),var.ui.txtcodpropfac.text(), var.ui.txtidvenfac.text()]
         precio = var.ui.txtpreciofac.text()
+        isVendida = var.claseConexion.propiedadIsVendida(var.ui.txtcodpropfac.text())
         if nuevaVenta[0] == "":
             eventos.Eventos.crearMensajeError("Error","Recuerde seleccionar una factura de la tabla de facturas.")
         elif nuevaVenta[2] == "":
@@ -125,6 +154,8 @@ class Facturas:
             eventos.Eventos.crearMensajeError("Error","No se posible crear una nueva venta si no se ha seleccionado una propiedad")
         elif precio == "":
             eventos.Eventos.crearMensajeError("Error","La propiedad seleccionada no está disponible para venta. Se debe modificar la actual o seleccionar otra disponible para venta.")
+        elif isVendida:
+            eventos.Eventos.crearMensajeError("Error","La propiedad seleccionada ya está vendida. No es posible añadirla de nuevo a una venta.")
         elif var.claseConexion.altaVenta(nuevaVenta) and var.claseConexion.venderPropiedad(nuevaVenta[1]):
             eventos.Eventos.crearMensajeInfo("Aviso","Se ha grabado una venta exitosamente.")
             Facturas.cargaTablaVentas(var.ui.lblNumFactura.text())
@@ -134,6 +165,14 @@ class Facturas:
 
     @staticmethod
     def cargaTablaVentas(idFactura):
+        """
+
+        :param idFactura: identificador de factura
+        :type idFactura: int
+
+        Método que carga los datos de ventas asociadas a una factura cuando esta es seleccionada de la tabla de facturas.
+
+        """
         try:
             listado = var.claseConexion.listadoVentas(idFactura)
             var.ui.tablaVentas.setRowCount(len(listado))
@@ -192,6 +231,18 @@ class Facturas:
 
     @staticmethod
     def eliminarVenta(idVenta,codProp, idFactura):
+        """
+
+        :param idVenta: identificador de venta
+        :type idVenta: int
+        :param codProp: código identificador de propiedad
+        :type codProp: int
+        :param idFactura: identificador de una factura
+        :type idFactura: int
+
+        Método que elimina una venta seleccionada de la tabla de ventas. Le pregunta al usuario antes de confirmar la eliminación. También modifica el estado de la propiedad y vuelve a cargar la tabla de ventas tras la eliminación.
+
+        """
         try:
             mbox = eventos.Eventos.crearMensajeConfirmacion('Eliminar factura', "¿Desea eliminar la factura seleccionada? Tenga en cuenta que la acción es irreversible.")
             if mbox.exec() == QtWidgets.QMessageBox.StandardButton.Yes:
@@ -207,6 +258,11 @@ class Facturas:
 
     @staticmethod
     def cargaOneVenta():
+        """
+
+        Método que carga los datos una venta los respectivos campos del panel Facturas cuando se selecciona de la tabla de ventas.
+
+        """
         try:
 
             var.ui.btnGrabarVenta.setDisabled(True)
