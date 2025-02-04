@@ -1,0 +1,191 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>facturas module &mdash; documentación de veigaquintas - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=4936afed"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=f85f4cfb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            veigaquintas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">facturas module</a><ul>
+<li><a class="reference internal" href="#facturas.Facturas"><code class="docutils literal notranslate"><span class="pre">Facturas</span></code></a><ul>
+<li><a class="reference internal" href="#facturas.Facturas.altaFactura"><code class="docutils literal notranslate"><span class="pre">Facturas.altaFactura()</span></code></a></li>
+<li><a class="reference internal" href="#facturas.Facturas.altaVenta"><code class="docutils literal notranslate"><span class="pre">Facturas.altaVenta()</span></code></a></li>
+<li><a class="reference internal" href="#facturas.Facturas.cargaOneFactura"><code class="docutils literal notranslate"><span class="pre">Facturas.cargaOneFactura()</span></code></a></li>
+<li><a class="reference internal" href="#facturas.Facturas.cargaOneVenta"><code class="docutils literal notranslate"><span class="pre">Facturas.cargaOneVenta()</span></code></a></li>
+<li><a class="reference internal" href="#facturas.Facturas.cargaTablaFacturas"><code class="docutils literal notranslate"><span class="pre">Facturas.cargaTablaFacturas()</span></code></a></li>
+<li><a class="reference internal" href="#facturas.Facturas.cargaTablaVentas"><code class="docutils literal notranslate"><span class="pre">Facturas.cargaTablaVentas()</span></code></a></li>
+<li><a class="reference internal" href="#facturas.Facturas.eliminarFactura"><code class="docutils literal notranslate"><span class="pre">Facturas.eliminarFactura()</span></code></a></li>
+<li><a class="reference internal" href="#facturas.Facturas.eliminarVenta"><code class="docutils literal notranslate"><span class="pre">Facturas.eliminarVenta()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">veigaquintas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">facturas module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/src/facturas.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-facturas">
+<span id="facturas-module"></span><h1>facturas module<a class="headerlink" href="#module-facturas" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="facturas.Facturas">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">facturas.</span></span><span class="sig-name descname"><span class="pre">Facturas</span></span><a class="reference internal" href="../_modules/facturas.html#Facturas"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#facturas.Facturas" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="facturas.Facturas.altaFactura">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">altaFactura</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/facturas.html#Facturas.altaFactura"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#facturas.Facturas.altaFactura" title="Link to this definition"></a></dt>
+<dd><p>Método para dar de alta una factura. Comprueba que se haya seleccionado antes a un cliente, que existan una fecha seleccionada para la factura y que no haya seleccionada una factura ya creada previamente al crear la nueva.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="facturas.Facturas.altaVenta">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">altaVenta</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/facturas.html#Facturas.altaVenta"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#facturas.Facturas.altaVenta" title="Link to this definition"></a></dt>
+<dd><p>Método para dar de alta una nueva venta. Comprueba y avisa al usuario en los siguientes casos: que se haya seleccionado una factura de la tabla, que se haya seleccionado a un vendedor y que se haya seleccionado una propiedad disponible para venta.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="facturas.Facturas.cargaOneFactura">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargaOneFactura</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/facturas.html#Facturas.cargaOneFactura"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#facturas.Facturas.cargaOneFactura" title="Link to this definition"></a></dt>
+<dd><p>Método para leer los datos de una factura seleccionada de la tabla y cargarlos en los campos respectivos del panel de Facturas. Tambíen limpia los campos relacionados con las ventas cuando se selecciona una factura de la tabla para permitir grabar nuevas ventas asociadas.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="facturas.Facturas.cargaOneVenta">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargaOneVenta</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/facturas.html#Facturas.cargaOneVenta"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#facturas.Facturas.cargaOneVenta" title="Link to this definition"></a></dt>
+<dd><p>Método que carga los datos una venta los respectivos campos del panel Facturas cuando se selecciona de la tabla de ventas.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="facturas.Facturas.cargaTablaFacturas">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargaTablaFacturas</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/facturas.html#Facturas.cargaTablaFacturas"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#facturas.Facturas.cargaTablaFacturas" title="Link to this definition"></a></dt>
+<dd><p>Método para mostrar todas las facturas existentes en la base de datos. Se muestra el id de la factura, el dni del cliente, la fecha de creación de la factura y un botón para eliminarla</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="facturas.Facturas.cargaTablaVentas">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargaTablaVentas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idFactura</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/facturas.html#Facturas.cargaTablaVentas"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#facturas.Facturas.cargaTablaVentas" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idFactura</strong> (<em>int</em>) – identificador de factura</p>
+</dd>
+</dl>
+<p>Método que carga los datos de ventas asociadas a una factura cuando esta es seleccionada de la tabla de facturas.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="facturas.Facturas.eliminarFactura">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eliminarFactura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idFactura</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/facturas.html#Facturas.eliminarFactura"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#facturas.Facturas.eliminarFactura" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idFactura</strong> (<em>int</em>) – identificador de factura</p>
+</dd>
+</dl>
+<p>Método que elimina una factura, comprobando que no existan ventas asociadas.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="facturas.Facturas.eliminarVenta">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eliminarVenta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idVenta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codProp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idFactura</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/facturas.html#Facturas.eliminarVenta"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#facturas.Facturas.eliminarVenta" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>idVenta</strong> (<em>int</em>) – identificador de venta</p></li>
+<li><p><strong>codProp</strong> (<em>int</em>) – código identificador de propiedad</p></li>
+<li><p><strong>idFactura</strong> (<em>int</em>) – identificador de una factura</p></li>
+</ul>
+</dd>
+</dl>
+<p>Método que elimina una venta seleccionada de la tabla de ventas. Le pregunta al usuario antes de confirmar la eliminación. También modifica el estado de la propiedad y vuelve a cargar la tabla de ventas tras la eliminación.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, Yelko.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

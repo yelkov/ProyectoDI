@@ -1,0 +1,188 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>informes module &mdash; documentación de veigaquintas - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=4936afed"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=f85f4cfb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            veigaquintas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">informes module</a><ul>
+<li><a class="reference internal" href="#informes.Informes"><code class="docutils literal notranslate"><span class="pre">Informes</span></code></a><ul>
+<li><a class="reference internal" href="#informes.Informes.footInforme"><code class="docutils literal notranslate"><span class="pre">Informes.footInforme()</span></code></a></li>
+<li><a class="reference internal" href="#informes.Informes.getMaxElementosPpag"><code class="docutils literal notranslate"><span class="pre">Informes.getMaxElementosPpag()</span></code></a></li>
+<li><a class="reference internal" href="#informes.Informes.reportClientes"><code class="docutils literal notranslate"><span class="pre">Informes.reportClientes()</span></code></a></li>
+<li><a class="reference internal" href="#informes.Informes.reportPropiedades"><code class="docutils literal notranslate"><span class="pre">Informes.reportPropiedades()</span></code></a></li>
+<li><a class="reference internal" href="#informes.Informes.topInforme"><code class="docutils literal notranslate"><span class="pre">Informes.topInforme()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">veigaquintas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">informes module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/src/informes.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-informes">
+<span id="informes-module"></span><h1>informes module<a class="headerlink" href="#module-informes" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="informes.Informes">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">informes.</span></span><span class="sig-name descname"><span class="pre">Informes</span></span><a class="reference internal" href="../_modules/informes.html#Informes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="informes.Informes.footInforme">
+<span class="sig-name descname"><span class="pre">footInforme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paginas</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.footInforme"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.footInforme" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>titulo</strong> (<em>str</em>) – titulo del informe</p></li>
+<li><p><strong>paginas</strong> (<em>int</em>) – número de páginas que va a contener el informe</p></li>
+</ul>
+</dd>
+</dl>
+<p>Método para generar un pie de informes genérico en pdf, indicando la página actual del informe respecto del total de páginas que contenga este</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="informes.Informes.getMaxElementosPpag">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getMaxElementosPpag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ymax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ymin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ystep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numRegistros</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.getMaxElementosPpag"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.getMaxElementosPpag" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ymax</strong> (<em>int</em>) – altura máxima donde comenzará a mostrarse el elemento</p></li>
+<li><p><strong>ymin</strong> (<em>int</em>) – altura mínima hasta donde se mostrarán elementos en el informe</p></li>
+<li><p><strong>ystep</strong> (<em>int</em>) – diferencia de altura entre distintos elementos</p></li>
+<li><p><strong>numRegistros</strong> (<em>int</em>) – cantidad de registros que hay de un tipo en la base de datos</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>el número de elementos que se van a mostrar por página</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+<p>Método para calcular el número de elementos que se van a mostrar como máximo en una página teniendo en cuenta la altura total a mostrar y la cantidad de elementos que caben en ese espacio</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="informes.Informes.reportClientes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reportClientes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.reportClientes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.reportClientes" title="Link to this definition"></a></dt>
+<dd><p>Método que genera un informe en formato pdf de todos los clientes almacenados en la base de datos usando la biblioteca reportlab</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="informes.Informes.reportPropiedades">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reportPropiedades</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">municipio</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.reportPropiedades"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.reportPropiedades" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>municipio</strong> (<em>str</em>) – el municipio del que queremos extraer las propiedades</p>
+</dd>
+</dl>
+<p>Método que genera un informe en pdf de las propiedades almacenadas en la base de datos para un municipio que indique el usuario usando la biblioteca reportlab</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="informes.Informes.topInforme">
+<span class="sig-name descname"><span class="pre">topInforme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">municipio</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/informes.html#Informes.topInforme"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#informes.Informes.topInforme" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>titulo</strong> (<em>str</em>) – titulo del informe</p></li>
+<li><p><strong>municipio</strong> (<em>str</em>) – nombre del municipio sobre el que vamos a crear el informe</p></li>
+</ul>
+</dd>
+</dl>
+<p>Método para crear una cabecera genérica para todos los informes en pdf. Si se le pasa el parámetro municipio, se añade a la cabecera del informe</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, Yelko.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

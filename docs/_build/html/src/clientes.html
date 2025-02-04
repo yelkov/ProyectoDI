@@ -1,0 +1,200 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>clientes module &mdash; documentación de veigaquintas - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=4936afed"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=f85f4cfb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            veigaquintas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">clientes module</a><ul>
+<li><a class="reference internal" href="#clientes.Clientes"><code class="docutils literal notranslate"><span class="pre">Clientes</span></code></a><ul>
+<li><a class="reference internal" href="#clientes.Clientes.altaCliente"><code class="docutils literal notranslate"><span class="pre">Clientes.altaCliente()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.bajaCliente"><code class="docutils literal notranslate"><span class="pre">Clientes.bajaCliente()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.buscaOneCliente"><code class="docutils literal notranslate"><span class="pre">Clientes.buscaOneCliente()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.cargaOneCliente"><code class="docutils literal notranslate"><span class="pre">Clientes.cargaOneCliente()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.cargaTablaClientes"><code class="docutils literal notranslate"><span class="pre">Clientes.cargaTablaClientes()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.cargarCruzcli"><code class="docutils literal notranslate"><span class="pre">Clientes.cargarCruzcli()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.cargarTickcli"><code class="docutils literal notranslate"><span class="pre">Clientes.cargarTickcli()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.checkDniCli"><code class="docutils literal notranslate"><span class="pre">Clientes.checkDniCli()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.checkEmailCli"><code class="docutils literal notranslate"><span class="pre">Clientes.checkEmailCli()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.checkMovilCli"><code class="docutils literal notranslate"><span class="pre">Clientes.checkMovilCli()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.esFechasValidas"><code class="docutils literal notranslate"><span class="pre">Clientes.esFechasValidas()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.hasCamposObligatoriosCli"><code class="docutils literal notranslate"><span class="pre">Clientes.hasCamposObligatoriosCli()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.historicoCli"><code class="docutils literal notranslate"><span class="pre">Clientes.historicoCli()</span></code></a></li>
+<li><a class="reference internal" href="#clientes.Clientes.modifCliente"><code class="docutils literal notranslate"><span class="pre">Clientes.modifCliente()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">veigaquintas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">clientes module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/src/clientes.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-clientes">
+<span id="clientes-module"></span><h1>clientes module<a class="headerlink" href="#module-clientes" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="clientes.Clientes">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">clientes.</span></span><span class="sig-name descname"><span class="pre">Clientes</span></span><a class="reference internal" href="../_modules/clientes.html#Clientes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.altaCliente">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">altaCliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.altaCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.altaCliente" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.bajaCliente">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bajaCliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.bajaCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.bajaCliente" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.buscaOneCliente">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">buscaOneCliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.buscaOneCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.buscaOneCliente" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.cargaOneCliente">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargaOneCliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.cargaOneCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.cargaOneCliente" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.cargaTablaClientes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargaTablaClientes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.cargaTablaClientes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.cargaTablaClientes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.cargarCruzcli">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargarCruzcli</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.cargarCruzcli"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.cargarCruzcli" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.cargarTickcli">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargarTickcli</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.cargarTickcli"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.cargarTickcli" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.checkDniCli">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkDniCli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dni</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.checkDniCli"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.checkDniCli" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.checkEmailCli">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkEmailCli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mail</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.checkEmailCli"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.checkEmailCli" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.checkMovilCli">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkMovilCli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">movil</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.checkMovilCli"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.checkMovilCli" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.esFechasValidas">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">esFechasValidas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datosClientes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.esFechasValidas"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.esFechasValidas" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.hasCamposObligatoriosCli">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hasCamposObligatoriosCli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datosClientes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.hasCamposObligatoriosCli"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.hasCamposObligatoriosCli" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.historicoCli">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">historicoCli</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.historicoCli"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.historicoCli" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="clientes.Clientes.modifCliente">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">modifCliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clientes.html#Clientes.modifCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#clientes.Clientes.modifCliente" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, Yelko.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,640 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>propiedades &mdash; documentación de veigaquintas - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=4936afed"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=f85f4cfb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            veigaquintas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">veigaquintas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Código de módulo</a></li>
+      <li class="breadcrumb-item active">propiedades</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Código fuente para propiedades</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">conexion</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">conexionserver</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">eventos</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">var</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt6</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtCore</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">eventos</span><span class="w"> </span><span class="kn">import</span> <span class="n">Eventos</span>
+
+
+<div class="viewcode-block" id="Propiedades">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades">[documentos]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Propiedades</span><span class="p">():</span>
+
+<div class="viewcode-block" id="Propiedades.altaTipoPropiedad">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.altaTipoPropiedad">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">altaTipoPropiedad</span><span class="p">(</span><span class="n">venDialogo</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tipo</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">dlggestion</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtTipoprop</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+            <span class="c1">#registro = conexion.Conexion.altaTipoprop(tipo)</span>
+            <span class="c1">#registro = conexionserver.ConexionServer.altaTipoprop(tipo)</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">altaTipoprop</span><span class="p">(</span><span class="n">tipo</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">registro</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbTipoprop</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbTipoprop</span><span class="o">.</span><span class="n">addItems</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeInfo</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">,</span><span class="s2">&quot;Tipo de propiedad añadida.&quot;</span><span class="p">)</span>
+
+                <span class="n">Propiedades</span><span class="o">.</span><span class="n">cargarTipopropGestion</span><span class="p">(</span><span class="n">venDialogo</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">,</span> <span class="s2">&quot;Error al añadir tipo de propiedad añadida.&quot;</span><span class="p">)</span>
+
+            <span class="n">var</span><span class="o">.</span><span class="n">dlggestion</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtTipoprop</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error alta tipo propiedad&quot;</span> <span class="o">+</span> <span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Propiedades.bajaTipoPropiedad">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.bajaTipoPropiedad">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bajaTipoPropiedad</span><span class="p">(</span><span class="n">venDialogo</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tipo</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">dlggestion</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtTipoprop</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+            <span class="c1">#if conexion.Conexion.bajaTipoprop(tipo):</span>
+            <span class="c1">#if conexionserver.ConexionServer.bajaTipoprop(tipo):</span>
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">bajaTipoprop</span><span class="p">(</span><span class="n">tipo</span><span class="p">):</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeInfo</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">,</span><span class="s2">&quot;Tipo de propiedad eliminada.&quot;</span><span class="p">)</span>
+                <span class="n">Propiedades</span><span class="o">.</span><span class="n">cargarTipoprop</span><span class="p">()</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">dlggestion</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtTipoprop</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="n">Propiedades</span><span class="o">.</span><span class="n">cargarTipopropGestion</span><span class="p">(</span><span class="n">venDialogo</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">,</span><span class="s2">&quot;Error al eliminar tipo de propiedad.&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error baja tipo propiedad&quot;</span> <span class="o">+</span> <span class="n">e</span><span class="p">)</span></div>
+
+
+
+
+<div class="viewcode-block" id="Propiedades.altaPropiedad">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.altaPropiedad">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">altaPropiedad</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">propiedad</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtAltaprop</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDirprop</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProvprop</span><span class="o">.</span><span class="n">currentText</span><span class="p">(),</span>
+                         <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniprop</span><span class="o">.</span><span class="n">currentText</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbTipoprop</span><span class="o">.</span><span class="n">currentText</span><span class="p">(),</span>
+                         <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinHabprop</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBanosprop</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtSuperprop</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtPrecioAlquilerprop</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span>
+                         <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtPrecioVentaprop</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span>
+                         <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtCpprop</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">areatxtDescriprop</span><span class="o">.</span><span class="n">toPlainText</span><span class="p">()]</span>
+            <span class="n">tipoOper</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkAlquilprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">tipoOper</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkAlquilprop</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkVentaprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">tipoOper</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkVentaprop</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkInterprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">tipoOper</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkInterprop</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+            <span class="n">propiedad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tipoOper</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtDisponprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">propiedad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtDisponprop</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+            <span class="k">elif</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtAlquilprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">propiedad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtAlquilprop</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+            <span class="k">elif</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtVentaprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">propiedad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtVentaprop</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+
+            <span class="n">propiedad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtNomeprop</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+            <span class="n">propiedad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovilprop</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+
+            <span class="n">precioAlquiler</span> <span class="o">=</span> <span class="n">propiedad</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
+            <span class="n">precioVenta</span> <span class="o">=</span> <span class="n">propiedad</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span>
+
+            <span class="c1">#if Propiedades.hasCamposObligatoriosAlta(propiedad) and Propiedades.checkPrecioAlquiler(precioAlquiler) and Propiedades.checkPrecioVenta(precioVenta) and conexion.Conexion.altaPropiedad(propiedad):</span>
+            <span class="c1">#if Propiedades.hasCamposObligatoriosAlta(propiedad) and Propiedades.checkPrecioAlquiler(precioAlquiler) and Propiedades.checkPrecioVenta(precioVenta) and conexionserver.ConexionServer.altaPropiedad(propiedad):</span>
+            <span class="k">if</span> <span class="n">Propiedades</span><span class="o">.</span><span class="n">hasCamposObligatoriosAlta</span><span class="p">(</span><span class="n">propiedad</span><span class="p">)</span> <span class="ow">and</span> <span class="n">Propiedades</span><span class="o">.</span><span class="n">checkPrecioAlquiler</span><span class="p">(</span><span class="n">precioAlquiler</span><span class="p">)</span> <span class="ow">and</span> <span class="n">Propiedades</span><span class="o">.</span><span class="n">checkPrecioVenta</span><span class="p">(</span><span class="n">precioVenta</span><span class="p">)</span> <span class="ow">and</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">altaPropiedad</span><span class="p">(</span><span class="n">propiedad</span><span class="p">):</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeInfo</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">,</span> <span class="s2">&quot;Se ha grabado la propiedad en la base de datos.&quot;</span><span class="p">)</span>
+                <span class="n">Propiedades</span><span class="o">.</span><span class="n">cargarTablaPropiedades</span><span class="p">()</span>
+
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">Propiedades</span><span class="o">.</span><span class="n">hasCamposObligatoriosAlta</span><span class="p">(</span><span class="n">propiedad</span><span class="p">):</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="s2">&quot;Hay campos vacíos que deben ser cubiertos.&quot;</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">Propiedades</span><span class="o">.</span><span class="n">checkPrecioAlquiler</span><span class="p">(</span><span class="n">precioAlquiler</span><span class="p">):</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;Para guardar una propiedad de tipo alquiler debe guardarse un precio y estar marcada la casilla &#39;Alquiler&#39;.&quot;</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">Propiedades</span><span class="o">.</span><span class="n">checkPrecioVenta</span><span class="p">(</span><span class="n">precioVenta</span><span class="p">):</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;Para guardar una propiedad de tipo venta debe guardarse un precio y estar marcada la casilla &#39;Venta&#39;.&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;Se ha producido un error al grabar la propiedad.&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Propiedades.checkMovilProp">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.checkMovilProp">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">checkMovilProp</span><span class="p">(</span><span class="n">movil</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">isMovilValido</span><span class="p">(</span><span class="n">movil</span><span class="p">):</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovilprop</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s1">&#39;background-color: rgb(255, 255, 255);&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovilprop</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s1">&#39;border: 1px solid #de6767; border-radius: 5px; font-style: italic;&#39;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovilprop</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovilprop</span><span class="o">.</span><span class="n">setPlaceholderText</span><span class="p">(</span><span class="s2">&quot;móvil no válido&quot;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovilprop</span><span class="o">.</span><span class="n">setFocus</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error check movil&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Propiedades.cargarTablaPropiedades">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.cargarTablaPropiedades">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cargarTablaPropiedades</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">listado</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">listadoPropiedades</span><span class="p">()</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">lenPropiedades</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">listado</span><span class="p">)</span>
+
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinProppPag</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">maxPropPagina</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">listado</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btnSiguienteProp</span><span class="o">.</span><span class="n">setDisabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btnAnteriorProp</span><span class="o">.</span><span class="n">setDisabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="s2">&quot;No hay propiedades con los filtros seleccionados&quot;</span><span class="p">))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">setSpan</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblPaginasProp</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Página 0/0&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">clearSpans</span><span class="p">()</span>
+
+                <span class="n">inicioListado</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">paginaActualProp</span> <span class="o">*</span> <span class="n">var</span><span class="o">.</span><span class="n">maxPropPagina</span>
+                <span class="n">sublistado</span> <span class="o">=</span> <span class="n">listado</span><span class="p">[</span><span class="n">inicioListado</span><span class="p">:</span> <span class="n">inicioListado</span> <span class="o">+</span> <span class="n">var</span><span class="o">.</span><span class="n">maxPropPagina</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="n">listado</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">sublistado</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btnAnteriorProp</span><span class="o">.</span><span class="n">setDisabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btnAnteriorProp</span><span class="o">.</span><span class="n">setDisabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">listado</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">sublistado</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btnSiguienteProp</span><span class="o">.</span><span class="n">setDisabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btnSiguienteProp</span><span class="o">.</span><span class="n">setDisabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+                <span class="n">numPaginas</span> <span class="o">=</span> <span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">lenPropiedades</span> <span class="o">//</span> <span class="n">var</span><span class="o">.</span><span class="n">maxPropPagina</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">listado</span><span class="p">)</span> <span class="o">%</span> <span class="n">var</span><span class="o">.</span><span class="n">maxPropPagina</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">numPaginas</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblPaginasProp</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Página &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">paginaActualProp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">numPaginas</span><span class="p">))</span>
+
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sublistado</span><span class="p">))</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">registro</span> <span class="ow">in</span> <span class="n">sublistado</span><span class="p">:</span>
+                    <span class="n">registro</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">registro</span><span class="p">]</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span> <span class="c1">#codigo</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">5</span><span class="p">]))</span> <span class="c1">#municipio</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">6</span><span class="p">]))</span> <span class="c1">#tipo_provincia</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">7</span><span class="p">])))</span> <span class="c1">#num_habitaciones</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">8</span><span class="p">])))</span> <span class="c1">#num_baños</span>
+
+                    <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span> <span class="o">==</span> <span class="n">conexion</span><span class="o">.</span><span class="n">Conexion</span><span class="p">:</span>
+                        <span class="n">precio_alquiler</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">registro</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="si">:</span><span class="s2">,.1f</span><span class="si">}</span><span class="s2"> €&quot;</span> <span class="k">if</span> <span class="n">registro</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span>  <span class="k">else</span> <span class="s2">&quot; - €&quot;</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">precio_alquiler</span><span class="p">))</span> <span class="c1">#precio_alqui</span>
+
+                        <span class="n">precio_venta</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">registro</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span><span class="si">:</span><span class="s2">,.1f</span><span class="si">}</span><span class="s2"> €&quot;</span> <span class="k">if</span> <span class="n">registro</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span>  <span class="k">else</span> <span class="s2">&quot; - €&quot;</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">precio_venta</span><span class="p">))</span> <span class="c1">#precio_venta</span>
+
+                        <span class="n">tipo_operacion</span> <span class="o">=</span> <span class="n">registro</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;]&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="n">tipo_operacion</span><span class="p">))</span> <span class="c1">#tipo_operacion</span>
+
+                    <span class="k">elif</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span> <span class="o">==</span> <span class="n">conexionserver</span><span class="o">.</span><span class="n">ConexionServer</span><span class="p">:</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; €&quot;</span><span class="p">))</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot; €&quot;</span><span class="p">))</span>
+                        <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;]&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">))))</span>
+
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">2</span><span class="p">])))</span> <span class="c1">#fecha de baja</span>
+
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignLeft</span><span class="o">.</span><span class="n">AlignVCenter</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignLeft</span><span class="o">.</span><span class="n">AlignVCenter</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignLeft</span><span class="o">.</span><span class="n">AlignVCenter</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                    <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al cargar propiedades en la tabla cargarTablaPropiedades&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Propiedades.cargaOnePropiedad">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.cargaOnePropiedad">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cargaOnePropiedad</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fila</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaProp</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
+            <span class="n">datos</span> <span class="o">=</span> <span class="p">[</span><span class="n">dato</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">for</span> <span class="n">dato</span> <span class="ow">in</span> <span class="n">fila</span><span class="p">]</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">datosOnePropiedad</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">datos</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+            <span class="n">listado</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblProp</span><span class="p">,</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtAltaprop</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtBajaprop</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDirprop</span><span class="p">,</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProvprop</span><span class="p">,</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniprop</span><span class="p">,</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbTipoprop</span><span class="p">,</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinHabprop</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBanosprop</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtSuperprop</span><span class="p">,</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtPrecioAlquilerprop</span><span class="p">,</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtPrecioVentaprop</span><span class="p">,</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtCpprop</span><span class="p">,</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">areatxtDescriprop</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtDisponprop</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtAlquilprop</span><span class="p">,</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtVentaprop</span><span class="p">,</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkInterprop</span><span class="p">,</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkAlquilprop</span><span class="p">,</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkVentaprop</span><span class="p">,</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtNomeprop</span><span class="p">,</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovilprop</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">listado</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">):</span>
+                    <span class="n">listado</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">setCurrentText</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">):</span>
+                    <span class="n">listado</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+                <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">13</span><span class="p">:</span>
+                    <span class="n">listado</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">setPlainText</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">14</span><span class="p">:</span>
+                    <span class="n">listado</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Disponible&quot;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">15</span><span class="p">:</span>
+                    <span class="n">listado</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Alquilado&quot;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">16</span><span class="p">:</span>
+                    <span class="n">listado</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Vendido&quot;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">17</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">19</span><span class="p">):</span>
+                    <span class="n">listado</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="s2">&quot;Intercambio&quot;</span> <span class="ow">in</span> <span class="n">registro</span><span class="p">[</span><span class="mi">14</span><span class="p">])</span>
+                    <span class="n">listado</span><span class="p">[</span><span class="mi">18</span><span class="p">]</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="s2">&quot;Alquiler&quot;</span> <span class="ow">in</span> <span class="n">registro</span><span class="p">[</span><span class="mi">14</span><span class="p">])</span>
+                    <span class="n">listado</span><span class="p">[</span><span class="mi">19</span><span class="p">]</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="s2">&quot;Venta&quot;</span> <span class="ow">in</span> <span class="n">registro</span><span class="p">[</span><span class="mi">14</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">20</span><span class="p">:</span>
+                    <span class="n">listado</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">16</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">21</span><span class="p">:</span>
+                    <span class="n">listado</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">17</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">listado</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtcodpropfac</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtdirpropfac</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtmunipropfac</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txttipopropfac</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+            <span class="n">precio_venta</span> <span class="o">=</span> <span class="n">registro</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">precio_venta</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">precio_venta</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="n">precio_venta_float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">precio_venta</span><span class="p">)</span>
+                <span class="n">precio_venta_formateado</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">precio_venta_float</span><span class="si">:</span><span class="s2">,.1f</span><span class="si">}</span><span class="s2"> €&quot;</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtpreciofac</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">precio_venta_formateado</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtpreciofac</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s1">&#39;border-bottom: 1px solid black; background-color: rgb(255, 255, 255);&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtpreciofac</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s1">&#39;border: 1px solid #de6767; border-radius: 5px; font-style: italic; background-color: #de6767&#39;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtpreciofac</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+
+
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error cargando UNA propiedad en propiedades.&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Propiedades.modifProp">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.modifProp">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">modifProp</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">propiedad</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblProp</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtAltaprop</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtBajaprop</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDirprop</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbProvprop</span><span class="o">.</span><span class="n">currentText</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbMuniprop</span><span class="o">.</span><span class="n">currentText</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbTipoprop</span><span class="o">.</span><span class="n">currentText</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinHabprop</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBanosprop</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtSuperprop</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtPrecioAlquilerprop</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtPrecioVentaprop</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtCpprop</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">areatxtDescriprop</span><span class="o">.</span><span class="n">toPlainText</span><span class="p">()]</span>
+            <span class="n">tipoOper</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkAlquilprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">tipoOper</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkAlquilprop</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkVentaprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">tipoOper</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkVentaprop</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkInterprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">tipoOper</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkInterprop</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+            <span class="n">propiedad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tipoOper</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtDisponprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">propiedad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtDisponprop</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+            <span class="k">elif</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtAlquilprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">propiedad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtAlquilprop</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+            <span class="k">elif</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtVentaprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">propiedad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtVentaprop</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+
+            <span class="n">propiedad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtNomeprop</span><span class="o">.</span><span class="n">text</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+            <span class="n">propiedad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovilprop</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+
+            <span class="n">fecha_baja</span> <span class="o">=</span> <span class="n">propiedad</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">precioAlquiler</span> <span class="o">=</span> <span class="n">propiedad</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+            <span class="n">precioVenta</span> <span class="o">=</span> <span class="n">propiedad</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">fecha_baja</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">Propiedades</span><span class="o">.</span><span class="n">esFechasValidas</span><span class="p">(</span><span class="n">propiedad</span><span class="p">):</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;La fecha de baja no puede ser anterior a la fecha de alta.&quot;</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">fecha_baja</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtDisponprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="s2">&quot;No es posible guardar fecha de baja si el estado del inmueble es &#39;Disponible&#39;.&quot;</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">Propiedades</span><span class="o">.</span><span class="n">hasCamposObligatoriosModif</span><span class="p">(</span><span class="n">propiedad</span><span class="p">)</span> <span class="ow">and</span> <span class="n">Propiedades</span><span class="o">.</span><span class="n">checkPrecioAlquiler</span><span class="p">(</span><span class="n">precioAlquiler</span><span class="p">)</span> <span class="ow">and</span> <span class="n">Propiedades</span><span class="o">.</span><span class="n">checkPrecioVenta</span><span class="p">(</span><span class="n">precioVenta</span><span class="p">)</span> <span class="ow">and</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">modifProp</span><span class="p">(</span><span class="n">propiedad</span><span class="p">):</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeInfo</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">,</span><span class="s2">&quot;Se ha modificado la propiedad correctamente.&quot;</span><span class="p">)</span>
+                <span class="n">Propiedades</span><span class="o">.</span><span class="n">cargarTablaPropiedades</span><span class="p">()</span>
+
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">Propiedades</span><span class="o">.</span><span class="n">hasCamposObligatoriosModif</span><span class="p">(</span><span class="n">propiedad</span><span class="p">):</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;Hay algunos campos obligatorios que están vacíos.&quot;</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">Propiedades</span><span class="o">.</span><span class="n">checkPrecioAlquiler</span><span class="p">(</span><span class="n">precioAlquiler</span><span class="p">):</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;Para guardar una propiedad de tipo alquiler debe guardarse un precio y estar marcada la casilla &#39;Alquiler&#39;.&quot;</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">Propiedades</span><span class="o">.</span><span class="n">checkPrecioVenta</span><span class="p">(</span><span class="n">precioVenta</span><span class="p">):</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;Para guardar una propiedad de tipo venta debe guardarse un precio y estar marcada la casilla &#39;Venta&#39;.&quot;</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;Se ha producido un error al modificar la propiedad&quot;</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error modificando cliente en propiedades.&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Propiedades.bajaProp">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.bajaProp">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bajaProp</span><span class="p">():</span>
+        <span class="n">propiedad</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblProp</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtAltaprop</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtBajaprop</span><span class="o">.</span><span class="n">text</span><span class="p">()]</span>
+        <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtAlquilprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="n">propiedad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtAlquilprop</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+        <span class="k">elif</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtVentaprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="n">propiedad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtVentaprop</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+
+
+
+        <span class="k">if</span> <span class="n">propiedad</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">propiedad</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;Es necesario elegir una fecha para dar de baja la propiedad.&quot;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtDisponprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">bajaProp</span><span class="p">(</span><span class="n">propiedad</span><span class="p">)</span> <span class="ow">and</span> <span class="n">Propiedades</span><span class="o">.</span><span class="n">esFechasValidas</span><span class="p">(</span><span class="n">propiedad</span><span class="p">):</span>
+            <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeInfo</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">,</span> <span class="s2">&quot;Se ha dado de baja la propiedad.&quot;</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">paginaActualProp</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">Propiedades</span><span class="o">.</span><span class="n">cargarTablaPropiedades</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtDisponprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;Para dar de baja el estado de la propiedad no puede ser disponible.&quot;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">Propiedades</span><span class="o">.</span><span class="n">esFechasValidas</span><span class="p">(</span><span class="n">propiedad</span><span class="p">):</span>
+            <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="s2">&quot;La fecha de baja no puede ser anterior a la fecha de alta.&quot;</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;Se ha producido un error al dar de baja la propiedad.&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Propiedades.historicoProp">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.historicoProp">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">historicoProp</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">paginaActualProp</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">Propiedades</span><span class="o">.</span><span class="n">cargarTablaPropiedades</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;checkbox historico no funciona correcatamente&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Propiedades.buscaProp">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.buscaProp">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">buscaProp</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">paginaActualProp</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">Propiedades</span><span class="o">.</span><span class="n">cargarTablaPropiedades</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;búsqueda filtrada no funciona correcatamente&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Propiedades.hasCamposObligatoriosAlta">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.hasCamposObligatoriosAlta">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hasCamposObligatoriosAlta</span><span class="p">(</span><span class="n">datosPropiedades</span><span class="p">):</span>
+        <span class="n">datos</span> <span class="o">=</span> <span class="n">datosPropiedades</span><span class="p">[:]</span>
+        <span class="n">descripcion</span> <span class="o">=</span> <span class="n">datos</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+        <span class="n">precio_alquiler</span> <span class="o">=</span> <span class="n">datos</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+        <span class="n">precio_venta</span> <span class="o">=</span> <span class="n">datos</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+        <span class="n">num_banos</span> <span class="o">=</span> <span class="n">datos</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+        <span class="n">num_habitaciones</span> <span class="o">=</span> <span class="n">datos</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">dato</span> <span class="ow">in</span> <span class="n">datos</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dato</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">dato</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Propiedades.hasCamposObligatoriosModif">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.hasCamposObligatoriosModif">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hasCamposObligatoriosModif</span><span class="p">(</span><span class="n">datosPropiedades</span><span class="p">):</span>
+        <span class="n">datos</span> <span class="o">=</span> <span class="n">datosPropiedades</span><span class="p">[:]</span>
+        <span class="n">descripcion</span> <span class="o">=</span> <span class="n">datos</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+        <span class="n">precio_venta</span> <span class="o">=</span> <span class="n">datos</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+        <span class="n">precio_alquiler</span> <span class="o">=</span> <span class="n">datos</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">num_banos</span> <span class="o">=</span> <span class="n">datos</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+        <span class="n">num_habitaciones</span> <span class="o">=</span> <span class="n">datos</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+        <span class="n">fecha_baja</span> <span class="o">=</span> <span class="n">datos</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">dato</span> <span class="ow">in</span> <span class="n">datos</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dato</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">dato</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Propiedades.esFechasValidas">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.esFechasValidas">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">esFechasValidas</span><span class="p">(</span><span class="n">datosPropiedades</span><span class="p">):</span>
+        <span class="n">datos</span> <span class="o">=</span> <span class="n">datosPropiedades</span><span class="p">[:]</span>
+        <span class="n">alta</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">baja</span> <span class="o">=</span> <span class="n">datos</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fecha_alta</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">alta</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y&quot;</span><span class="p">)</span>
+            <span class="n">fecha_baja</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">baja</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y&quot;</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">fecha_alta</span> <span class="o">&lt;</span> <span class="n">fecha_baja</span> <span class="c1">#si fecha de alta es posterior a fecha de baja devuelve false</span>
+
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: La fecha no tiene el formato correcto o no es válida.&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Se esperaba una cadena de texto para la fecha.&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Propiedades.is_num">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.is_num">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_num</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^-?\d+(\.\d+)?$&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="Propiedades.checkPrecioAlquiler">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.checkPrecioAlquiler">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">checkPrecioAlquiler</span><span class="p">(</span><span class="n">precioAlquiler</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">Propiedades</span><span class="o">.</span><span class="n">is_num</span><span class="p">(</span><span class="n">precioAlquiler</span><span class="p">)</span> <span class="ow">and</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkAlquilprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">precioAlquiler</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">precioAlquiler</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkAlquilprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Propiedades.checkPrecioVenta">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.checkPrecioVenta">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">checkPrecioVenta</span><span class="p">(</span><span class="n">precioVenta</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">Propiedades</span><span class="o">.</span><span class="n">is_num</span><span class="p">(</span><span class="n">precioVenta</span><span class="p">)</span> <span class="ow">and</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkVentaprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">precioVenta</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">precioVenta</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkVentaprop</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+
+<div class="viewcode-block" id="Propiedades.filtrar">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.filtrar">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">filtrar</span><span class="p">():</span>
+        <span class="n">checkeado</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btnBuscaTipoProp</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>
+        <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btnBuscaTipoProp</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="ow">not</span> <span class="n">checkeado</span><span class="p">)</span>
+        <span class="n">Propiedades</span><span class="o">.</span><span class="n">cargarTablaPropiedades</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Propiedades.activarCheckPrecios">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.activarCheckPrecios">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">activarCheckPrecios</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtPrecioVentaprop</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkVentaprop</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkVentaprop</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtPrecioAlquilerprop</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkAlquilprop</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">chkAlquilprop</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Propiedades.cambiarAvailableRbt">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.cambiarAvailableRbt">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cambiarAvailableRbt</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtBajaprop</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtBajaprop</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtDisponprop</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtAlquilprop</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtVentaprop</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtDisponprop</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtAlquilprop</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtAlquilprop</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtVentaprop</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">rbtDisponprop</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Propiedades.cargarTipoprop">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.cargarTipoprop">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cargarTipoprop</span><span class="p">():</span>
+        <span class="n">registro</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">cargarTipoprop</span><span class="p">()</span>
+        <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbTipoprop</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbTipoprop</span><span class="o">.</span><span class="n">addItems</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Propiedades.seleccionarTipoGestion">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.seleccionarTipoGestion">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">seleccionarTipoGestion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tipo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbTipopropGestion</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtTipoprop</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">tipo</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Propiedades.cargarTipopropGestion">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.cargarTipopropGestion">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cargarTipopropGestion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">registro</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">cargarTipoprop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbTipopropGestion</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbTipopropGestion</span><span class="o">.</span><span class="n">addItems</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Propiedades.cargaMuniInformeProp">
+<a class="viewcode-back" href="../src/propiedades.html#propiedades.Propiedades.cargaMuniInformeProp">[documentos]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cargaMuniInformeProp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">registro</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">cargarMunicipios</span><span class="p">()</span>
+        <span class="n">registro</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbInformeMuniProp</span><span class="o">.</span><span class="n">setEditable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbInformeMuniProp</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbInformeMuniProp</span><span class="o">.</span><span class="n">addItems</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span>
+        <span class="n">completer</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QCompleter</span><span class="p">(</span><span class="n">registro</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbInformeMuniProp</span><span class="p">)</span>
+        <span class="n">completer</span><span class="o">.</span><span class="n">setCaseSensitivity</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">CaseSensitivity</span><span class="o">.</span><span class="n">CaseInsensitive</span><span class="p">)</span>
+        <span class="n">completer</span><span class="o">.</span><span class="n">setFilterMode</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">MatchFlag</span><span class="o">.</span><span class="n">MatchContains</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbInformeMuniProp</span><span class="o">.</span><span class="n">setCompleter</span><span class="p">(</span><span class="n">completer</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, Yelko.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

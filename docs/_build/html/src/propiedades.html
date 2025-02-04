@@ -1,0 +1,254 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>propiedades module &mdash; documentación de veigaquintas - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=4936afed"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=f85f4cfb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            veigaquintas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">propiedades module</a><ul>
+<li><a class="reference internal" href="#propiedades.Propiedades"><code class="docutils literal notranslate"><span class="pre">Propiedades</span></code></a><ul>
+<li><a class="reference internal" href="#propiedades.Propiedades.activarCheckPrecios"><code class="docutils literal notranslate"><span class="pre">Propiedades.activarCheckPrecios()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.altaPropiedad"><code class="docutils literal notranslate"><span class="pre">Propiedades.altaPropiedad()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.altaTipoPropiedad"><code class="docutils literal notranslate"><span class="pre">Propiedades.altaTipoPropiedad()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.bajaProp"><code class="docutils literal notranslate"><span class="pre">Propiedades.bajaProp()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.bajaTipoPropiedad"><code class="docutils literal notranslate"><span class="pre">Propiedades.bajaTipoPropiedad()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.buscaProp"><code class="docutils literal notranslate"><span class="pre">Propiedades.buscaProp()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.cambiarAvailableRbt"><code class="docutils literal notranslate"><span class="pre">Propiedades.cambiarAvailableRbt()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.cargaMuniInformeProp"><code class="docutils literal notranslate"><span class="pre">Propiedades.cargaMuniInformeProp()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.cargaOnePropiedad"><code class="docutils literal notranslate"><span class="pre">Propiedades.cargaOnePropiedad()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.cargarTablaPropiedades"><code class="docutils literal notranslate"><span class="pre">Propiedades.cargarTablaPropiedades()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.cargarTipoprop"><code class="docutils literal notranslate"><span class="pre">Propiedades.cargarTipoprop()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.cargarTipopropGestion"><code class="docutils literal notranslate"><span class="pre">Propiedades.cargarTipopropGestion()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.checkMovilProp"><code class="docutils literal notranslate"><span class="pre">Propiedades.checkMovilProp()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.checkPrecioAlquiler"><code class="docutils literal notranslate"><span class="pre">Propiedades.checkPrecioAlquiler()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.checkPrecioVenta"><code class="docutils literal notranslate"><span class="pre">Propiedades.checkPrecioVenta()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.esFechasValidas"><code class="docutils literal notranslate"><span class="pre">Propiedades.esFechasValidas()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.filtrar"><code class="docutils literal notranslate"><span class="pre">Propiedades.filtrar()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.hasCamposObligatoriosAlta"><code class="docutils literal notranslate"><span class="pre">Propiedades.hasCamposObligatoriosAlta()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.hasCamposObligatoriosModif"><code class="docutils literal notranslate"><span class="pre">Propiedades.hasCamposObligatoriosModif()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.historicoProp"><code class="docutils literal notranslate"><span class="pre">Propiedades.historicoProp()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.is_num"><code class="docutils literal notranslate"><span class="pre">Propiedades.is_num()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.modifProp"><code class="docutils literal notranslate"><span class="pre">Propiedades.modifProp()</span></code></a></li>
+<li><a class="reference internal" href="#propiedades.Propiedades.seleccionarTipoGestion"><code class="docutils literal notranslate"><span class="pre">Propiedades.seleccionarTipoGestion()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">veigaquintas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">propiedades module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/src/propiedades.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-propiedades">
+<span id="propiedades-module"></span><h1>propiedades module<a class="headerlink" href="#module-propiedades" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="propiedades.Propiedades">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">propiedades.</span></span><span class="sig-name descname"><span class="pre">Propiedades</span></span><a class="reference internal" href="../_modules/propiedades.html#Propiedades"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.activarCheckPrecios">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">activarCheckPrecios</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.activarCheckPrecios"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.activarCheckPrecios" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.altaPropiedad">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">altaPropiedad</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.altaPropiedad"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.altaPropiedad" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.altaTipoPropiedad">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">altaTipoPropiedad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">venDialogo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.altaTipoPropiedad"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.altaTipoPropiedad" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.bajaProp">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bajaProp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.bajaProp"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.bajaProp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.bajaTipoPropiedad">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bajaTipoPropiedad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">venDialogo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.bajaTipoPropiedad"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.bajaTipoPropiedad" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.buscaProp">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">buscaProp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.buscaProp"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.buscaProp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.cambiarAvailableRbt">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cambiarAvailableRbt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.cambiarAvailableRbt"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.cambiarAvailableRbt" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.cargaMuniInformeProp">
+<span class="sig-name descname"><span class="pre">cargaMuniInformeProp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.cargaMuniInformeProp"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.cargaMuniInformeProp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.cargaOnePropiedad">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargaOnePropiedad</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.cargaOnePropiedad"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.cargaOnePropiedad" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.cargarTablaPropiedades">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargarTablaPropiedades</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.cargarTablaPropiedades"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.cargarTablaPropiedades" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.cargarTipoprop">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargarTipoprop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.cargarTipoprop"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.cargarTipoprop" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.cargarTipopropGestion">
+<span class="sig-name descname"><span class="pre">cargarTipopropGestion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.cargarTipopropGestion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.cargarTipopropGestion" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.checkMovilProp">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkMovilProp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">movil</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.checkMovilProp"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.checkMovilProp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.checkPrecioAlquiler">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkPrecioAlquiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">precioAlquiler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.checkPrecioAlquiler"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.checkPrecioAlquiler" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.checkPrecioVenta">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checkPrecioVenta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">precioVenta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.checkPrecioVenta"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.checkPrecioVenta" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.esFechasValidas">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">esFechasValidas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datosPropiedades</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.esFechasValidas"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.esFechasValidas" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.filtrar">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filtrar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.filtrar"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.filtrar" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.hasCamposObligatoriosAlta">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hasCamposObligatoriosAlta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datosPropiedades</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.hasCamposObligatoriosAlta"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.hasCamposObligatoriosAlta" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.hasCamposObligatoriosModif">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hasCamposObligatoriosModif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datosPropiedades</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.hasCamposObligatoriosModif"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.hasCamposObligatoriosModif" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.historicoProp">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">historicoProp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.historicoProp"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.historicoProp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.is_num">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_num</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.is_num"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.is_num" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.modifProp">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">modifProp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.modifProp"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.modifProp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="propiedades.Propiedades.seleccionarTipoGestion">
+<span class="sig-name descname"><span class="pre">seleccionarTipoGestion</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/propiedades.html#Propiedades.seleccionarTipoGestion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#propiedades.Propiedades.seleccionarTipoGestion" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, Yelko.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
