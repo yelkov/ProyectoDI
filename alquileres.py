@@ -14,10 +14,10 @@ class Alquileres:
             precio = var.ui.txtprecioalq.text()
             if isAlquilada or isVendida:
                 eventos.Eventos.crearMensajeError("Error","La propiedad seleccionada ya se encuentra alquilada. No es posible crear el contrato.")
-            elif precio == "":
-                eventos.Eventos.crearMensajeError("Error","La propiedad seleccionada no está disponible para alquiler. Se debe modificar la actual o seleccionar otra disponible para alquiler.")
             elif not Alquileres.hasCamposObligatorios(registro):
                 eventos.Eventos.crearMensajeError("Error","No se ha podido crear el contrato. Alguno de los campos necesarios está vacío. Recuerde seleccionar una propiedad, un cliente, un vendedor y fecha de inicio y fin de contrato.")
+            elif precio == "":
+                eventos.Eventos.crearMensajeError("Error","La propiedad seleccionada no está disponible para alquiler. Se debe modificar la actual o seleccionar otra disponible para alquiler.")
             elif var.claseConexion.altaAlquiler(registro):
                 eventos.Eventos.crearMensajeInfo("Aviso","Se ha creado un nuevo contrato de alquiler.")
                 eventos.Eventos.limpiarPanel()

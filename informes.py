@@ -192,43 +192,47 @@ class Informes:
             rootPath = '.\\informes'
             if not os.path.exists(rootPath):
                 os.makedirs(rootPath)
-            titulo = "FACTURA"
+            ano = datetime.now().year
+            titulo = "FACTURA FAC"+str(ano)+"/"+idFactura
             fecha = datetime.today().strftime('%Y_%m_%d_%H_%M_%S')
-            nomepdffac = fecha + "_factura.pdf"
+            nomepdffac = fecha + "_factura_"+str(ano)+"-"+idFactura+".pdf"
             pdf_path = os.path.join(rootPath, nomepdffac)
             var.report = canvas.Canvas(pdf_path)
 
-            items = ['ID VENTA', 'COD. PROPIEDAD', 'DIRECCIÓN', 'MUNICIPIO', 'TIPO', 'PRECIO VENTA']
+            items = ['ID VENTA', 'COD. PROP.', 'DIRECCIÓN', 'MUNICIPIO', 'TIPO', 'PRECIO VENTA']
             var.report.line(40, 633, 540, 633)
             var.report.setFont('Helvetica-Bold', size=10)
-            var.report.drawString(55, 620, str(items[0]))
-            var.report.drawString(120, 620, str(items[1]))
-            var.report.drawString(230, 620, str(items[2]))
-            var.report.drawString(325, 620, str(items[3]))
+            var.report.drawString(45, 620, str(items[0]))
+            var.report.drawString(100, 620, str(items[1]))
+            var.report.drawString(200, 620, str(items[2]))
+            var.report.drawString(310, 620, str(items[3]))
             var.report.drawString(410, 620, str(items[4]))
             var.report.drawString(460, 620, str(items[5]))
             var.report.line(40, 615, 540, 615)
-            query = QtSql.QSqlQuery()
-            query.prepare("SELECT * FROM facturas WHERE id = :idFactura")
-            query.bindValue(":idFactura", idFactura)
-            if query.exec() and query.next():
-                var.report.setFont('Helvetica', size=9)
-                var.report.drawString(55, 690, "ID factura: " + str(query.value(0)))
-                var.report.drawString(55, 670, "Fecha: " + str(query.value(1)))
-                dnicli = query.value(2)
-                query_cliente = QtSql.QSqlQuery()
-                query_cliente.prepare("SELECT * FROM clientes WHERE dnicli = :dnicli")
-                query_cliente.bindValue(":dnicli", dnicli)
-                if query_cliente.exec() and query_cliente.next():
-                    var.report.drawCentredString(300, 690, "Cliente: " + str(query_cliente.value(3)) + " " + str(query_cliente.value(2)))
-                    var.report.drawCentredString(300,670,"Dirección: " + str(query_cliente.value(6)))
-                    var.report.drawRightString(540,690,"DNI: " + str(dnicli))
-                    var.report.drawRightString(540,670,"Localidad: " + str(query_cliente.value(8)))
-                query_venta = QtSql.QSqlQuery()
-                query_venta.prepare("SELECT * FROM ventas WHERE facventa = :idFactura")
-                query_venta.bindValue(":idFactura", idFactura)
-                if query_venta.exec():
-                    print("Hola")
+            datos_factura = var.claseConexion.datosOneFactura(idFactura)
+
+            var.report.setFont('Helvetica', size=9)
+            var.report.drawString(55, 690, "ID factura: " + str(datos_factura[0]))
+            var.report.drawString(55, 670, "Fecha: " + str(datos_factura[1]))
+
+            dni_cliente = datos_factura[2]
+            datos_cliente = var.claseConexion.datosOneCliente(dni_cliente)
+            var.report.drawCentredString(300, 690, "Cliente: " + str(datos_cliente[3]) + " " + str(datos_cliente[2]))
+            var.report.drawCentredString(300,670,"Dirección: " + str(datos_cliente[6]))
+            var.report.drawRightString(540,690,"DNI: " + str(dni_cliente))
+            var.report.drawRightString(540,670,"Localidad: " + str(datos_cliente[8]))
+
+            listado_ventas = var.claseConexion.listadoVentas(idFactura)
+            y = 600
+            for venta in listado_ventas:
+                var.report.drawCentredString(65,y,str(venta[0]))
+                var.report.drawCentredString(120,y,str(venta[1]))
+                var.report.drawCentredString(230,y,str(venta[2]))
+                var.report.drawCentredString(335,y,str(venta[3]))
+                var.report.drawCentredString(420,y,str(venta[4]))
+                precio_alquiler = f"{venta[5]:,.1f} €"
+                var.report.drawCentredString(510,y,precio_alquiler)
+                y -= 20
 
 
             var.report.line(40,130,540,130)
@@ -237,6 +241,10 @@ class Informes:
             var.report.drawString(350,90, "IVA (10%): ")
             var.report.setFont('Helvetica-Bold', size=12)
             var.report.drawString(350,60, "Total: ")
+            var.report.drawRightString(540,60, str(var.ui.lblTotal.text()))
+            var.report.setFont('Helvetica', size=10)
+            var.report.drawRightString(540,110, str(var.ui.lblSubtotal.text()))
+            var.report.drawRightString(540,90, str(var.ui.lblIva.text()))
 
 
             Informes.topInforme(titulo, None)
