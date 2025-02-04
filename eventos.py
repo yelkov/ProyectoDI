@@ -12,7 +12,7 @@ from PyQt6.QtWidgets import QHeaderView, QCompleter
 from PyQt6.QtWidgets import QHeaderView
 
 import locale
-import eventos
+
 import clientes
 import conexion
 import conexionserver
@@ -336,6 +336,11 @@ class Eventos():
                 var.ui.txtBajaVen.setText(str(data))
             elif var.panel == 3 and var.btn == 0:
                 var.ui.txtFechaFactura.setText(str(data))
+            elif var.panel == 4 and var.btn == 0:
+                var.ui.txtfechainicioalq.setText(str(data))
+            elif var.panel == 4 and var.btn == 1:
+                var.ui.txtfechafinalq.setText(str(data))
+
             time.sleep(0.5)
             var.uicalendar.hide()
             return data
@@ -478,6 +483,52 @@ class Eventos():
             print("error en resize tabla ventas ", e)
 
     @staticmethod
+    def resizeTablaContratos():
+        """
+
+        Método que formatea la cabecera de la tabla de ventas
+
+        """
+        try:
+            header = var.ui.tablacontratosalq.horizontalHeader()
+            for i in range(header.count()):
+                if i == 1:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                else:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+
+                header_items = var.ui.tablacontratosalq.horizontalHeaderItem(i)
+                font = header_items.font()
+                font.setBold(True)
+                header_items.setFont(font)
+
+        except Exception as e:
+            print("error en resize tabla contratos ", e)
+
+    @staticmethod
+    def resizeTablaMensualidades():
+        """
+
+        Método que formatea la cabecera de la tabla de ventas
+
+        """
+        try:
+            header = var.ui.tablaMensualidades.horizontalHeader()
+            for i in range(header.count()):
+                if i not in (0,1,2):
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
+                else:
+                    header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
+
+                header_items = var.ui.tablaMensualidades.horizontalHeaderItem(i)
+                font = header_items.font()
+                font.setBold(True)
+                header_items.setFont(font)
+
+        except Exception as e:
+            print("error en resize tabla mensualidades ", e)
+
+    @staticmethod
     def crearBackup():
         """
 
@@ -519,7 +570,7 @@ class Eventos():
                 mbox = Eventos.crearMensajeInfo('Copia de seguridad',"Copia de seguridad restaurada.")
                 mbox.exec()
                 conexion.Conexion.db_conexion()
-                eventos.Eventos.cargarProv()
+                Eventos.cargarProv()
                 clientes.Clientes.cargaTablaClientes()
         except Exception as error:
             print("error en restaurar backup: ", error)
@@ -533,8 +584,9 @@ class Eventos():
         """
         import propiedades
         import facturas
+        import alquileres
         objetosPanelCli = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,
-                   var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli,var.ui.cmbMunicli,var.ui.txtBajacli]
+                           var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli,var.ui.cmbMunicli,var.ui.txtBajacli]
         for i, dato in enumerate(objetosPanelCli):
             if i in (7,8):
                 pass
@@ -573,14 +625,14 @@ class Eventos():
         propiedades.Propiedades.cargarTablaPropiedades()
 
         objetosPanelVendedores = [var.ui.lblIdVen,var.ui.txtDniVen, var.ui.txtNomVen, var.ui.txtAltaVen, var.ui.txtBajaVen,
-                   var.ui.txtMovilVen, var.ui.txtEmailVen, var.ui.cmbDeleVen]
+                                  var.ui.txtMovilVen, var.ui.txtEmailVen, var.ui.cmbDeleVen]
         for i,dato in enumerate(objetosPanelVendedores):
             if i == 7:
                 pass
             else:
                 dato.setText("")
 
-        eventos.Eventos.cargarProv()
+        Eventos.cargarProv()
         var.ui.chkHistoriaVen.setChecked(False)
         vendedores.Vendedores.cargaTablaVendedores()
 
@@ -591,6 +643,13 @@ class Eventos():
             dato.setText("")
         facturas.Facturas.cargaTablaVentas(0)
         var.ui.btnGrabarVenta.setDisabled(True)
+        var.ui.btnInformeFactura.setDisabled(True)
+
+        objetosPanelAlquileres = [var.ui.lblnumalq, var.ui.txtnomeclialq, var.ui.txtapelclialq, var.ui.txtdniclialq,var.ui.txtidvenalq,var.ui.txtcodpropalq,var.ui.txtdirpropalq,var.ui.txtmunipropalq,var.ui.txttipopropalq,var.ui.txtprecioalq,var.ui.txtfechainicioalq,var.ui.txtfechafinalq]
+        for dato in objetosPanelAlquileres:
+            dato.setText("")
+        alquileres.Alquileres.cargarTablaContratos()
+        var.ui.btnCrearContrato.setDisabled(False)
 
 
     @staticmethod
@@ -626,7 +685,7 @@ class Eventos():
                         writer.writerow(registro)
                 shutil.move(fichero, directorio)
             else:
-                eventos.Eventos.crearMensajeError("Error","Se ha producido un error al exportar los datos en formato CSV.")
+                Eventos.crearMensajeError("Error","Se ha producido un error al exportar los datos en formato CSV.")
         except Exception as e:
             print("error en exportar cvs tipo prop: ", e)
 
@@ -650,7 +709,7 @@ class Eventos():
                     json.dump(lista_propiedades, jsonFile, ensure_ascii=False, indent=4)
                 shutil.move(fichero, directorio)
             else:
-                eventos.Eventos.crearMensajeError("Error","Se ha producido un error al exportar los datos en formato JSON.")
+                Eventos.crearMensajeError("Error","Se ha producido un error al exportar los datos en formato JSON.")
         except Exception as e:
             print("error en exportar cvs tipo prop: ", e)
 
@@ -768,6 +827,6 @@ class Eventos():
                     json.dump(lista_propiedades, jsonFile, ensure_ascii=False, indent=4)
                 shutil.move(fichero, directorio)
             else:
-                eventos.Eventos.crearMensajeError("Error","Se ha producido un error al exportar los datos en formato JSON.")
+                Eventos.crearMensajeError("Error","Se ha producido un error al exportar los datos en formato JSON.")
         except Exception as e:
             print("error en exportar cvs tipo prop: ", e)

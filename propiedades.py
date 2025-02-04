@@ -224,9 +224,17 @@ class Propiedades():
                     listado[i].setText(registro[i])
 
             var.ui.txtcodpropfac.setText(registro[0])
+            var.ui.txtcodpropalq.setText(registro[0])
+
             var.ui.txtdirpropfac.setText(registro[3])
+            var.ui.txtdirpropalq.setText(registro[3])
+
             var.ui.txtmunipropfac.setText(registro[5])
+            var.ui.txtmunipropalq.setText(registro[5])
+
             var.ui.txttipopropfac.setText(registro[6])
+            var.ui.txttipopropalq.setText(registro[6])
+
             precio_venta = registro[11]
             if precio_venta is not None and precio_venta != "":
                 precio_venta_float = float(precio_venta)
@@ -236,6 +244,15 @@ class Propiedades():
             else:
                 var.ui.txtpreciofac.setStyleSheet('border: 1px solid #de6767; border-radius: 5px; font-style: italic; background-color: #de6767')
                 var.ui.txtpreciofac.setText(None)
+            precio_alq = registro[10]
+            if precio_alq is not None and precio_alq != "":
+                precio_alq_float = float(precio_alq)
+                precio_alq_formateado = f"{precio_alq_float:,.1f} €"
+                var.ui.txtprecioalq.setText(precio_alq_formateado)
+                var.ui.txtprecioalq.setStyleSheet('border-bottom: 1px solid black; background-color: rgb(255, 255, 255);')
+            else:
+                var.ui.txtprecioalq.setStyleSheet('border: 1px solid #de6767; border-radius: 5px; font-style: italic; background-color: #de6767')
+                var.ui.txtprecioalq.setText(None)
 
 
 

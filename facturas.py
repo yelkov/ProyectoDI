@@ -100,7 +100,7 @@ class Facturas:
                 else:
                     eventos.Eventos.crearMensajeError("Error al eliminar factura","No se ha podido eliminar la factura.")
             else:
-                    mbox.hide()
+                mbox.hide()
 
         except Exception as e:
             print("Error al eliminar factura en ",e)
@@ -114,6 +114,7 @@ class Facturas:
         """
         try:
             var.ui.btnGrabarVenta.setDisabled(False)
+            var.ui.btnInformeFactura.setDisabled(False)
             fila = var.ui.tablaFacturas.selectedItems()
             datos = [dato.text() for dato in fila]
             registro = var.claseConexion.datosOneFactura(str(datos[0]))
@@ -132,6 +133,7 @@ class Facturas:
 
             var.ui.txtpreciofac.setStyleSheet('border-bottom: 1px solid black; background-color: rgb(255, 255, 255);')
             Facturas.cargaTablaVentas(registro[0])
+
         except Exception as e:
             print("Error al cargar una factura en facturas",e)
 

@@ -3,6 +3,7 @@ from xmlrpc.client import DateTime
 from PyQt6.QtCore import QRegularExpression
 from PyQt6.QtGui import QIcon, QDoubleValidator, QIntValidator, QRegularExpressionValidator
 
+import alquileres
 import clientes
 import conexion
 import conexionserver
@@ -100,6 +101,12 @@ class Main(QtWidgets.QMainWindow):
 
         eventos.Eventos.resizeTablaVentas()
         var.ui.tablaVentas.clicked.connect(facturas.Facturas.cargaOneVenta)
+
+        eventos.Eventos.resizeTablaContratos()
+        alquileres.Alquileres.cargarTablaContratos()
+        var.ui.tablacontratosalq.clicked.connect(alquileres.Alquileres.cargaOneContrato)
+
+        eventos.Eventos.resizeTablaMensualidades()
         '''
         zona de eventos del menubar
         '''
@@ -124,6 +131,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnBajaprop.clicked.connect(lambda: eventos.Eventos.abrirCalendar(1,1))
         var.ui.btnBajaVen.clicked.connect(lambda: eventos.Eventos.abrirCalendar(2,1))
         var.ui.btnFechaFactura.clicked.connect(lambda: eventos.Eventos.abrirCalendar(3,0))
+        var.ui.btnfechainiciocontrato.clicked.connect(lambda: eventos.Eventos.abrirCalendar(4,0))
+        var.ui.btnfechafincontrato.clicked.connect(lambda: eventos.Eventos.abrirCalendar(4,1))
         var.ui.btnModifcli.clicked.connect(clientes.Clientes.modifCliente)
         var.ui.btnDelcli.clicked.connect(clientes.Clientes.bajaCliente)
         var.ui.btnBuscarDni.clicked.connect(clientes.Clientes.buscaOneCliente)
@@ -143,6 +152,10 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnGrabarVenta.clicked.connect(facturas.Facturas.altaVenta)
 
         var.ui.btnGrabarVenta.setDisabled(True)
+        var.ui.btnInformeFactura.setDisabled(True)
+        var.ui.btnInformeFactura.clicked.connect(lambda: informes.Informes.reportFactura(var.ui.lblNumFactura.text()))
+
+        var.ui.btnCrearContrato.clicked.connect(alquileres.Alquileres.altaAlquiler)
 
         '''
         zona de eventos de cajas de texto

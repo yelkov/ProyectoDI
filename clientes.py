@@ -183,6 +183,10 @@ class Clientes:
             var.ui.txtdniclifac.setText(registro[0])
             var.ui.txtapelclifac.setText(registro[2])
             var.ui.txtnomeclifac.setText(registro[3])
+            var.ui.txtnomeclialq.setText(registro[3])
+            var.ui.txtapelclialq.setText(registro[2])
+            var.ui.txtdniclialq.setText(registro[0])
+
             #Clientes.cargarCliente(registro)
 
         except Exception as e:

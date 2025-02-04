@@ -114,8 +114,8 @@ class Informes:
                 os.makedirs(rootPath)
             titulo = "Listado Propiedades"
             fecha = datetime.today().strftime('%Y_%m_%d_%H_%M_%S')
-            nomepdfcli = fecha + "_listadopropiedades.pdf"
-            pdf_path = os.path.join(rootPath, nomepdfcli)
+            nomepdfprop = fecha + "_listadopropiedades.pdf"
+            pdf_path = os.path.join(rootPath, nomepdfprop)
             var.report = canvas.Canvas(pdf_path)
 
             items = ['COD','DIRECCION','TIPO PROP.','OPERACION','PRECIO ALQ.','PRECIO VENTA']
@@ -181,10 +181,78 @@ class Informes:
             var.report.save()
 
             for file in os.listdir(rootPath):
-                if file.endswith(nomepdfcli):
+                if file.endswith(nomepdfprop):
                     os.startfile(pdf_path)
         except Exception as e:
             print(e)
+
+    @staticmethod
+    def reportFactura(idFactura):
+        try:
+            rootPath = '.\\informes'
+            if not os.path.exists(rootPath):
+                os.makedirs(rootPath)
+            titulo = "FACTURA"
+            fecha = datetime.today().strftime('%Y_%m_%d_%H_%M_%S')
+            nomepdffac = fecha + "_factura.pdf"
+            pdf_path = os.path.join(rootPath, nomepdffac)
+            var.report = canvas.Canvas(pdf_path)
+
+            items = ['ID VENTA', 'COD. PROPIEDAD', 'DIRECCIÓN', 'MUNICIPIO', 'TIPO', 'PRECIO VENTA']
+            var.report.line(40, 633, 540, 633)
+            var.report.setFont('Helvetica-Bold', size=10)
+            var.report.drawString(55, 620, str(items[0]))
+            var.report.drawString(120, 620, str(items[1]))
+            var.report.drawString(230, 620, str(items[2]))
+            var.report.drawString(325, 620, str(items[3]))
+            var.report.drawString(410, 620, str(items[4]))
+            var.report.drawString(460, 620, str(items[5]))
+            var.report.line(40, 615, 540, 615)
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT * FROM facturas WHERE id = :idFactura")
+            query.bindValue(":idFactura", idFactura)
+            if query.exec() and query.next():
+                var.report.setFont('Helvetica', size=9)
+                var.report.drawString(55, 690, "ID factura: " + str(query.value(0)))
+                var.report.drawString(55, 670, "Fecha: " + str(query.value(1)))
+                dnicli = query.value(2)
+                query_cliente = QtSql.QSqlQuery()
+                query_cliente.prepare("SELECT * FROM clientes WHERE dnicli = :dnicli")
+                query_cliente.bindValue(":dnicli", dnicli)
+                if query_cliente.exec() and query_cliente.next():
+                    var.report.drawCentredString(300, 690, "Cliente: " + str(query_cliente.value(3)) + " " + str(query_cliente.value(2)))
+                    var.report.drawCentredString(300,670,"Dirección: " + str(query_cliente.value(6)))
+                    var.report.drawRightString(540,690,"DNI: " + str(dnicli))
+                    var.report.drawRightString(540,670,"Localidad: " + str(query_cliente.value(8)))
+                query_venta = QtSql.QSqlQuery()
+                query_venta.prepare("SELECT * FROM ventas WHERE facventa = :idFactura")
+                query_venta.bindValue(":idFactura", idFactura)
+                if query_venta.exec():
+                    print("Hola")
+
+
+            var.report.line(40,130,540,130)
+            var.report.setFont('Helvetica-Bold', size=10)
+            var.report.drawString(350,110, "Subtotal: ")
+            var.report.drawString(350,90, "IVA (10%): ")
+            var.report.setFont('Helvetica-Bold', size=12)
+            var.report.drawString(350,60, "Total: ")
+
+
+            Informes.topInforme(titulo, None)
+            Informes.footInforme(titulo, 1)
+
+
+
+
+
+            var.report.save()
+            for file in os.listdir(rootPath):
+                if file.endswith(nomepdffac):
+                    os.startfile(pdf_path)
+
+        except Exception as e:
+            print("Error al generar informe de facturas", str(e))
 
     @staticmethod
     def getMaxElementosPpag(ymax, ymin, ystep, numRegistros):
@@ -232,27 +300,30 @@ class Informes:
 
             # Asegúrate de que el objeto 'logo' sea de tipo 'PngImageFile'
             if isinstance(logo, Image.Image) and isinstance(letras, Image.Image):
-                var.report.drawImage(ruta_letras, 230, 790, width=120, height=60)
+                var.report.drawImage(ruta_letras, 240, 790, width=120, height=60)
                 var.report.line(40, 800, 540, 800)
                 var.report.setFont('Helvetica-Bold', size=14)
-                var.report.drawString(55, 785, 'InmoTeis')
+                var.report.drawString(55, 782, 'InmoTeis S.L.')
                 if municipio:
                     var.report.drawCentredString(300, 725, titulo)
                     var.report.drawCentredString(300, 705, municipio)
+                    var.report.line(40, 695, 540, 695)
                 else:
-                    var.report.drawString(230, 715, titulo)
-                var.report.line(40, 695, 540, 695)
+                    var.report.drawCentredString(300, 715, titulo)
+                    var.report.line(40, 710, 540, 710)
 
 
-                # Dibuja la imagen en el informe
-                var.report.drawImage(ruta_logo, 480, 750, width=40, height=40)
+
+                # Dibuja la imagen del logo en el informe
+                var.report.drawImage(ruta_logo, 507, 758, width=40, height=40)
 
                 var.report.setFont('Helvetica', size=9)
-                var.report.drawString(230, 772, 'CIF: A12345678')
-                var.report.drawString(55, 772, 'Avda. Galicia - 101')
-                var.report.drawString(55, 757, 'Vigo - 36216 - España')
-                var.report.drawString(360, 772, 'Teléfono: 986 132 456')
-                var.report.drawString(360, 757, 'e-mail: cartesteisr@mail.com')
+                var.report.drawCentredString(300, 780, 'CIF: A12345678')
+                var.report.drawCentredString(300, 765, 'www.inmoteis.es')
+                var.report.drawString(55, 767, 'Avda. Galicia - 101')
+                var.report.drawString(55, 752, 'Vigo - 36216 - España')
+                var.report.drawString(380, 780, 'Teléfono: 986 132 456')
+                var.report.drawString(380, 765, 'e-mail: cartesteisr@mail.com')
             else:
                 print(f'Error: No se pudo cargar la imagen en {ruta_logo} o en {ruta_letras}')
         except Exception as error:
@@ -274,7 +345,7 @@ class Informes:
             fecha = datetime.today().strftime('%d-%m-%Y %H:%M:%S')
             var.report.setFont('Helvetica-Oblique', size=7)
             var.report.drawString(50, 40, str(fecha))
-            var.report.drawString(250, 40, str(titulo))
+            var.report.drawCentredString(300, 40, str(titulo))
             var.report.drawString(490, 40, str('Página %s' % var.report.getPageNumber() + '/' + str(paginas)))
 
         except Exception as error:
