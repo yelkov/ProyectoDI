@@ -1226,3 +1226,59 @@ class Conexion:
             return registro
         except Exception as e:
             print("Error en datosOneAlquiler en conexion", str(e))
+
+    @staticmethod
+    def idOneAlquiler(codPropiedad,dniCliente):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT id FROM alquileres WHERE cliente_dni = :dniCliente AND propiedad_id = :codPropiedad")
+            query.bindValue(":dniCliente", str(dniCliente))
+            query.bindValue(":codPropiedad", str(codPropiedad))
+            if query.exec():
+                while query.next():
+                    return query.value(0)
+        except Exception as e:
+            print("Error en datosOneAlquiler dnicli codprop en conexion", str(e))
+
+    @staticmethod
+    def altaMensualidad(registro):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("INSERT INTO mensualidades(idalquiler, mes, pagado) VALUES (:idalquiler,:mes,:pagado)")
+            query.bindValue(":idalquiler", str(registro[0]))
+            query.bindValue(":mes", str(registro[1]))
+            query.bindValue(":pagado", str(registro[2]))
+            if query.exec():
+                return True
+            else:
+                return False
+        except Exception as e:
+            print("Error al grabar nueva mensualidad en conexion", str(e))
+
+    @staticmethod
+    def listadoMensualidades(idAlquiler):
+        try:
+            listado = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT idmensualidad, mes, pagado FROM mensualidades WHERE idalquiler = :idalquiler")
+            query.bindValue(":idalquiler", str(idAlquiler))
+            if query.exec():
+                while query.next():
+                    fila = [query.value(i) for i in range(query.record().count())]
+                    listado.append(fila)
+            return listado
+        except Exception as e:
+            print("Error en listadoMensualidades - conexion", str(e))
+
+    @staticmethod
+    def pagarMensualidad(idMensualidad):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("UPDATE mensualidades SET pagado = 1 WHERE idmensualidad = :idMensualidad")
+            query.bindValue(":idMensualidad", idMensualidad)
+            if query.exec():
+                return True
+            else:
+                return False
+        except Exception as e:
+            print("Error en pagar mensualidad",str(e))

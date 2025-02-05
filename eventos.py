@@ -515,7 +515,7 @@ class Eventos():
         try:
             header = var.ui.tablaMensualidades.horizontalHeader()
             for i in range(header.count()):
-                if i not in (0,1,2):
+                if i not in (0,1):
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.Stretch)
                 else:
                     header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeMode.ResizeToContents)
@@ -650,6 +650,7 @@ class Eventos():
             dato.setText("")
         alquileres.Alquileres.cargarTablaContratos()
         var.ui.btnCrearContrato.setDisabled(False)
+        alquileres.Alquileres.cargarTablaMensualidades(0,0,0)
 
 
     @staticmethod

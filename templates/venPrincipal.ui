@@ -52,7 +52,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="pesClientes">
        <attribute name="title">
@@ -7624,6 +7624,11 @@
                  <column>
                   <property name="text">
                    <string>Pagado</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Recibo</string>
                   </property>
                  </column>
                 </widget>
