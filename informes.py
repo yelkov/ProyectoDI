@@ -263,6 +263,86 @@ class Informes:
             print("Error al generar informe de facturas", str(e))
 
     @staticmethod
+    def reportReciboMes(idAlquiler,idMensualidad):
+        try:
+            rootPath = '.\\informes'
+            if not os.path.exists(rootPath):
+                os.makedirs(rootPath)
+            titulo = "RECIBO MENSUALIDAD ALQUILER"
+            fecha = datetime.today().strftime('%Y_%m_%d_%H_%M_%S')
+            nomepdffac = fecha + "_recibo_alquiler_"+str(idAlquiler)+".pdf"
+            pdf_path = os.path.join(rootPath, nomepdffac)
+            var.report = canvas.Canvas(pdf_path)
+
+            datosAlquiler = var.claseConexion.datosOneAlquiler(idAlquiler)
+            fecha_inicio = datosAlquiler[1]
+            fecha_final = datosAlquiler[2]
+            id_vendedor = str(datosAlquiler[3])
+            dni_cliente = str(datosAlquiler[4])
+            nombre_cliente = str(datosAlquiler[5]) +" "+str(datosAlquiler[6])
+            cod_propiedad = str(datosAlquiler[7])
+            tipo_propiedad = str(datosAlquiler[8])
+            precio_alquiler = datosAlquiler[9]
+            precio_alquilerStr = f"{precio_alquiler:,.1f} €"
+            localidad = datosAlquiler[10]
+            direccion_inmueble = datosAlquiler[11]
+
+            var.report.drawString(55,690,"DATOS CLIENTE:")
+            var.report.drawString(100,670,"DNI: " +dni_cliente)
+            var.report.drawString(330,670,"Nombre: " +nombre_cliente)
+
+            var.report.drawString(55,640,"DATOS CONTRATO:")
+            var.report.drawString(100,620,"Num. contrato: "+str(idAlquiler))
+            var.report.drawString(100,600,"Num. vendedor: "+id_vendedor)
+            var.report.drawString(330,620,"Fecha inicio: " +fecha_inicio)
+            var.report.drawString(330,600,"Fecha fin de contrato: " +fecha_final)
+
+            var.report.drawString(55,570,"DATOS INMUEBLE:")
+            var.report.drawString(100,550,"Num. inmueble: " + cod_propiedad)
+            var.report.drawString(100,530,"Tipo de inmueble: " + tipo_propiedad)
+            var.report.drawString(330,550,"Dirección: " + direccion_inmueble)
+            var.report.drawString(330,530,"Localidad: " + localidad)
+
+            var.report.line(40,500,540,500)
+            var.report.drawString(55,470,"Mensualidad correspondiente a:")
+            var.report.setFont('Helvetica-Bold', size=12)
+            datos_mensualidad = var.claseConexion.datosOneMensualidad(idMensualidad)
+            var.report.drawCentredString(300,470,datos_mensualidad[1].upper())
+
+            iva = precio_alquiler * 0.1
+            total = precio_alquiler + iva
+
+            var.report.setFont('Helvetica-Bold', size=10)
+            var.report.drawString(370,470, "Subtotal: ")
+            var.report.drawRightString(540,470, precio_alquilerStr)
+            var.report.drawString(370,450, "IVA (10%): ")
+            var.report.drawRightString(540,450, str(iva) + " €")
+            var.report.setFont('Helvetica-Bold', size=12)
+            var.report.drawString(370,420, "Total: ")
+            var.report.drawRightString(540,420, str(total) + " €")
+            var.report.line(40,390,540,390)
+
+
+
+
+
+
+
+
+
+            Informes.topInforme(titulo, None)
+            Informes.footInforme(titulo, 1)
+
+            var.report.save()
+            for file in os.listdir(rootPath):
+                if file.endswith(nomepdffac):
+                    os.startfile(pdf_path)
+
+        except Exception as e:
+            print("Error en reportReciboMes",str(e))
+
+
+    @staticmethod
     def getMaxElementosPpag(ymax, ymin, ystep, numRegistros):
         """
 

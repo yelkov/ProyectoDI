@@ -1168,7 +1168,14 @@ class Conexion:
             query.bindValue(":fecha_fin", str(registro[3]))
             query.bindValue(":vendedor", str(registro[4]))
             if query.exec():
-                return True
+                query_propiedad = QtSql.QSqlQuery()
+                query_propiedad.prepare("UPDATE propiedades SET estado = 'Alquilado', baja = :fecha_baja WHERE  codigo = :codigo")
+                query_propiedad.bindValue(":codigo", str(registro[0]))
+                query_propiedad.bindValue(":fecha_baja", str(registro[2]))
+                if query_propiedad.exec():
+                    return True
+                else:
+                    return False
             else:
                 return False
         except Exception as e:
@@ -1282,3 +1289,19 @@ class Conexion:
                 return False
         except Exception as e:
             print("Error en pagar mensualidad",str(e))
+
+    @staticmethod
+    def datosOneMensualidad(idMensualidad):
+        try:
+            registro = []
+            query = QtSql.QSqlQuery()
+            query.prepare("SELECT idalquiler, mes, pagado FROM mensualidades WHERE idmensualidad = :idMensualidad")
+            query.bindValue(":idMensualidad", idMensualidad)
+            if query.exec():
+                while query.next():
+                    for i in range(query.record().count()):
+                        registro.append(query.value(i))
+            return registro
+
+        except Exception as e:
+            print("Error al cargar datos de una mensualidad en conexcion",str(e))

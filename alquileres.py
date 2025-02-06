@@ -1,11 +1,12 @@
 import datetime
 import locale
 
-from PyQt6 import QtWidgets, QtCore
+from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtWidgets import QHBoxLayout, QWidget
 from dateutil.relativedelta import relativedelta
 
 import eventos
+import informes
 import var
 locale.setlocale(locale.LC_TIME, "es_ES.UTF-8")
 
@@ -150,6 +151,26 @@ class Alquileres:
                 var.ui.tablaMensualidades.setCellWidget(index, 4, container)
                 var.botonAlq.setChecked(registro[2] == 1)
                 var.botonAlq.clicked.connect(lambda checked, idMensualidad=registro[0],: Alquileres.pagarMensualidad(idMensualidad))
+
+                #Creamos un boton para generar el informe
+                var.botonInforme = QtWidgets.QPushButton()
+                var.botonInforme.setFixedSize(20,20)
+                var.botonInforme.setIconSize(QtCore.QSize(20, 20))
+                #var.botonInforme.setObjectName("botonEliminar")
+                var.botonInforme.setIcon(QtGui.QIcon('./img/informe.png'))
+
+                #creamos layout para centrar el boton
+                layout2 = QHBoxLayout()
+                layout2.addWidget(var.botonInforme)
+                layout2.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                layout2.setContentsMargins(0, 0, 0, 0)
+                layout2.setSpacing(0)
+
+                container2 = QWidget()
+                container2.setLayout(layout2)
+                var.ui.tablaMensualidades.setCellWidget(index, 5, container2)
+                var.botonInforme.clicked.connect( lambda checked, idMensualidad=registro[0], idAlquilerInforme = idAlquiler: informes.Informes.reportReciboMes(idAlquilerInforme,idMensualidad))
+
 
 
                 index += 1
