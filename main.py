@@ -156,6 +156,8 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnInformeFactura.clicked.connect(lambda: informes.Informes.reportFactura(var.ui.lblNumFactura.text()))
 
         var.ui.btnCrearContrato.clicked.connect(alquileres.Alquileres.altaAlquiler)
+        var.ui.btnModificarContrato.setDisabled(True)
+        var.ui.btnModificarContrato.clicked.connect(alquileres.Alquileres.modificarContrato)
 
         '''
         zona de eventos de cajas de texto

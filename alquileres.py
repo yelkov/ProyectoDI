@@ -118,6 +118,7 @@ class Alquileres:
     @staticmethod
     def cargarTablaMensualidades(idAlquiler, codPropiedad, precio):
         try:
+            var.ui.btnModificarContrato.setDisabled(False)
             listado = var.claseConexion.listadoMensualidades(idAlquiler)
             var.ui.tablaMensualidades.setRowCount(len(listado))
 
@@ -150,7 +151,7 @@ class Alquileres:
                 container.setLayout(layout)
                 var.ui.tablaMensualidades.setCellWidget(index, 4, container)
                 var.botonAlq.setChecked(registro[2] == 1)
-                var.botonAlq.clicked.connect(lambda checked, idMensualidad=registro[0],: Alquileres.pagarMensualidad(idMensualidad))
+                var.botonAlq.clicked.connect(lambda checked, checkbox = var.botonAlq, idMensualidad=registro[0],: Alquileres.pagarMensualidad(idMensualidad,checked,checkbox))
 
                 #Creamos un boton para generar el informe
                 var.botonInforme = QtWidgets.QPushButton()
@@ -178,8 +179,57 @@ class Alquileres:
             print("Error al cargar tablaContratos",str(e))
 
     @staticmethod
-    def pagarMensualidad(idMensualidad):
-        if var.claseConexion.pagarMensualidad(idMensualidad):
-            eventos.Eventos.crearMensajeInfo("Aviso","Se ha registrado el pago del mes.")
+    def pagarMensualidad(idMensualidad, checked,checkbox):
+        if not checked:
+            eventos.Eventos.crearMensajeError("Error","No se puede modificar un recibo ya pagado.")
+            checkbox.setChecked(True)
+        elif var.claseConexion.pagarMensualidad(idMensualidad):
+            eventos.Eventos.crearMensajeInfo("Aviso","Se ha registrado el pago mensual.")
         else:
             eventos.Eventos.crearMensajeError("Error","Se ha producido un error.")
+
+    @staticmethod
+    def modificarContrato():
+        registro = [var.ui.txtcodpropalq.text(),var.ui.txtdniclialq.text(),var.ui.txtfechainicioalq.text(),var.ui.txtfechafinalq.text(),var.ui.txtidvenalq.text()]
+        nuevaFechaFin = registro[3]
+        idContrato = var.ui.lblnumalq.text()
+
+        datosContrato = var.claseConexion.datosOneAlquiler(idContrato)
+        fechaFinRegistrada = datosContrato[2]
+
+        if nuevaFechaFin == fechaFinRegistrada:
+            eventos.Eventos.crearMensajeError("Error","La nueva fecha de fin de contrato es la misma que está registrada. No se ha modificado el contrato.")
+        elif nuevaFechaFin > fechaFinRegistrada:
+            registro[2] = fechaFinRegistrada
+            if var.claseConexion.modificarFechaFinContrato(idContrato,nuevaFechaFin) and Alquileres.ampliarMensualidades(idContrato,fechaFinRegistrada,nuevaFechaFin) :
+                eventos.Eventos.crearMensajeInfo("Aviso","Se han añadido nuevas mensualidades.")
+                eventos.Eventos.limpiarPanel()
+        else:
+            eventos.Eventos.crearMensajeError("Error","Se ha producido un error inesperado.")
+
+    @staticmethod
+    def ampliarMensualidades(idAlquiler, fechaInicioStr, nuevaFechaFinStr):
+        try:
+            fechaInicio = datetime.datetime.strptime(fechaInicioStr, "%d/%m/%Y")
+            fechaFinal = datetime.datetime.strptime(nuevaFechaFinStr, "%d/%m/%Y")
+
+            fechaInicio += relativedelta(months=+1)
+
+            while fechaInicio.year <= fechaFinal.year and (fechaInicio.year < fechaFinal.year or fechaInicio.month <= fechaFinal.month):
+                mes = fechaInicio.strftime("%B").capitalize()
+                mes_anio = f"{mes} {fechaInicio.year}"
+                registro = [idAlquiler,mes_anio,0]
+                if not var.claseConexion.altaMensualidad(registro):
+                    return False
+                fechaInicio += relativedelta(months=1)
+
+            return True
+
+        except ValueError as e:
+            print("Error: Las fechas no tienen el formato correcto o no son válidas.", e)
+            return False
+        except TypeError as e:
+            print("Error: Se esperaba una cadena de texto para la fecha.", e)
+            return False
+
+

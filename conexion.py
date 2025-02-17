@@ -1305,3 +1305,18 @@ class Conexion:
 
         except Exception as e:
             print("Error al cargar datos de una mensualidad en conexcion",str(e))
+
+    @staticmethod
+    def modificarFechaFinContrato(idAlquiler, nuevaFechaFin):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("UPDATE alquileres set fecha_fin = :nuevaFechaFin WHERE id = :idAlquiler")
+            query.bindValue(":nuevaFechaFin", str(nuevaFechaFin))
+            query.bindValue(":idAlquiler", idAlquiler)
+            if query.exec():
+                return True
+            else:
+                return False
+
+        except Exception as e:
+            print("Error modifcando fecha de alquiler en conexion", str(e))
