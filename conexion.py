@@ -1320,3 +1320,16 @@ class Conexion:
 
         except Exception as e:
             print("Error modifcando fecha de alquiler en conexion", str(e))
+
+    @staticmethod
+    def eliminarMensualidad(idMensualidad):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("DELETE FROM mensualidades WHERE idmensualidad = :idMensualidad")
+            query.bindValue(":idMensualidad", idMensualidad)
+            if query.exec():
+                return True
+            else:
+                return False
+        except Exception as e:
+            print("Error eliminando mensualidad",str(e))

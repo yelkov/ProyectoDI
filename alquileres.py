@@ -1,9 +1,10 @@
 import datetime
+from dateutil.relativedelta import relativedelta
+
 import locale
 
 from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtWidgets import QHBoxLayout, QWidget
-from dateutil.relativedelta import relativedelta
 
 import eventos
 import informes
@@ -191,31 +192,39 @@ class Alquileres:
     @staticmethod
     def modificarContrato():
         registro = [var.ui.txtcodpropalq.text(),var.ui.txtdniclialq.text(),var.ui.txtfechainicioalq.text(),var.ui.txtfechafinalq.text(),var.ui.txtidvenalq.text()]
-        nuevaFechaFin = registro[3]
+        nuevaFechaFinStr = registro[3]
         idContrato = var.ui.lblnumalq.text()
 
         datosContrato = var.claseConexion.datosOneAlquiler(idContrato)
-        fechaFinRegistrada = datosContrato[2]
+        fechaFinRegistradaStr = datosContrato[2]
+
+        nuevaFechaFin = datetime.datetime.strptime(nuevaFechaFinStr, "%d/%m/%Y")
+        fechaFinRegistrada = datetime.datetime.strptime(fechaFinRegistradaStr, "%d/%m/%Y")
 
         if nuevaFechaFin == fechaFinRegistrada:
             eventos.Eventos.crearMensajeError("Error","La nueva fecha de fin de contrato es la misma que está registrada. No se ha modificado el contrato.")
         elif nuevaFechaFin > fechaFinRegistrada:
             registro[2] = fechaFinRegistrada
-            if var.claseConexion.modificarFechaFinContrato(idContrato,nuevaFechaFin) and Alquileres.ampliarMensualidades(idContrato,fechaFinRegistrada,nuevaFechaFin) :
+            if Alquileres.ampliarMensualidades(idContrato,fechaFinRegistrada,nuevaFechaFin) :
                 eventos.Eventos.crearMensajeInfo("Aviso","Se han añadido nuevas mensualidades.")
+                eventos.Eventos.limpiarPanel()
+        elif nuevaFechaFin < fechaFinRegistrada:
+            if Alquileres.eliminarMensualidades(idContrato, nuevaFechaFin):
+                eventos.Eventos.crearMensajeInfo("Aviso","Se han actualizado correctamente los meses y se ha recortado el contrato.")
+                eventos.Eventos.limpiarPanel()
+            else:
+                eventos.Eventos.crearMensajeError("Atención","Es posible que haya meses que no se han eliminado al detectarse pagos en el contrato. Es posible que se haya producido un error.")
                 eventos.Eventos.limpiarPanel()
         else:
             eventos.Eventos.crearMensajeError("Error","Se ha producido un error inesperado.")
 
     @staticmethod
-    def ampliarMensualidades(idAlquiler, fechaInicioStr, nuevaFechaFinStr):
+    def ampliarMensualidades(idAlquiler, fechaInicio, nuevaFechaFin):
         try:
-            fechaInicio = datetime.datetime.strptime(fechaInicioStr, "%d/%m/%Y")
-            fechaFinal = datetime.datetime.strptime(nuevaFechaFinStr, "%d/%m/%Y")
 
             fechaInicio += relativedelta(months=+1)
 
-            while fechaInicio.year <= fechaFinal.year and (fechaInicio.year < fechaFinal.year or fechaInicio.month <= fechaFinal.month):
+            while fechaInicio.year <= nuevaFechaFin.year and (fechaInicio.year < nuevaFechaFin.year or fechaInicio.month <= nuevaFechaFin.month):
                 mes = fechaInicio.strftime("%B").capitalize()
                 mes_anio = f"{mes} {fechaInicio.year}"
                 registro = [idAlquiler,mes_anio,0]
@@ -223,6 +232,8 @@ class Alquileres:
                     return False
                 fechaInicio += relativedelta(months=1)
 
+            nuevaFechaFin = nuevaFechaFin.strftime("%d/%m/%Y")
+            var.claseConexion.modificarFechaFinContrato(idAlquiler,nuevaFechaFin)
             return True
 
         except ValueError as e:
@@ -231,5 +242,31 @@ class Alquileres:
         except TypeError as e:
             print("Error: Se esperaba una cadena de texto para la fecha.", e)
             return False
+
+
+    @staticmethod
+    def eliminarMensualidades(idAlquiler, nuevaFechaFin):
+        try:
+
+            mensualidades = var.claseConexion.listadoMensualidades(idAlquiler)
+            for i in range(len(mensualidades)-1, -1, -1):
+                idMensualidad = mensualidades[i][0]
+                mesStr = mensualidades[i][1]
+                mes = datetime.datetime.strptime(mesStr, "%B %Y")
+                isPagado = mensualidades[i][2]
+
+                if nuevaFechaFin < mes and not isPagado:
+                    var.claseConexion.eliminarMensualidad(idMensualidad)
+                elif nuevaFechaFin > mes:
+                    break;
+                elif isPagado:
+                    return False
+
+            nuevaFechaFin = nuevaFechaFin.strftime("%d/%m/%Y")
+            var.claseConexion.modificarFechaFinContrato(idAlquiler, nuevaFechaFin)
+            return True
+        except Exception as e:
+            print("Error eliminando mensualidades en alquileres", str(e))
+
 
 
