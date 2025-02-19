@@ -651,6 +651,7 @@ class Eventos():
         alquileres.Alquileres.cargarTablaContratos()
         var.ui.btnCrearContrato.setDisabled(False)
         alquileres.Alquileres.cargarTablaMensualidades(0,0,0)
+        var.ui.btnModificarContrato.setDisabled(True)
 
 
     @staticmethod

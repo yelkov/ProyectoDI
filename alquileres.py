@@ -56,6 +56,27 @@ class Alquileres:
                 var.ui.tablacontratosalq.setItem(index, 1, QtWidgets.QTableWidgetItem(str(registro[1]))) #dniCliente
                 var.ui.tablacontratosalq.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablacontratosalq.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+
+                var.botonDelContrato = QtWidgets.QPushButton()
+                var.botonDelContrato.setFixedSize(25,25)
+                var.botonDelContrato.setIconSize(QtCore.QSize(25, 25))
+                var.botonDelContrato.setObjectName("botonEliminar")
+                var.botonDelContrato.setIcon(QtGui.QIcon('./img/basura.png'))
+
+                #creamos layout para centrar el boton
+                layout = QHBoxLayout()
+                layout.addWidget(var.botonDelContrato)
+                layout.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+                layout.setContentsMargins(0, 0, 0, 0)
+                layout.setSpacing(0)
+
+                # Crear un widget contenedor para el layout y agregarlo a la celda
+                container = QWidget()
+                container.setLayout(layout)
+                var.ui.tablacontratosalq.setCellWidget(index, 2, container)
+                var.botonDelContrato.clicked.connect(lambda checked, idAlquiler=registro[0],: Alquileres.eliminarAlquiler(idAlquiler))
+
+
                 index += 1
         except Exception as e:
             print("Error al cargar tablaContratos",str(e))
@@ -128,7 +149,7 @@ class Alquileres:
                 var.ui.tablaMensualidades.setItem(index, 0, QtWidgets.QTableWidgetItem(str(registro[0]))) #idMensualidad
                 var.ui.tablaMensualidades.setItem(index, 1, QtWidgets.QTableWidgetItem(str(codPropiedad)))
                 var.ui.tablaMensualidades.setItem(index, 2, QtWidgets.QTableWidgetItem(str(registro[1])))
-                var.ui.tablaMensualidades.setItem(index, 3, QtWidgets.QTableWidgetItem(str(precio)))
+                var.ui.tablaMensualidades.setItem(index, 3, QtWidgets.QTableWidgetItem(str(precio) + " €"))
                 var.ui.tablaMensualidades.item(index, 0).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaMensualidades.item(index, 1).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
                 var.ui.tablaMensualidades.item(index, 2).setTextAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
@@ -204,17 +225,16 @@ class Alquileres:
         if nuevaFechaFin == fechaFinRegistrada:
             eventos.Eventos.crearMensajeError("Error","La nueva fecha de fin de contrato es la misma que está registrada. No se ha modificado el contrato.")
         elif nuevaFechaFin > fechaFinRegistrada:
-            registro[2] = fechaFinRegistrada
             if Alquileres.ampliarMensualidades(idContrato,fechaFinRegistrada,nuevaFechaFin) :
                 eventos.Eventos.crearMensajeInfo("Aviso","Se han añadido nuevas mensualidades.")
-                eventos.Eventos.limpiarPanel()
+                Alquileres.cargarTablaMensualidades(idContrato,datosContrato[7],datosContrato[9])
         elif nuevaFechaFin < fechaFinRegistrada:
             if Alquileres.eliminarMensualidades(idContrato, nuevaFechaFin):
                 eventos.Eventos.crearMensajeInfo("Aviso","Se han actualizado correctamente los meses y se ha recortado el contrato.")
-                eventos.Eventos.limpiarPanel()
+                Alquileres.cargarTablaMensualidades(idContrato,datosContrato[7],datosContrato[9])
             else:
                 eventos.Eventos.crearMensajeError("Atención","Es posible que haya meses que no se han eliminado al detectarse pagos en el contrato. Es posible que se haya producido un error.")
-                eventos.Eventos.limpiarPanel()
+                Alquileres.cargarTablaMensualidades(idContrato,datosContrato[7],datosContrato[9])
         else:
             eventos.Eventos.crearMensajeError("Error","Se ha producido un error inesperado.")
 
@@ -269,4 +289,24 @@ class Alquileres:
             print("Error eliminando mensualidades en alquileres", str(e))
 
 
+    @staticmethod
+    def eliminarAlquiler(idAlquiler):
+        try:
+            mensualidades = var.claseConexion.listadoMensualidades(idAlquiler)
+            for mensualidad in mensualidades:
+                isPagado = mensualidad[2]
+                if isPagado:
+                    eventos.Eventos.crearMensajeError("Error","No es posible eliminar un contrato que tenga mensualidades ya pagadas.")
+                    return
 
+            mbox = eventos.Eventos.crearMensajeConfirmacion('Eliminar factura', "¿Desea eliminar el contrato de alquiler seleccionado? Tenga en cuenta que la acción es irreversible.")
+            if mbox.exec() == QtWidgets.QMessageBox.StandardButton.Yes:
+                if var.claseConexion.eliminarContratoAlquiler(idAlquiler):
+                    eventos.Eventos.crearMensajeInfo("Aviso","Se ha eliminado el contrato de alquiler.")
+                    Alquileres.cargarTablaContratos()
+                    Alquileres.cargarTablaMensualidades(0,0,0)
+                else:
+                    eventos.Eventos.crearMensajeError("Error","Se ha producido un error y no se ha eliminado el contrato de alquiler.")
+
+        except Exception as e:
+            print("Error al eliminar un alquiler en alquileres", str(e))

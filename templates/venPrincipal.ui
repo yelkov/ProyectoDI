@@ -7573,6 +7573,11 @@
                <string>DNI</string>
               </property>
              </column>
+             <column>
+              <property name="text">
+               <string>Gestión</string>
+              </property>
+             </column>
             </widget>
            </item>
           </layout>

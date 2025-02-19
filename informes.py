@@ -2,6 +2,7 @@ import math
 from dataclasses import dataclass
 from datetime import datetime
 from PIL import Image
+from reportlab.lib import colors
 from reportlab.pdfgen import canvas
 import os, shutil
 from PyQt6 import QtSql, QtWidgets, QtCore
@@ -322,16 +323,15 @@ class Informes:
             var.report.drawRightString(540,420, str(total) + " €")
             var.report.line(40,390,540,390)
 
-
-
-
-
-
-
-
-
             Informes.topInforme(titulo, None)
             Informes.footInforme(titulo, 1)
+
+            isPagado = datos_mensualidad[2]
+
+            if isPagado:
+                var.report.setFont('Helvetica-Bold', size=25)
+                var.report.setFillColor(colors.red)
+                var.report.drawString(100,420,'PAGADO')
 
             var.report.save()
             for file in os.listdir(rootPath):

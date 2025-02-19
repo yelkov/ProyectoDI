@@ -1333,3 +1333,29 @@ class Conexion:
                 return False
         except Exception as e:
             print("Error eliminando mensualidad",str(e))
+
+
+    @staticmethod
+    def eliminarContratoAlquiler(idAlquiler):
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("DELETE FROM mensualidades WHERE idalquiler = :idAlquiler")
+            query.bindValue(":idAlquiler", idAlquiler)
+            if not query.exec():
+                return False
+
+            query_prop = QtSql.QSqlQuery()
+            query_prop.prepare("UPDATE propiedades SET estado = 'Disponible', baja = NULL WHERE codigo = ( SELECT propiedad_id FROM alquileres WHERE id = :idAlquiler) ")
+            query_prop.bindValue(":idAlquiler", idAlquiler)
+            if not query_prop.exec():
+                return False
+
+            query_alq = QtSql.QSqlQuery()
+            query_alq.prepare("DELETE FROM alquileres WHERE id = :idAlquiler")
+            query_alq.bindValue(":idAlquiler", idAlquiler)
+            if query_alq.exec():
+                return True
+            else:
+                return False
+        except Exception as e:
+            print("Error al eliminar un contrato de alquiler en conexion", str(e))
