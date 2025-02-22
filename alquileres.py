@@ -1,5 +1,4 @@
 import datetime
-from dateutil.relativedelta import relativedelta
 
 import locale
 
@@ -120,14 +119,13 @@ class Alquileres:
             fechaInicio = datetime.datetime.strptime(fechaInicioStr, "%d/%m/%Y")
             fechaFinal = datetime.datetime.strptime(fechaFinalStr, "%d/%m/%Y")
 
-            while fechaInicio.year <= fechaFinal.year and (fechaInicio.year < fechaFinal.year or fechaInicio.month <= fechaFinal.month):
+            while fechaInicio <= fechaFinal:
                 mes = fechaInicio.strftime("%B").capitalize()
                 mes_anio = f"{mes} {fechaInicio.year}"
                 registro = [idAlquiler,mes_anio,0]
                 if not var.claseConexion.altaMensualidad(registro):
                     return False
-                fechaInicio += relativedelta(months=1)
-
+                fechaInicio = Alquileres.sumar_un_mes(fechaInicio)
             return True
 
         except ValueError as e:
@@ -135,7 +133,17 @@ class Alquileres:
             return False
         except TypeError as e:
             print("Error: Se esperaba una cadena de texto para la fecha.", e)
-            return False
+            return
+
+    @staticmethod
+    def sumar_un_mes(fecha):
+        mes = fecha.month + 1
+        año = fecha.year
+        if mes > 12:
+            mes = 1
+            año += 1
+        dia = 1
+        return fecha.replace(year=año,month=mes,day=dia)
 
     @staticmethod
     def cargarTablaMensualidades(idAlquiler, codPropiedad, precio):
@@ -242,15 +250,15 @@ class Alquileres:
     def ampliarMensualidades(idAlquiler, fechaInicio, nuevaFechaFin):
         try:
 
-            fechaInicio += relativedelta(months=+1)
+            fechaInicio = Alquileres.sumar_un_mes(fechaInicio)
 
-            while fechaInicio.year <= nuevaFechaFin.year and (fechaInicio.year < nuevaFechaFin.year or fechaInicio.month <= nuevaFechaFin.month):
+            while fechaInicio <= nuevaFechaFin:
                 mes = fechaInicio.strftime("%B").capitalize()
                 mes_anio = f"{mes} {fechaInicio.year}"
                 registro = [idAlquiler,mes_anio,0]
                 if not var.claseConexion.altaMensualidad(registro):
                     return False
-                fechaInicio += relativedelta(months=1)
+                fechaInicio = Alquileres.sumar_un_mes(fechaInicio)
 
             nuevaFechaFin = nuevaFechaFin.strftime("%d/%m/%Y")
             var.claseConexion.modificarFechaFinContrato(idAlquiler,nuevaFechaFin)
