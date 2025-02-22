@@ -27,7 +27,7 @@ class Alquileres:
                 eventos.Eventos.crearMensajeError("Error","La propiedad seleccionada no está disponible para alquiler. Se debe modificar la actual o seleccionar otra disponible para alquiler.")
             elif var.claseConexion.altaAlquiler(registro) and Alquileres.generarMensualidades(registro):
                 eventos.Eventos.crearMensajeInfo("Aviso","Se ha creado un nuevo contrato de alquiler.")
-                eventos.Eventos.limpiarPanel()
+                eventos.Eventos.limpiarPanelAlquileres()
             else:
                 eventos.Eventos.crearMensajeError("Error","Se ha producido un error inesperado y no es posible generar un nuevo contrato de alquiler.")
 

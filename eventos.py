@@ -582,77 +582,108 @@ class Eventos():
         Método que limpia todos los campos de datos del programa o los restablece a su opción por defecto
 
         """
-        import propiedades
-        import facturas
+        panelActual = var.ui.panPrincipal.currentIndex()
+        if panelActual == 0:
+            Eventos.limpiarPanelClientes()
+        elif panelActual == 1:
+            Eventos.limpiarPanelPropiedades()
+        elif panelActual == 2:
+            Eventos.limpiarPanelVendedores()
+        elif panelActual == 3:
+            Eventos.limpiarPanelVentas()
+        elif panelActual == 4:
+            Eventos.limpiarPanelAlquileres()
+
+    @staticmethod
+    def limpiarPanelAlquileres():
         import alquileres
-        objetosPanelCli = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,
-                           var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli,var.ui.cmbMunicli,var.ui.txtBajacli]
-        for i, dato in enumerate(objetosPanelCli):
-            if i in (7,8):
+        objetosPanelAlquileres = [var.ui.lblnumalq, var.ui.txtnomeclialq, var.ui.txtapelclialq, var.ui.txtdniclialq,
+                                  var.ui.txtidvenalq, var.ui.txtcodpropalq, var.ui.txtdirpropalq, var.ui.txtmunipropalq,
+                                  var.ui.txttipopropalq, var.ui.txtprecioalq, var.ui.txtfechainicioalq,
+                                  var.ui.txtfechafinalq]
+        for dato in objetosPanelAlquileres:
+            dato.setText("")
+        var.ui.txtprecioalq.setStyleSheet('border-bottom: 1px solid black; background-color: rgb(255, 255, 255);')
+        alquileres.Alquileres.cargarTablaContratos()
+        var.ui.btnCrearContrato.setDisabled(False)
+        alquileres.Alquileres.cargarTablaMensualidades(0, 0, 0)
+        var.ui.btnModificarContrato.setDisabled(True)
+
+    @staticmethod
+    def limpiarPanelVentas():
+        import facturas
+
+        var.ui.txtFechaFactura.setText(datetime.now().strftime("%d/%m/%Y"))
+        objetosPanelVentas = [var.ui.lblNumFactura, var.ui.txtdniclifac, var.ui.txtnomeclifac, var.ui.txtapelclifac,
+                              var.ui.txtidvenfac, var.ui.txtcodpropfac, var.ui.txttipopropfac, var.ui.txtpreciofac,
+                              var.ui.txtmunipropfac, var.ui.txtdirpropfac, var.ui.lblSubtotal, var.ui.lblIva,
+                              var.ui.lblTotal]
+        for dato in objetosPanelVentas:
+            dato.setText("")
+        var.ui.txtpreciofac.setStyleSheet('border-bottom: 1px solid black; background-color: rgb(255, 255, 255);')
+        facturas.Facturas.cargaTablaVentas(0)
+        var.ui.btnGrabarVenta.setDisabled(True)
+        var.ui.btnInformeFactura.setDisabled(True)
+
+    @staticmethod
+    def limpiarPanelVendedores():
+        objetosPanelVendedores = [var.ui.lblIdVen, var.ui.txtDniVen, var.ui.txtNomVen, var.ui.txtAltaVen,
+                                  var.ui.txtBajaVen,
+                                  var.ui.txtMovilVen, var.ui.txtEmailVen, var.ui.cmbDeleVen]
+        for i, dato in enumerate(objetosPanelVendedores):
+            if i == 7:
                 pass
             else:
                 dato.setText("")
+        Eventos.cargarProv()
+        var.ui.chkHistoriaVen.setChecked(False)
+        vendedores.Vendedores.cargaTablaVendedores()
 
-        var.ui.lblTickcli.clear()
-        var.ui.txtDnicli.setStyleSheet('border: 1px solid black; border-radius: 5px; background-color: rgb(254, 255, 210)')
-        var.ui.txtDnicli.setPlaceholderText("")
-        var.ui.txtMovilcli.setPlaceholderText("")
-        var.ui.txtMovilcli.setStyleSheet('border: 1px solid black; border-radius: 5px;')
-        var.ui.txtEmailcli.setPlaceholderText("")
-        var.ui.txtEmailcli.setStyleSheet('border: 1px solid black; border-radius: 5px;')
-
-        objetosPanelProp = [var.ui.lblProp, var.ui.txtAltaprop,var.ui.txtBajaprop,var.ui.txtDirprop,var.ui.cmbProvprop,
-                            var.ui.cmbMuniprop,var.ui.cmbTipoprop,
-                            var.ui.spinHabprop, var.ui.spinBanosprop, var.ui.txtSuperprop,var.ui.txtPrecioAlquilerprop,
+    @staticmethod
+    def limpiarPanelPropiedades():
+        import propiedades
+        objetosPanelProp = [var.ui.lblProp, var.ui.txtAltaprop, var.ui.txtBajaprop, var.ui.txtDirprop,
+                            var.ui.cmbProvprop,
+                            var.ui.cmbMuniprop, var.ui.cmbTipoprop,
+                            var.ui.spinHabprop, var.ui.spinBanosprop, var.ui.txtSuperprop, var.ui.txtPrecioAlquilerprop,
                             var.ui.txtPrecioVentaprop,
-                            var.ui.txtCpprop,var.ui.areatxtDescriprop, var.ui.rbtDisponprop, var.ui.rbtAlquilprop,var.ui.chkVentaprop,var.ui.chkInterprop,
-                            var.ui.chkAlquilprop,var.ui.rbtVentaprop,var.ui.txtNomeprop,var.ui.txtMovilprop]
+                            var.ui.txtCpprop, var.ui.areatxtDescriprop, var.ui.rbtDisponprop, var.ui.rbtAlquilprop,
+                            var.ui.chkVentaprop, var.ui.chkInterprop,
+                            var.ui.chkAlquilprop, var.ui.rbtVentaprop, var.ui.txtNomeprop, var.ui.txtMovilprop]
         for i, dato in enumerate(objetosPanelProp):
-            if i in (4,5,6):
+            if i in (4, 5, 6):
                 pass
-            elif i in (7,8):
+            elif i in (7, 8):
                 dato.setValue(0)
             elif i == 13:
                 dato.setPlainText("")
             elif i == 14:
                 dato.setChecked(True)
-            elif i in (15,16,17,18,19):
+            elif i in (15, 16, 17, 18, 19):
                 dato.setChecked(False)
             else:
                 dato.setText("")
-
         var.ui.btnBuscaTipoProp.setChecked(False)
         propiedades.Propiedades.cargarTablaPropiedades()
 
-        objetosPanelVendedores = [var.ui.lblIdVen,var.ui.txtDniVen, var.ui.txtNomVen, var.ui.txtAltaVen, var.ui.txtBajaVen,
-                                  var.ui.txtMovilVen, var.ui.txtEmailVen, var.ui.cmbDeleVen]
-        for i,dato in enumerate(objetosPanelVendedores):
-            if i == 7:
+    @staticmethod
+    def limpiarPanelClientes():
+        objetosPanelCli = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,
+                           var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli,
+                           var.ui.cmbMunicli, var.ui.txtBajacli]
+        for i, dato in enumerate(objetosPanelCli):
+            if i in (7, 8):
                 pass
             else:
                 dato.setText("")
-
-        Eventos.cargarProv()
-        var.ui.chkHistoriaVen.setChecked(False)
-        vendedores.Vendedores.cargaTablaVendedores()
-
-
-        var.ui.txtFechaFactura.setText(datetime.now().strftime("%d/%m/%Y"))
-        objetosPanelVentas = [var.ui.lblNumFactura,var.ui.txtdniclifac,var.ui.txtnomeclifac,var.ui.txtapelclifac, var.ui.txtidvenfac, var.ui.txtcodpropfac, var.ui.txttipopropfac, var.ui.txtpreciofac, var.ui.txtmunipropfac, var.ui.txtdirpropfac, var.ui.lblSubtotal, var.ui.lblIva,var.ui.lblTotal]
-        for dato in objetosPanelVentas:
-            dato.setText("")
-        facturas.Facturas.cargaTablaVentas(0)
-        var.ui.btnGrabarVenta.setDisabled(True)
-        var.ui.btnInformeFactura.setDisabled(True)
-
-        objetosPanelAlquileres = [var.ui.lblnumalq, var.ui.txtnomeclialq, var.ui.txtapelclialq, var.ui.txtdniclialq,var.ui.txtidvenalq,var.ui.txtcodpropalq,var.ui.txtdirpropalq,var.ui.txtmunipropalq,var.ui.txttipopropalq,var.ui.txtprecioalq,var.ui.txtfechainicioalq,var.ui.txtfechafinalq]
-        for dato in objetosPanelAlquileres:
-            dato.setText("")
-        alquileres.Alquileres.cargarTablaContratos()
-        var.ui.btnCrearContrato.setDisabled(False)
-        alquileres.Alquileres.cargarTablaMensualidades(0,0,0)
-        var.ui.btnModificarContrato.setDisabled(True)
-
+        var.ui.lblTickcli.clear()
+        var.ui.txtDnicli.setStyleSheet(
+            'border: 1px solid black; border-radius: 5px; background-color: rgb(254, 255, 210)')
+        var.ui.txtDnicli.setPlaceholderText("")
+        var.ui.txtMovilcli.setPlaceholderText("")
+        var.ui.txtMovilcli.setStyleSheet('border: 1px solid black; border-radius: 5px;')
+        var.ui.txtEmailcli.setPlaceholderText("")
+        var.ui.txtEmailcli.setStyleSheet('border: 1px solid black; border-radius: 5px;')
 
     @staticmethod
     def abrirTipoprop():

@@ -158,6 +158,7 @@ class Main(QtWidgets.QMainWindow):
         var.ui.btnCrearContrato.clicked.connect(alquileres.Alquileres.altaAlquiler)
         var.ui.btnModificarContrato.setDisabled(True)
         var.ui.btnModificarContrato.clicked.connect(alquileres.Alquileres.modificarContrato)
+        var.ui.btnLimpiarAlquiler.clicked.connect(eventos.Eventos.limpiarPanelAlquileres)
 
         '''
         zona de eventos de cajas de texto
