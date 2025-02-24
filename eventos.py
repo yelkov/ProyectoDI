@@ -596,6 +596,10 @@ class Eventos():
 
     @staticmethod
     def limpiarPanelAlquileres():
+        """
+        Método que limpia todos los campos de datos del panel de alquileres o los restablece a su opción por defecto
+
+        """
         import alquileres
         objetosPanelAlquileres = [var.ui.lblnumalq, var.ui.txtnomeclialq, var.ui.txtapelclialq, var.ui.txtdniclialq,
                                   var.ui.txtidvenalq, var.ui.txtcodpropalq, var.ui.txtdirpropalq, var.ui.txtmunipropalq,
@@ -611,6 +615,10 @@ class Eventos():
 
     @staticmethod
     def limpiarPanelVentas():
+        """
+        Método que limpia todos los campos de datos del panel de ventas o los restablece a su opción por defecto
+
+        """
         import facturas
 
         var.ui.txtFechaFactura.setText(datetime.now().strftime("%d/%m/%Y"))
@@ -627,6 +635,10 @@ class Eventos():
 
     @staticmethod
     def limpiarPanelVendedores():
+        """
+        Método que limpia todos los campos de datos del panel de vendedores o los restablece a su opción por defecto
+
+        """
         objetosPanelVendedores = [var.ui.lblIdVen, var.ui.txtDniVen, var.ui.txtNomVen, var.ui.txtAltaVen,
                                   var.ui.txtBajaVen,
                                   var.ui.txtMovilVen, var.ui.txtEmailVen, var.ui.cmbDeleVen]
@@ -641,6 +653,10 @@ class Eventos():
 
     @staticmethod
     def limpiarPanelPropiedades():
+        """
+        Método que limpia todos los campos de datos del panel de propiedades o los restablece a su opción por defecto
+
+        """
         import propiedades
         objetosPanelProp = [var.ui.lblProp, var.ui.txtAltaprop, var.ui.txtBajaprop, var.ui.txtDirprop,
                             var.ui.cmbProvprop,
@@ -668,6 +684,10 @@ class Eventos():
 
     @staticmethod
     def limpiarPanelClientes():
+        """
+        Método que limpia todos los campos de datos del panel de clientes o los restablece a su opción por defecto
+
+        """
         objetosPanelCli = [var.ui.txtDnicli, var.ui.txtAltacli, var.ui.txtApelcli, var.ui.txtNomcli,
                            var.ui.txtEmailcli, var.ui.txtMovilcli, var.ui.txtDircli, var.ui.cmbProvcli,
                            var.ui.cmbMunicli, var.ui.txtBajacli]

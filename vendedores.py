@@ -8,6 +8,13 @@ class Vendedores():
 
     @staticmethod
     def checkDniVen(dni):
+        """
+
+        :param dni: el dni de un vendedor
+        :type dni: str
+
+        Método que modifica la interfaz en función de si es correcto o no el formato de dni
+        """
         try:
             dni = str(dni).upper()
             var.ui.txtDniVen.setText(str(dni))
@@ -25,6 +32,13 @@ class Vendedores():
 
     @staticmethod
     def checkMovilVen(movil):
+        """
+
+        :param movil: móvil de un vendedor
+        :type movil: str
+
+        Método que modifica la interfaz en función de si es correcto o no el formato del número de móvil
+        """
         try:
             if eventos.Eventos.isMovilValido(movil):
                 var.ui.txtMovilVen.setStyleSheet('background-color: rgb(255, 255, 255);')
@@ -38,6 +52,13 @@ class Vendedores():
 
     @staticmethod
     def checkEmailVen(mail):
+        """
+
+        :param mail: el mail del vendedor
+        :type mail: str
+
+        Método que modifica la interfaz en función de si es correcto o no el formato del correo electrónico
+        """
         try:
             if eventos.Eventos.isMailValido(mail):
                 var.ui.txtEmailVen.setStyleSheet('background-color: rgb(255, 255, 255);')
@@ -54,6 +75,11 @@ class Vendedores():
 
     @staticmethod
     def altaVendedor():
+        """
+
+        Método para dar de alta a un nuevo vendedor, comprobando que no exista previamente y que cumple con todos los datos obligatorios para su creación
+
+        """
         try:
             nuevoVendedor = [var.ui.txtDniVen.text(),var.ui.txtNomVen.text(),var.ui.txtAltaVen.text(),var.ui.txtMovilVen.text(),var.ui.txtEmailVen.text(),var.ui.cmbDeleVen.currentText()]
 
@@ -73,6 +99,15 @@ class Vendedores():
 
     @staticmethod
     def hasCamposObligatorios(nuevoVendedor):
+        """
+
+        :param nuevoVendedor: datos del vendedor
+        :type nuevoVendedor: list
+        :return: verdadero o falso si cuenta con los campos obligatorios
+        :rtype: bool
+
+        Método para comprobar que el nuevo vendedor a insertar tiene todos los datos requeridos
+        """
         datos = nuevoVendedor[:]
         fecha_alta = datos.pop(2)
         mail = datos.pop(3)
@@ -83,6 +118,16 @@ class Vendedores():
 
     @staticmethod
     def isVendedorPresent(nuevoVendedor):
+        """
+
+        :param nuevoVendedor: datos de un vendedor
+        :type nuevoVendedor: list
+        :return: verdadero o falso en función de que el vendedor y esté ya registrado en la base de datos
+        :rtype: bool
+
+        Método que comprueba si un vendedor ya está o no registrado en la base de datos
+
+        """
         registro = var.claseConexion.datosOneVendedor(nuevoVendedor[0],"dniVendedor")
         if registro != []:
             return True
@@ -91,6 +136,9 @@ class Vendedores():
 
     @staticmethod
     def cargaTablaVendedores():
+        """
+        Método para cargar los datos en la tabla de vendedores
+        """
         try:
             listado = var.claseConexion.listadoVendedores()
 
@@ -115,6 +163,9 @@ class Vendedores():
 
     @staticmethod
     def bajaVendedor():
+        """
+        Método para dar de baja a un vendedor de la base de datos
+        """
         try:
             dni = var.ui.txtDniVen.text()
             if var.claseConexion.bajaVendedor(dni):
@@ -128,6 +179,9 @@ class Vendedores():
 
     @staticmethod
     def cargaOneVendedor():
+        """
+        Método para cargar en los campos de la interfaz los datos de un vendedor al clicar en los datos de la tabla
+        """
         try:
             fila = var.ui.tablaVendedores.selectedItems()
             datos = [dato.text() for dato in fila]

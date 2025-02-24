@@ -14,6 +14,11 @@ locale.setlocale(locale.LC_TIME, "es_ES.UTF-8")
 class Alquileres:
     @staticmethod
     def altaAlquiler():
+        """
+
+        Método para insertar un nuevo contrato de alquiler y generar las mensualidades en función de la fecha de inicio y de final
+
+        """
         try:
             registro = [var.ui.txtcodpropalq.text(),var.ui.txtdniclialq.text(),var.ui.txtfechainicioalq.text(),var.ui.txtfechafinalq.text(),var.ui.txtidvenalq.text()]
             isAlquilada = var.claseConexion.propiedadIsAlquilada(var.ui.txtcodpropalq.text())
@@ -37,6 +42,16 @@ class Alquileres:
 
     @staticmethod
     def hasCamposObligatorios(registro):
+        """
+
+        :param registro: datos de contrato de alquiler
+        :type registro: list
+        :return: si contiene o no todos los campos obligatorios
+        :rtype: bool
+
+        Método para comprobar que el contrato de alquiler contiene los datos obligatorios
+
+        """
         for dato in registro:
             if dato is None or dato == '':
                 return False
@@ -45,6 +60,11 @@ class Alquileres:
 
     @staticmethod
     def cargarTablaContratos():
+        """
+
+        Método para cargar la tabla de contratos de alquiler
+
+        """
         try:
             listado = var.claseConexion.listadoAlquileres()
             var.ui.tablacontratosalq.setRowCount(len(listado))
@@ -82,6 +102,11 @@ class Alquileres:
 
     @staticmethod
     def cargaOneContrato():
+        """
+
+        Método para cargar los datos de un contrato en los cuadros de texto correspondientes y las mensualidades en la tabla
+
+        """
         try:
             var.ui.btnCrearContrato.setDisabled(True)
             fila = var.ui.tablacontratosalq.selectedItems()
@@ -109,6 +134,16 @@ class Alquileres:
 
     @staticmethod
     def generarMensualidades(registro):
+        """
+
+        :param registro: datos de un contrato de alquiler
+        :type registro: list
+        :return: éxito o no al generar las mensualidades
+        :rtype: bool
+
+        Método que a partir de la fecha de inicio y de final de contrato genera las mensualidades de ese contrato
+
+        """
         try:
             codPropiedad = registro[0]
             dniCliente = registro[1]
@@ -137,6 +172,16 @@ class Alquileres:
 
     @staticmethod
     def sumar_un_mes(fecha):
+        """
+
+        :param fecha: fecha
+        :type fecha: datetime
+        :return: fecha con un mes más añadido
+        :rtype: datetime
+
+        Método para sumar un mes a una fecha determinada. Como no registramos el día del mes en las mensualidades, este método cambia el día a 1 para evitar problemas en la suma con febrero y meses de 30 días
+
+        """
         mes = fecha.month + 1
         año = fecha.year
         if mes > 12:
@@ -147,6 +192,18 @@ class Alquileres:
 
     @staticmethod
     def cargarTablaMensualidades(idAlquiler, codPropiedad, precio):
+        """
+
+        :param idAlquiler: el id del contrato de alquiler
+        :type idAlquiler: int
+        :param codPropiedad: el id de la propiedad
+        :type codPropiedad: int
+        :param precio: precio mensual de alquiler
+        :type precio: float
+
+        Método para cargar todas las mensualidades en la tabla
+
+        """
         try:
             var.ui.btnModificarContrato.setDisabled(False)
             listado = var.claseConexion.listadoMensualidades(idAlquiler)
@@ -210,6 +267,18 @@ class Alquileres:
 
     @staticmethod
     def pagarMensualidad(idMensualidad, checked,checkbox):
+        """
+
+        :param idMensualidad: identificador de la mensualidad
+        :type idMensualidad: int
+        :param checked: si esta marcado o no el botón checkbox de la tabla mensualidades
+        :type checked: bool
+        :param checkbox: referencia al boton checkbox de la tabla mensualidades
+        :type checkbox: checkbox button
+
+        Método para registrar como pagada una mensualidad y mostrar los cambios en la tabla
+
+        """
         if not checked:
             eventos.Eventos.crearMensajeError("Error","No se puede modificar un recibo ya pagado.")
             checkbox.setChecked(True)
@@ -220,6 +289,11 @@ class Alquileres:
 
     @staticmethod
     def modificarContrato():
+        """
+
+        Método para modificar un contrato existente en caso de aumentar o recortar la fecha de fin de contrato
+
+        """
         registro = [var.ui.txtcodpropalq.text(),var.ui.txtdniclialq.text(),var.ui.txtfechainicioalq.text(),var.ui.txtfechafinalq.text(),var.ui.txtidvenalq.text()]
         nuevaFechaFinStr = registro[3]
         idContrato = var.ui.lblnumalq.text()
@@ -248,6 +322,20 @@ class Alquileres:
 
     @staticmethod
     def ampliarMensualidades(idAlquiler, fechaInicio, nuevaFechaFin):
+        """
+
+        :param idAlquiler: identificar de un contrato de alquiler
+        :type idAlquiler: int
+        :param fechaInicio: fecha de inicio a partir de la cual se van a añadir mensualidades
+        :type fechaInicio: datetime
+        :param nuevaFechaFin: fecha de finalización hasta la que se van a añadir mensualidades
+        :type nuevaFechaFin: datetime
+        :return: éxito al añadir mensualidades
+        :rtype: bool
+
+        Método para ampliar las mensualidades de un contrato existente
+
+        """
         try:
 
             fechaInicio = Alquileres.sumar_un_mes(fechaInicio)
@@ -274,6 +362,18 @@ class Alquileres:
 
     @staticmethod
     def eliminarMensualidades(idAlquiler, nuevaFechaFin):
+        """
+
+        :param idAlquiler: identicador de un contrato de alquiler
+        :type idAlquiler: int
+        :param nuevaFechaFin: nueva fecha de finalización de un contrato de alquiler
+        :type nuevaFechaFin: datetime
+        :return: éxito al eliminar mensualidades de un contrato de alquiler
+        :rtype: bool
+
+        Método para reducir las mensualidades de un contrato de alquiler ya registrado
+
+        """
         try:
 
             mensualidades = var.claseConexion.listadoMensualidades(idAlquiler)
@@ -299,6 +399,14 @@ class Alquileres:
 
     @staticmethod
     def eliminarAlquiler(idAlquiler):
+        """
+
+        :param idAlquiler: identificador de contrato de alquiler
+        :type idAlquiler: int
+
+        Método para eliminar un contrato de alquiler si este no tiene mensualidades ya pagadas
+
+        """
         try:
             mensualidades = var.claseConexion.listadoMensualidades(idAlquiler)
             for mensualidad in mensualidades:

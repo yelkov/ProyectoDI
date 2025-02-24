@@ -9,13 +9,6 @@ import var
 
 class Conexion:
 
-    '''
-    @staticmethod
-    método de una clase que no depende de una instancia específica de esa clase.
-    Se puede llamarlo directamente a través de la clase, sin necesidad de crear un objeto de esa clase.
-    Es útil en comportamientos o funcionalidades que son más a una clase en general que a una instancia en particular.
-    '''
-
     @staticmethod
     def db_conexion():
         """
@@ -1159,6 +1152,16 @@ class Conexion:
 
     @staticmethod
     def altaAlquiler(registro):
+        """
+
+        :param registro: datos de un nuevo contrato de alquiler
+        :type registro: list
+        :return: éxito al insertar un nuevo contrato de alquiler
+        :rtype:bool
+
+        Método para insertar un nuevo contrato de alquiler en la base de datos
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("INSERT INTO alquileres(propiedad_id,cliente_dni,fecha_inicio,fecha_fin,vendedor) values (:codigoprop,:dnicli,:fecha_inicio,:fecha_fin,:vendedor)")
@@ -1207,6 +1210,14 @@ class Conexion:
 
     @staticmethod
     def listadoAlquileres():
+        """
+
+        :return: identificador y cliente de todos los contratos de alquiler
+        :rtype: list
+
+        Método que devuelve el identificador y el cliente de todos los contratos de alquiler que tengamos registrados
+
+        """
         try:
             listado = []
             query = QtSql.QSqlQuery()
@@ -1221,6 +1232,16 @@ class Conexion:
 
     @staticmethod
     def datosOneAlquiler(idAlquiler):
+        """
+
+        :param idAlquiler: identificador del contrato de alquiler
+        :type idAlquiler: int
+        :return: todos los datos de un contrato de alquiler (sin mensualidades)
+        :rtype: list
+
+        Método para obtener los datos de un contrato de alquiler a partir de su identificador
+
+        """
         try:
             registro = []
             query = QtSql.QSqlQuery()
@@ -1236,6 +1257,17 @@ class Conexion:
 
     @staticmethod
     def idOneAlquiler(codPropiedad,dniCliente):
+        """
+
+        :param codPropiedad: identificador de propiedad
+        :type codPropiedad: int
+        :param dniCliente: el identificador de un cliente, su DNI
+        :type dniCliente: str
+        :return: el identificador de un contrato de alquiler
+        :rtype: id
+
+        Método para obtener el id de un contrato de alquiler en función del id de la propiedad y el id del cliente
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("SELECT id FROM alquileres WHERE cliente_dni = :dniCliente AND propiedad_id = :codPropiedad")
@@ -1249,6 +1281,16 @@ class Conexion:
 
     @staticmethod
     def altaMensualidad(registro):
+        """
+
+        :param registro: datos de una mensualidad
+        :type registro: list
+        :return: éxito al insertar una nueva mensualidad
+        :rtype: bool
+
+        Método para registrar una nueva mensualidad respecto de un contrato de alquiler
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("INSERT INTO mensualidades(idalquiler, mes, pagado) VALUES (:idalquiler,:mes,:pagado)")
@@ -1264,6 +1306,16 @@ class Conexion:
 
     @staticmethod
     def listadoMensualidades(idAlquiler):
+        """
+
+        :param idAlquiler: identificador de un contrato de alquiler
+        :type idAlquiler: int
+        :return: todos los datos las mensualidades de un contrato de alquiler
+        :rtype: list
+
+        Método para obtener todos los datos de las mensualidades relacionadas con un contrato de alquiler
+
+        """
         try:
             listado = []
             query = QtSql.QSqlQuery()
@@ -1279,6 +1331,16 @@ class Conexion:
 
     @staticmethod
     def pagarMensualidad(idMensualidad):
+        """
+
+        :param idMensualidad: identificador de mensualidad
+        :type idMensualidad: int
+        :return: éxito al marcar como pagada una mensualidad
+        :rtype: bool
+
+        Método para registrar en la base de datos el pago de una mensualidad
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("UPDATE mensualidades SET pagado = 1 WHERE idmensualidad = :idMensualidad")
@@ -1292,6 +1354,16 @@ class Conexion:
 
     @staticmethod
     def datosOneMensualidad(idMensualidad):
+        """
+
+        :param idMensualidad: identificador de la mensualidad
+        :type idMensualidad: int
+        :return: todos los datos de la mensualidad
+        :rtype: list
+
+        Método para obtener todos los datos de una mensualidad dado su identificador
+
+        """
         try:
             registro = []
             query = QtSql.QSqlQuery()
@@ -1308,6 +1380,18 @@ class Conexion:
 
     @staticmethod
     def modificarFechaFinContrato(idAlquiler, nuevaFechaFin):
+        """
+
+        :param idAlquiler: identificador de un contrato de alquiler
+        :type idAlquiler: int
+        :param nuevaFechaFin: fecha de finalización de contrato nueva
+        :type nuevaFechaFin: datetime
+        :return: éxito al modificar la fecha de finalización de un contrato de alquiler
+        :rtype: bool
+
+        Método para modificar la fecha de finalización de un contrato en la base de datos
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("UPDATE alquileres set fecha_fin = :nuevaFechaFin WHERE id = :idAlquiler")
@@ -1323,6 +1407,16 @@ class Conexion:
 
     @staticmethod
     def eliminarMensualidad(idMensualidad):
+        """
+
+        :param idMensualidad: identificador de la mensualidad
+        :type idMensualidad: int
+        :return: éxito al eliminar una mensualidad
+        :rtype: bool
+
+        Método para eliminar una mensualidad de la base de datos
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("DELETE FROM mensualidades WHERE idmensualidad = :idMensualidad")
@@ -1337,6 +1431,16 @@ class Conexion:
 
     @staticmethod
     def eliminarContratoAlquiler(idAlquiler):
+        """
+
+        :param idAlquiler: identificador del contrato de alquiler
+        :type idAlquiler: int
+        :return: éxito al eliminar el contrato, eliminar sus mensualidades y restablecer la propiedad a disponible
+        :rtype: bool
+
+        Método que elimina un contrato de alquiler de la base de datos, eliminando sus mensualidades relacionadas y restableciendo a disponible la propiedad del contrato
+
+        """
         try:
             query = QtSql.QSqlQuery()
             query.prepare("DELETE FROM mensualidades WHERE idalquiler = :idAlquiler")

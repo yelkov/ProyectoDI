@@ -80,6 +80,11 @@ class Main(QtWidgets.QMainWindow):
         '''
         var.ui.tablaClientes.setAlternatingRowColors(True)
         var.ui.tablaProp.setAlternatingRowColors(True)
+        var.ui.tablaVendedores.setAlternatingRowColors(True)
+        var.ui.tablaFacturas.setAlternatingRowColors(True)
+        var.ui.tablaVentas.setAlternatingRowColors(True)
+        var.ui.tablacontratosalq.setAlternatingRowColors(True)
+        var.ui.tablaMensualidades.setAlternatingRowColors(True)
 
         var.paginaActualCli = 0
         var.paginaActualProp = 0
