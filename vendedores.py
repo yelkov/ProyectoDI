@@ -201,6 +201,9 @@ class Vendedores():
 
     @staticmethod
     def historicoVendedores():
+        """
+        Método que recarga la tabla de vendedores. Es llamado cuando se hace check en historico
+        """
         try:
             Vendedores.cargaTablaVendedores()
         except Exception as e:
@@ -208,6 +211,9 @@ class Vendedores():
 
     @staticmethod
     def modifVendedor():
+        """
+        Método para gestionar la modificación de los datos de un vendedor
+        """
         try:
             modifVendedor = [var.ui.lblIdVen.text(), var.ui.txtNomVen.text(),var.ui.txtAltaVen.text(),var.ui.txtMovilVen.text(),var.ui.txtEmailVen.text(),var.ui.cmbDeleVen.currentText(),var.ui.txtBajaVen.text()]
             if  modifVendedor[6] != "" and not Vendedores.esFechasValidas(modifVendedor):
@@ -226,6 +232,16 @@ class Vendedores():
 
     @staticmethod
     def esFechasValidas(datosVendedores):
+        """
+
+        :param datosVendedores: información de un vendedor
+        :type datosVendedores: list
+        :return: si la fecha es válida o no en función de si el alta es anterior a la fecha de baja
+        :rtype: bool
+
+        Método para comprobar que una fecha es válida, cuando la fecha de baja es posterior a la fecha de alta
+
+        """
         import datetime
 
         datos = datosVendedores[:]
@@ -240,6 +256,9 @@ class Vendedores():
 
     @staticmethod
     def buscaOneVendedor():
+        """
+        Método para buscar un vendedor a través del móvil
+        """
         try:
             movil = var.ui.txtMovilVen.text()
             registro = var.claseConexion.datosOneVendedor(movil,"movilVendedor")

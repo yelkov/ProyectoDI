@@ -189,6 +189,14 @@ class Informes:
 
     @staticmethod
     def reportFactura(idFactura):
+        """
+
+        :param idFactura: identificador de una factura
+        :type idFactura: int
+
+        Método para
+
+        """
         try:
             rootPath = '.\\informes'
             if not os.path.exists(rootPath):
