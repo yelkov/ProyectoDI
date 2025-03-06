@@ -280,12 +280,17 @@ class Alquileres:
 
         """
         if not checked:
-            eventos.Eventos.crearMensajeError("Error","No se puede modificar un recibo ya pagado.")
+            eventos.Eventos.crearMensajeError("Error", "No se puede modificar un recibo ya pagado.")
             checkbox.setChecked(True)
-        elif var.claseConexion.pagarMensualidad(idMensualidad):
-            eventos.Eventos.crearMensajeInfo("Aviso","Se ha registrado el pago mensual.")
         else:
-            eventos.Eventos.crearMensajeError("Error","Se ha producido un error.")
+            mbox = eventos.Eventos.crearMensajeConfirmacion("Aviso","Se va a pagar un recibo. Esta acción es irreversible. ¿Desea realizarla?")
+            if mbox.exec() == QtWidgets.QMessageBox.StandardButton.Yes:
+                if var.claseConexion.pagarMensualidad(idMensualidad):
+                    eventos.Eventos.crearMensajeInfo("Aviso","Se ha registrado el pago mensual.")
+                else:
+                    eventos.Eventos.crearMensajeError("Error","Se ha producido un error.")
+            else:
+                checkbox.setChecked(False)
 
     @staticmethod
     def modificarContrato():
