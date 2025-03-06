@@ -1463,3 +1463,35 @@ class Conexion:
                 return False
         except Exception as e:
             print("Error al eliminar un contrato de alquiler en conexion", str(e))
+
+    @staticmethod
+    def finalizarContrato(idAlquiler,codPropiedad, nuevaFechaFin):
+        """
+
+        :param idAlquiler: identificador de un contrato de alquiler
+        :type idAlquiler: int
+        :param nuevaFechaFin: fecha de finalización de contrato nueva
+        :type nuevaFechaFin: datetime
+        :return: éxito al finalizar un contrato de alquiler
+        :rtype: bool
+
+        Método para finalizar un contrato, liberar la propiedad y modificar la fecha de finalización de un contrato en la base de datos
+
+        """
+        try:
+            query = QtSql.QSqlQuery()
+            query.prepare("UPDATE alquileres set fecha_fin = :nuevaFechaFin WHERE id = :idAlquiler")
+            query.bindValue(":nuevaFechaFin", str(nuevaFechaFin))
+            query.bindValue(":idAlquiler", idAlquiler)
+            if not query.exec():
+                return False
+
+            query_propiedad = QtSql.QSqlQuery()
+            query_propiedad.prepare("UPDATE propiedades SET baja = NULL, estado = 'Disponible' WHERE codigo = :codPropiedad")
+            query_propiedad.bindValue(":codPropiedad",codPropiedad)
+            if not query_propiedad.exec():
+                return False
+
+            return True
+        except Exception as e:
+            print("Error modifcando fecha de alquiler en conexion", str(e))

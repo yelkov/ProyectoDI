@@ -546,7 +546,6 @@ class Eventos():
                 shutil.move(fichero, directorio)
 
                 mbox = Eventos.crearMensajeInfo('Copia de seguridad',"Copia de seguridad creada.")
-                mbox.exec()
 
         except Exception as error:
             print("error en crear backup: ", error)
