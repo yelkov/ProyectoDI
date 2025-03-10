@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>alquileres module &mdash; documentación de veigaquintas - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=4936afed"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=f85f4cfb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            veigaquintas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">alquileres module</a><ul>
+<li><a class="reference internal" href="#alquileres.Alquileres"><code class="docutils literal notranslate"><span class="pre">Alquileres</span></code></a><ul>
+<li><a class="reference internal" href="#alquileres.Alquileres.altaAlquiler"><code class="docutils literal notranslate"><span class="pre">Alquileres.altaAlquiler()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.ampliarMensualidades"><code class="docutils literal notranslate"><span class="pre">Alquileres.ampliarMensualidades()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.cargaOneContrato"><code class="docutils literal notranslate"><span class="pre">Alquileres.cargaOneContrato()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.cargarTablaContratos"><code class="docutils literal notranslate"><span class="pre">Alquileres.cargarTablaContratos()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.cargarTablaMensualidades"><code class="docutils literal notranslate"><span class="pre">Alquileres.cargarTablaMensualidades()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.eliminarAlquiler"><code class="docutils literal notranslate"><span class="pre">Alquileres.eliminarAlquiler()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.eliminarMensualidades"><code class="docutils literal notranslate"><span class="pre">Alquileres.eliminarMensualidades()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.generarMensualidades"><code class="docutils literal notranslate"><span class="pre">Alquileres.generarMensualidades()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.hasCamposObligatorios"><code class="docutils literal notranslate"><span class="pre">Alquileres.hasCamposObligatorios()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.modificarContrato"><code class="docutils literal notranslate"><span class="pre">Alquileres.modificarContrato()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.pagarMensualidad"><code class="docutils literal notranslate"><span class="pre">Alquileres.pagarMensualidad()</span></code></a></li>
+<li><a class="reference internal" href="#alquileres.Alquileres.sumar_un_mes"><code class="docutils literal notranslate"><span class="pre">Alquileres.sumar_un_mes()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">veigaquintas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">alquileres module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/src/alquileres.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-alquileres">
+<span id="alquileres-module"></span><h1>alquileres module<a class="headerlink" href="#module-alquileres" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="alquileres.Alquileres">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">alquileres.</span></span><span class="sig-name descname"><span class="pre">Alquileres</span></span><a class="reference internal" href="../_modules/alquileres.html#Alquileres"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.altaAlquiler">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">altaAlquiler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.altaAlquiler"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.altaAlquiler" title="Link to this definition"></a></dt>
+<dd><p>Método para insertar un nuevo contrato de alquiler y generar las mensualidades en función de la fecha de inicio y de final</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.ampliarMensualidades">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ampliarMensualidades</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idAlquiler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fechaInicio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuevaFechaFin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.ampliarMensualidades"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.ampliarMensualidades" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>idAlquiler</strong> (<em>int</em>) – identificar de un contrato de alquiler</p></li>
+<li><p><strong>fechaInicio</strong> (<em>datetime</em>) – fecha de inicio a partir de la cual se van a añadir mensualidades</p></li>
+<li><p><strong>nuevaFechaFin</strong> (<em>datetime</em>) – fecha de finalización hasta la que se van a añadir mensualidades</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>éxito al añadir mensualidades</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p>Método para ampliar las mensualidades de un contrato existente</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.cargaOneContrato">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargaOneContrato</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.cargaOneContrato"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.cargaOneContrato" title="Link to this definition"></a></dt>
+<dd><p>Método para cargar los datos de un contrato en los cuadros de texto correspondientes y las mensualidades en la tabla</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.cargarTablaContratos">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargarTablaContratos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.cargarTablaContratos"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.cargarTablaContratos" title="Link to this definition"></a></dt>
+<dd><p>Método para cargar la tabla de contratos de alquiler</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.cargarTablaMensualidades">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cargarTablaMensualidades</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idAlquiler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codPropiedad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precio</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.cargarTablaMensualidades"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.cargarTablaMensualidades" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>idAlquiler</strong> (<em>int</em>) – el id del contrato de alquiler</p></li>
+<li><p><strong>codPropiedad</strong> (<em>int</em>) – el id de la propiedad</p></li>
+<li><p><strong>precio</strong> (<em>float</em>) – precio mensual de alquiler</p></li>
+</ul>
+</dd>
+</dl>
+<p>Método para cargar todas las mensualidades en la tabla</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.eliminarAlquiler">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eliminarAlquiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idAlquiler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.eliminarAlquiler"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.eliminarAlquiler" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idAlquiler</strong> (<em>int</em>) – identificador de contrato de alquiler</p>
+</dd>
+</dl>
+<p>Método para eliminar un contrato de alquiler si este no tiene mensualidades ya pagadas</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.eliminarMensualidades">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eliminarMensualidades</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idAlquiler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuevaFechaFin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.eliminarMensualidades"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.eliminarMensualidades" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>idAlquiler</strong> (<em>int</em>) – identicador de un contrato de alquiler</p></li>
+<li><p><strong>nuevaFechaFin</strong> (<em>datetime</em>) – nueva fecha de finalización de un contrato de alquiler</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>éxito al eliminar mensualidades de un contrato de alquiler</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p>Método para reducir las mensualidades de un contrato de alquiler ya registrado</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.generarMensualidades">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generarMensualidades</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">registro</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.generarMensualidades"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.generarMensualidades" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>registro</strong> (<em>list</em>) – datos de un contrato de alquiler</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>éxito o no al generar las mensualidades</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p>Método que a partir de la fecha de inicio y de final de contrato genera las mensualidades de ese contrato</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.hasCamposObligatorios">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hasCamposObligatorios</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">registro</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.hasCamposObligatorios"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.hasCamposObligatorios" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>registro</strong> (<em>list</em>) – datos de contrato de alquiler</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>si contiene o no todos los campos obligatorios</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p>Método para comprobar que el contrato de alquiler contiene los datos obligatorios</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.modificarContrato">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">modificarContrato</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.modificarContrato"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.modificarContrato" title="Link to this definition"></a></dt>
+<dd><p>Método para modificar un contrato existente en caso de aumentar o recortar la fecha de fin de contrato</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.pagarMensualidad">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pagarMensualidad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idMensualidad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checked</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkbox</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.pagarMensualidad"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.pagarMensualidad" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>idMensualidad</strong> (<em>int</em>) – identificador de la mensualidad</p></li>
+<li><p><strong>checked</strong> (<em>bool</em>) – si esta marcado o no el botón checkbox de la tabla mensualidades</p></li>
+<li><p><strong>checkbox</strong> (<em>checkbox button</em>) – referencia al boton checkbox de la tabla mensualidades</p></li>
+</ul>
+</dd>
+</dl>
+<p>Método para registrar como pagada una mensualidad y mostrar los cambios en la tabla</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="alquileres.Alquileres.sumar_un_mes">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sumar_un_mes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fecha</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/alquileres.html#Alquileres.sumar_un_mes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#alquileres.Alquileres.sumar_un_mes" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fecha</strong> (<em>datetime</em>) – fecha</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>fecha con un mes más añadido</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datetime</p>
+</dd>
+</dl>
+<p>Método para sumar un mes a una fecha determinada. Como no registramos el día del mes en las mensualidades, este método cambia el día a 1 para evitar problemas en la suma con febrero y meses de 30 días</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, Yelko.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -81,6 +81,13 @@
 <a class="viewcode-back" href="../src/vendedores.html#vendedores.Vendedores.checkDniVen">[documentos]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">checkDniVen</span><span class="p">(</span><span class="n">dni</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param dni: el dni de un vendedor</span>
+<span class="sd">        :type dni: str</span>
+
+<span class="sd">        Método que modifica la interfaz en función de si es correcto o no el formato de dni</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">dni</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">dni</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
             <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDniVen</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">dni</span><span class="p">))</span>
@@ -101,6 +108,13 @@
 <a class="viewcode-back" href="../src/vendedores.html#vendedores.Vendedores.checkMovilVen">[documentos]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">checkMovilVen</span><span class="p">(</span><span class="n">movil</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param movil: móvil de un vendedor</span>
+<span class="sd">        :type movil: str</span>
+
+<span class="sd">        Método que modifica la interfaz en función de si es correcto o no el formato del número de móvil</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">isMovilValido</span><span class="p">(</span><span class="n">movil</span><span class="p">):</span>
                 <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovilVen</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s1">&#39;background-color: rgb(255, 255, 255);&#39;</span><span class="p">)</span>
@@ -117,6 +131,13 @@
 <a class="viewcode-back" href="../src/vendedores.html#vendedores.Vendedores.checkEmailVen">[documentos]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">checkEmailVen</span><span class="p">(</span><span class="n">mail</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param mail: el mail del vendedor</span>
+<span class="sd">        :type mail: str</span>
+
+<span class="sd">        Método que modifica la interfaz en función de si es correcto o no el formato del correo electrónico</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">isMailValido</span><span class="p">(</span><span class="n">mail</span><span class="p">):</span>
                 <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtEmailVen</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s1">&#39;background-color: rgb(255, 255, 255);&#39;</span><span class="p">)</span>
@@ -136,6 +157,11 @@
 <a class="viewcode-back" href="../src/vendedores.html#vendedores.Vendedores.altaVendedor">[documentos]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">altaVendedor</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Método para dar de alta a un nuevo vendedor, comprobando que no exista previamente y que cumple con todos los datos obligatorios para su creación</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">nuevoVendedor</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDniVen</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtNomVen</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtAltaVen</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovilVen</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtEmailVen</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbDeleVen</span><span class="o">.</span><span class="n">currentText</span><span class="p">()]</span>
 
@@ -158,6 +184,15 @@
 <a class="viewcode-back" href="../src/vendedores.html#vendedores.Vendedores.hasCamposObligatorios">[documentos]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">hasCamposObligatorios</span><span class="p">(</span><span class="n">nuevoVendedor</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param nuevoVendedor: datos del vendedor</span>
+<span class="sd">        :type nuevoVendedor: list</span>
+<span class="sd">        :return: verdadero o falso si cuenta con los campos obligatorios</span>
+<span class="sd">        :rtype: bool</span>
+
+<span class="sd">        Método para comprobar que el nuevo vendedor a insertar tiene todos los datos requeridos</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">datos</span> <span class="o">=</span> <span class="n">nuevoVendedor</span><span class="p">[:]</span>
         <span class="n">fecha_alta</span> <span class="o">=</span> <span class="n">datos</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">mail</span> <span class="o">=</span> <span class="n">datos</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -171,6 +206,16 @@
 <a class="viewcode-back" href="../src/vendedores.html#vendedores.Vendedores.isVendedorPresent">[documentos]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">isVendedorPresent</span><span class="p">(</span><span class="n">nuevoVendedor</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param nuevoVendedor: datos de un vendedor</span>
+<span class="sd">        :type nuevoVendedor: list</span>
+<span class="sd">        :return: verdadero o falso en función de que el vendedor y esté ya registrado en la base de datos</span>
+<span class="sd">        :rtype: bool</span>
+
+<span class="sd">        Método que comprueba si un vendedor ya está o no registrado en la base de datos</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">registro</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">datosOneVendedor</span><span class="p">(</span><span class="n">nuevoVendedor</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s2">&quot;dniVendedor&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">registro</span> <span class="o">!=</span> <span class="p">[]:</span>
             <span class="k">return</span> <span class="kc">True</span>
@@ -182,6 +227,9 @@
 <a class="viewcode-back" href="../src/vendedores.html#vendedores.Vendedores.cargaTablaVendedores">[documentos]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">cargaTablaVendedores</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Método para cargar los datos en la tabla de vendedores</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">listado</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">listadoVendedores</span><span class="p">()</span>
 
@@ -209,6 +257,9 @@
 <a class="viewcode-back" href="../src/vendedores.html#vendedores.Vendedores.bajaVendedor">[documentos]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">bajaVendedor</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Método para dar de baja a un vendedor de la base de datos</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">dni</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtDniVen</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">bajaVendedor</span><span class="p">(</span><span class="n">dni</span><span class="p">):</span>
@@ -225,6 +276,9 @@
 <a class="viewcode-back" href="../src/vendedores.html#vendedores.Vendedores.cargaOneVendedor">[documentos]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">cargaOneVendedor</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Método para cargar en los campos de la interfaz los datos de un vendedor al clicar en los datos de la tabla</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">fila</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaVendedores</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
             <span class="n">datos</span> <span class="o">=</span> <span class="p">[</span><span class="n">dato</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">for</span> <span class="n">dato</span> <span class="ow">in</span> <span class="n">fila</span><span class="p">]</span>
@@ -237,6 +291,7 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">listado</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtidvenfac</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtidvenalq</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error cargaVendedores en cargaOneVendedor&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span></div>
@@ -246,6 +301,9 @@
 <a class="viewcode-back" href="../src/vendedores.html#vendedores.Vendedores.historicoVendedores">[documentos]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">historicoVendedores</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Método que recarga la tabla de vendedores. Es llamado cuando se hace check en historico</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">Vendedores</span><span class="o">.</span><span class="n">cargaTablaVendedores</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -256,6 +314,9 @@
 <a class="viewcode-back" href="../src/vendedores.html#vendedores.Vendedores.modifVendedor">[documentos]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">modifVendedor</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Método para gestionar la modificación de los datos de un vendedor</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">modifVendedor</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblIdVen</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtNomVen</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtAltaVen</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovilVen</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtEmailVen</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">cmbDeleVen</span><span class="o">.</span><span class="n">currentText</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtBajaVen</span><span class="o">.</span><span class="n">text</span><span class="p">()]</span>
             <span class="k">if</span>  <span class="n">modifVendedor</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">Vendedores</span><span class="o">.</span><span class="n">esFechasValidas</span><span class="p">(</span><span class="n">modifVendedor</span><span class="p">):</span>
@@ -277,6 +338,16 @@
 <a class="viewcode-back" href="../src/vendedores.html#vendedores.Vendedores.esFechasValidas">[documentos]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">esFechasValidas</span><span class="p">(</span><span class="n">datosVendedores</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param datosVendedores: información de un vendedor</span>
+<span class="sd">        :type datosVendedores: list</span>
+<span class="sd">        :return: si la fecha es válida o no en función de si el alta es anterior a la fecha de baja</span>
+<span class="sd">        :rtype: bool</span>
+
+<span class="sd">        Método para comprobar que una fecha es válida, cuando la fecha de baja es posterior a la fecha de alta</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
 
         <span class="n">datos</span> <span class="o">=</span> <span class="n">datosVendedores</span><span class="p">[:]</span>
@@ -294,6 +365,9 @@
 <a class="viewcode-back" href="../src/vendedores.html#vendedores.Vendedores.buscaOneVendedor">[documentos]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">buscaOneVendedor</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Método para buscar un vendedor a través del móvil</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">movil</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtMovilVen</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
             <span class="n">registro</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">datosOneVendedor</span><span class="p">(</span><span class="n">movil</span><span class="p">,</span><span class="s2">&quot;movilVendedor&quot;</span><span class="p">)</span>

@@ -1,0 +1,580 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>alquileres &mdash; documentación de veigaquintas - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=4936afed"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=f85f4cfb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            veigaquintas
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">veigaquintas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Código de módulo</a></li>
+      <li class="breadcrumb-item active">alquileres</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Código fuente para alquileres</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">locale</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt6</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PyQt6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QHBoxLayout</span><span class="p">,</span> <span class="n">QWidget</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">eventos</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">informes</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">var</span>
+<span class="n">locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">LC_TIME</span><span class="p">,</span> <span class="s2">&quot;es_ES.UTF-8&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Alquileres">
+<a class="viewcode-back" href="../src/alquileres.html#alquileres.Alquileres">[documentos]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Alquileres</span><span class="p">:</span>
+<div class="viewcode-block" id="Alquileres.altaAlquiler">
+<a class="viewcode-back" href="../src/alquileres.html#alquileres.Alquileres.altaAlquiler">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">altaAlquiler</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Método para insertar un nuevo contrato de alquiler y generar las mensualidades en función de la fecha de inicio y de final</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtcodpropalq</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtdniclialq</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtfechainicioalq</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtfechafinalq</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtidvenalq</span><span class="o">.</span><span class="n">text</span><span class="p">()]</span>
+            <span class="n">isAlquilada</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">propiedadIsAlquilada</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtcodpropalq</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+            <span class="n">isVendida</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">propiedadIsVendida</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtcodpropalq</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+            <span class="n">precio</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtprecioalq</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">isAlquilada</span> <span class="ow">or</span> <span class="n">isVendida</span><span class="p">:</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;La propiedad seleccionada ya se encuentra alquilada. No es posible crear el contrato.&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">Alquileres</span><span class="o">.</span><span class="n">hasCamposObligatorios</span><span class="p">(</span><span class="n">registro</span><span class="p">):</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;No se ha podido crear el contrato. Alguno de los campos necesarios está vacío. Recuerde seleccionar una propiedad, un cliente, un vendedor y fecha de inicio y fin de contrato.&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">precio</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;La propiedad seleccionada no está disponible para alquiler. Se debe modificar la actual o seleccionar otra disponible para alquiler.&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">altaAlquiler</span><span class="p">(</span><span class="n">registro</span><span class="p">)</span> <span class="ow">and</span> <span class="n">Alquileres</span><span class="o">.</span><span class="n">generarMensualidades</span><span class="p">(</span><span class="n">registro</span><span class="p">):</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeInfo</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">,</span><span class="s2">&quot;Se ha creado un nuevo contrato de alquiler.&quot;</span><span class="p">)</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">limpiarPanelAlquileres</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;Se ha producido un error inesperado y no es posible generar un nuevo contrato de alquiler.&quot;</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error alta alquiler en alquileres&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="Alquileres.hasCamposObligatorios">
+<a class="viewcode-back" href="../src/alquileres.html#alquileres.Alquileres.hasCamposObligatorios">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hasCamposObligatorios</span><span class="p">(</span><span class="n">registro</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param registro: datos de contrato de alquiler</span>
+<span class="sd">        :type registro: list</span>
+<span class="sd">        :return: si contiene o no todos los campos obligatorios</span>
+<span class="sd">        :rtype: bool</span>
+
+<span class="sd">        Método para comprobar que el contrato de alquiler contiene los datos obligatorios</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">dato</span> <span class="ow">in</span> <span class="n">registro</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dato</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">dato</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Alquileres.cargarTablaContratos">
+<a class="viewcode-back" href="../src/alquileres.html#alquileres.Alquileres.cargarTablaContratos">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cargarTablaContratos</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Método para cargar la tabla de contratos de alquiler</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">listado</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">listadoAlquileres</span><span class="p">()</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablacontratosalq</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">listado</span><span class="p">))</span>
+
+            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">registro</span> <span class="ow">in</span> <span class="n">listado</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablacontratosalq</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span> <span class="c1">#idContrato</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablacontratosalq</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span> <span class="c1">#dniCliente</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablacontratosalq</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablacontratosalq</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+
+                <span class="n">var</span><span class="o">.</span><span class="n">botonDelContrato</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">()</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">botonDelContrato</span><span class="o">.</span><span class="n">setFixedSize</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span><span class="mi">25</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">botonDelContrato</span><span class="o">.</span><span class="n">setIconSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">botonDelContrato</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;botonEliminar&quot;</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">botonDelContrato</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="s1">&#39;./img/basura.png&#39;</span><span class="p">))</span>
+
+                <span class="c1">#creamos layout para centrar el boton</span>
+                <span class="n">layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+                <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">botonDelContrato</span><span class="p">)</span>
+                <span class="n">layout</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                <span class="n">layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">layout</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+                <span class="c1"># Crear un widget contenedor para el layout y agregarlo a la celda</span>
+                <span class="n">container</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+                <span class="n">container</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablacontratosalq</span><span class="o">.</span><span class="n">setCellWidget</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">container</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">botonDelContrato</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">checked</span><span class="p">,</span> <span class="n">idAlquiler</span><span class="o">=</span><span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">],:</span> <span class="n">Alquileres</span><span class="o">.</span><span class="n">eliminarAlquiler</span><span class="p">(</span><span class="n">idAlquiler</span><span class="p">))</span>
+
+
+                <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al cargar tablaContratos&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Alquileres.cargaOneContrato">
+<a class="viewcode-back" href="../src/alquileres.html#alquileres.Alquileres.cargaOneContrato">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cargaOneContrato</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Método para cargar los datos de un contrato en los cuadros de texto correspondientes y las mensualidades en la tabla</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btnCrearContrato</span><span class="o">.</span><span class="n">setDisabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">fila</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablacontratosalq</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
+            <span class="n">datos</span> <span class="o">=</span> <span class="p">[</span><span class="n">dato</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="k">for</span> <span class="n">dato</span> <span class="ow">in</span> <span class="n">fila</span><span class="p">]</span>
+            <span class="n">registro</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">datosOneAlquiler</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">datos</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+            <span class="n">listado</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblnumalq</span><span class="p">,</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtfechainicioalq</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtfechafinalq</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtidvenalq</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtdniclialq</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtnomeclialq</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtapelclialq</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtcodpropalq</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txttipopropalq</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtprecioalq</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtmunipropalq</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtdirpropalq</span><span class="p">]</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtprecioalq</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s1">&#39;border-bottom: 1px solid black; background-color: rgb(255, 255, 255);&#39;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">listado</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">9</span><span class="p">:</span>
+                    <span class="n">listado</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">precioAlq</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">registro</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">,.1f</span><span class="si">}</span><span class="s2"> €&quot;</span>
+                    <span class="n">listado</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">precioAlq</span><span class="p">)</span>
+            <span class="n">idAlquiler</span> <span class="o">=</span> <span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">codPropiedad</span> <span class="o">=</span> <span class="n">registro</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+            <span class="n">precio</span> <span class="o">=</span> <span class="n">registro</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span>
+            <span class="n">Alquileres</span><span class="o">.</span><span class="n">cargarTablaMensualidades</span><span class="p">(</span><span class="n">idAlquiler</span><span class="p">,</span> <span class="n">codPropiedad</span><span class="p">,</span> <span class="n">precio</span><span class="p">)</span>
+
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al cargar un contrato&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="Alquileres.generarMensualidades">
+<a class="viewcode-back" href="../src/alquileres.html#alquileres.Alquileres.generarMensualidades">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generarMensualidades</span><span class="p">(</span><span class="n">registro</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param registro: datos de un contrato de alquiler</span>
+<span class="sd">        :type registro: list</span>
+<span class="sd">        :return: éxito o no al generar las mensualidades</span>
+<span class="sd">        :rtype: bool</span>
+
+<span class="sd">        Método que a partir de la fecha de inicio y de final de contrato genera las mensualidades de ese contrato</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">codPropiedad</span> <span class="o">=</span> <span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">dniCliente</span> <span class="o">=</span> <span class="n">registro</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">fechaInicioStr</span> <span class="o">=</span> <span class="n">registro</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">fechaFinalStr</span> <span class="o">=</span> <span class="n">registro</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+            <span class="n">idAlquiler</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">idOneAlquiler</span><span class="p">(</span><span class="n">codPropiedad</span><span class="p">,</span><span class="n">dniCliente</span><span class="p">)</span>
+
+            <span class="n">fechaInicio</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">fechaInicioStr</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y&quot;</span><span class="p">)</span>
+            <span class="n">fechaFinal</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">fechaFinalStr</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y&quot;</span><span class="p">)</span>
+
+            <span class="k">while</span> <span class="n">fechaInicio</span> <span class="o">&lt;=</span> <span class="n">fechaFinal</span><span class="p">:</span>
+                <span class="n">mes</span> <span class="o">=</span> <span class="n">fechaInicio</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%B&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+                <span class="n">mes_anio</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mes</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">fechaInicio</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">registro</span> <span class="o">=</span> <span class="p">[</span><span class="n">idAlquiler</span><span class="p">,</span><span class="n">mes_anio</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">altaMensualidad</span><span class="p">(</span><span class="n">registro</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+                <span class="n">fechaInicio</span> <span class="o">=</span> <span class="n">Alquileres</span><span class="o">.</span><span class="n">sumar_un_mes</span><span class="p">(</span><span class="n">fechaInicio</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Las fechas no tienen el formato correcto o no son válidas.&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Se esperaba una cadena de texto para la fecha.&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="Alquileres.sumar_un_mes">
+<a class="viewcode-back" href="../src/alquileres.html#alquileres.Alquileres.sumar_un_mes">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sumar_un_mes</span><span class="p">(</span><span class="n">fecha</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param fecha: fecha</span>
+<span class="sd">        :type fecha: datetime</span>
+<span class="sd">        :return: fecha con un mes más añadido</span>
+<span class="sd">        :rtype: datetime</span>
+
+<span class="sd">        Método para sumar un mes a una fecha determinada. Como no registramos el día del mes en las mensualidades, este método cambia el día a 1 para evitar problemas en la suma con febrero y meses de 30 días</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mes</span> <span class="o">=</span> <span class="n">fecha</span><span class="o">.</span><span class="n">month</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">año</span> <span class="o">=</span> <span class="n">fecha</span><span class="o">.</span><span class="n">year</span>
+        <span class="k">if</span> <span class="n">mes</span> <span class="o">&gt;</span> <span class="mi">12</span><span class="p">:</span>
+            <span class="n">mes</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">año</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">dia</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">fecha</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">año</span><span class="p">,</span><span class="n">month</span><span class="o">=</span><span class="n">mes</span><span class="p">,</span><span class="n">day</span><span class="o">=</span><span class="n">dia</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Alquileres.cargarTablaMensualidades">
+<a class="viewcode-back" href="../src/alquileres.html#alquileres.Alquileres.cargarTablaMensualidades">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cargarTablaMensualidades</span><span class="p">(</span><span class="n">idAlquiler</span><span class="p">,</span> <span class="n">codPropiedad</span><span class="p">,</span> <span class="n">precio</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param idAlquiler: el id del contrato de alquiler</span>
+<span class="sd">        :type idAlquiler: int</span>
+<span class="sd">        :param codPropiedad: el id de la propiedad</span>
+<span class="sd">        :type codPropiedad: int</span>
+<span class="sd">        :param precio: precio mensual de alquiler</span>
+<span class="sd">        :type precio: float</span>
+
+<span class="sd">        Método para cargar todas las mensualidades en la tabla</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btnModificarContrato</span><span class="o">.</span><span class="n">setDisabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">listado</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">listadoMensualidades</span><span class="p">(</span><span class="n">idAlquiler</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaMensualidades</span><span class="o">.</span><span class="n">setRowCount</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">listado</span><span class="p">))</span>
+
+            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">registro</span> <span class="ow">in</span> <span class="n">listado</span><span class="p">:</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaMensualidades</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span> <span class="c1">#idMensualidad</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaMensualidades</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">codPropiedad</span><span class="p">)))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaMensualidades</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaMensualidades</span><span class="o">.</span><span class="n">setItem</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QTableWidgetItem</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">precio</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; €&quot;</span><span class="p">))</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaMensualidades</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaMensualidades</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaMensualidades</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaMensualidades</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">setTextAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+
+                <span class="c1">#creamos el boton</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">botonAlq</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QCheckBox</span><span class="p">()</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">botonAlq</span><span class="o">.</span><span class="n">setFixedSize</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">botonAlq</span><span class="o">.</span><span class="n">setIconSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+
+
+                <span class="c1">#creamos layout para centrar el boton</span>
+                <span class="n">layout</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+                <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">botonAlq</span><span class="p">)</span>
+                <span class="n">layout</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                <span class="n">layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">layout</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+                <span class="c1"># Crear un widget contenedor para el layout y agregarlo a la celda</span>
+                <span class="n">container</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+                <span class="n">container</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaMensualidades</span><span class="o">.</span><span class="n">setCellWidget</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">container</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">botonAlq</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="n">registro</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">botonAlq</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">checked</span><span class="p">,</span> <span class="n">checkbox</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">botonAlq</span><span class="p">,</span> <span class="n">idMensualidad</span><span class="o">=</span><span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">],:</span> <span class="n">Alquileres</span><span class="o">.</span><span class="n">pagarMensualidad</span><span class="p">(</span><span class="n">idMensualidad</span><span class="p">,</span><span class="n">checked</span><span class="p">,</span><span class="n">checkbox</span><span class="p">))</span>
+
+                <span class="c1">#Creamos un boton para generar el informe</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">botonInforme</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">()</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">botonInforme</span><span class="o">.</span><span class="n">setFixedSize</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">botonInforme</span><span class="o">.</span><span class="n">setIconSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+                <span class="c1">#var.botonInforme.setObjectName(&quot;botonEliminar&quot;)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">botonInforme</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="s1">&#39;./img/informe.png&#39;</span><span class="p">))</span>
+
+                <span class="c1">#creamos layout para centrar el boton</span>
+                <span class="n">layout2</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+                <span class="n">layout2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">botonInforme</span><span class="p">)</span>
+                <span class="n">layout2</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignmentFlag</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+                <span class="n">layout2</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">layout2</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+                <span class="n">container2</span> <span class="o">=</span> <span class="n">QWidget</span><span class="p">()</span>
+                <span class="n">container2</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">layout2</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">tablaMensualidades</span><span class="o">.</span><span class="n">setCellWidget</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">container2</span><span class="p">)</span>
+                <span class="n">var</span><span class="o">.</span><span class="n">botonInforme</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span> <span class="k">lambda</span> <span class="n">checked</span><span class="p">,</span> <span class="n">idMensualidad</span><span class="o">=</span><span class="n">registro</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">idAlquilerInforme</span> <span class="o">=</span> <span class="n">idAlquiler</span><span class="p">:</span> <span class="n">informes</span><span class="o">.</span><span class="n">Informes</span><span class="o">.</span><span class="n">reportReciboMes</span><span class="p">(</span><span class="n">idAlquilerInforme</span><span class="p">,</span><span class="n">idMensualidad</span><span class="p">))</span>
+
+
+
+                <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al cargar tablaContratos&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Alquileres.pagarMensualidad">
+<a class="viewcode-back" href="../src/alquileres.html#alquileres.Alquileres.pagarMensualidad">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pagarMensualidad</span><span class="p">(</span><span class="n">idMensualidad</span><span class="p">,</span> <span class="n">checked</span><span class="p">,</span><span class="n">checkbox</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param idMensualidad: identificador de la mensualidad</span>
+<span class="sd">        :type idMensualidad: int</span>
+<span class="sd">        :param checked: si esta marcado o no el botón checkbox de la tabla mensualidades</span>
+<span class="sd">        :type checked: bool</span>
+<span class="sd">        :param checkbox: referencia al boton checkbox de la tabla mensualidades</span>
+<span class="sd">        :type checkbox: checkbox button</span>
+
+<span class="sd">        Método para registrar como pagada una mensualidad y mostrar los cambios en la tabla</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">checked</span><span class="p">:</span>
+            <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="s2">&quot;No se puede modificar un recibo ya pagado.&quot;</span><span class="p">)</span>
+            <span class="n">checkbox</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mbox</span> <span class="o">=</span> <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeConfirmacion</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">,</span><span class="s2">&quot;Se va a pagar un recibo. Esta acción es irreversible. ¿Desea realizarla?&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">pagarMensualidad</span><span class="p">(</span><span class="n">idMensualidad</span><span class="p">):</span>
+                    <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeInfo</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">,</span><span class="s2">&quot;Se ha registrado el pago mensual.&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;Se ha producido un error.&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">checkbox</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Alquileres.modificarContrato">
+<a class="viewcode-back" href="../src/alquileres.html#alquileres.Alquileres.modificarContrato">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">modificarContrato</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Método para modificar un contrato existente en caso de aumentar o recortar la fecha de fin de contrato</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">registro</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtcodpropalq</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtdniclialq</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtfechainicioalq</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtfechafinalq</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span><span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtidvenalq</span><span class="o">.</span><span class="n">text</span><span class="p">()]</span>
+        <span class="n">nuevaFechaFinStr</span> <span class="o">=</span> <span class="n">registro</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">idContrato</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">lblnumalq</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+
+        <span class="n">datosContrato</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">datosOneAlquiler</span><span class="p">(</span><span class="n">idContrato</span><span class="p">)</span>
+        <span class="n">fechaFinRegistradaStr</span> <span class="o">=</span> <span class="n">datosContrato</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="n">nuevaFechaFin</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">nuevaFechaFinStr</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y&quot;</span><span class="p">)</span>
+        <span class="n">fechaFinRegistrada</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">fechaFinRegistradaStr</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">nuevaFechaFin</span> <span class="o">==</span> <span class="n">fechaFinRegistrada</span><span class="p">:</span>
+            <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;La nueva fecha de fin de contrato es la misma que está registrada. No se ha modificado el contrato.&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">nuevaFechaFin</span> <span class="o">&gt;</span> <span class="n">fechaFinRegistrada</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">Alquileres</span><span class="o">.</span><span class="n">ampliarMensualidades</span><span class="p">(</span><span class="n">idContrato</span><span class="p">,</span><span class="n">fechaFinRegistrada</span><span class="p">,</span><span class="n">nuevaFechaFin</span><span class="p">)</span> <span class="p">:</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeInfo</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">,</span><span class="s2">&quot;Se han añadido nuevas mensualidades.&quot;</span><span class="p">)</span>
+                <span class="n">Alquileres</span><span class="o">.</span><span class="n">cargarTablaMensualidades</span><span class="p">(</span><span class="n">idContrato</span><span class="p">,</span><span class="n">datosContrato</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span><span class="n">datosContrato</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">nuevaFechaFin</span> <span class="o">&lt;</span> <span class="n">fechaFinRegistrada</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">Alquileres</span><span class="o">.</span><span class="n">eliminarMensualidades</span><span class="p">(</span><span class="n">idContrato</span><span class="p">,</span> <span class="n">nuevaFechaFin</span><span class="p">):</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeInfo</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">,</span><span class="s2">&quot;Se han actualizado correctamente los meses y se ha recortado el contrato.&quot;</span><span class="p">)</span>
+                <span class="n">Alquileres</span><span class="o">.</span><span class="n">cargarTablaMensualidades</span><span class="p">(</span><span class="n">idContrato</span><span class="p">,</span><span class="n">datosContrato</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span><span class="n">datosContrato</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Atención&quot;</span><span class="p">,</span><span class="s2">&quot;Es posible que haya meses que no se han eliminado al detectarse pagos en el contrato. Es posible que se haya producido un error.&quot;</span><span class="p">)</span>
+                <span class="n">Alquileres</span><span class="o">.</span><span class="n">cargarTablaMensualidades</span><span class="p">(</span><span class="n">idContrato</span><span class="p">,</span><span class="n">datosContrato</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span><span class="n">datosContrato</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;Se ha producido un error inesperado.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Alquileres.ampliarMensualidades">
+<a class="viewcode-back" href="../src/alquileres.html#alquileres.Alquileres.ampliarMensualidades">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ampliarMensualidades</span><span class="p">(</span><span class="n">idAlquiler</span><span class="p">,</span> <span class="n">fechaInicio</span><span class="p">,</span> <span class="n">nuevaFechaFin</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param idAlquiler: identificar de un contrato de alquiler</span>
+<span class="sd">        :type idAlquiler: int</span>
+<span class="sd">        :param fechaInicio: fecha de inicio a partir de la cual se van a añadir mensualidades</span>
+<span class="sd">        :type fechaInicio: datetime</span>
+<span class="sd">        :param nuevaFechaFin: fecha de finalización hasta la que se van a añadir mensualidades</span>
+<span class="sd">        :type nuevaFechaFin: datetime</span>
+<span class="sd">        :return: éxito al añadir mensualidades</span>
+<span class="sd">        :rtype: bool</span>
+
+<span class="sd">        Método para ampliar las mensualidades de un contrato existente</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">fechaInicio</span> <span class="o">=</span> <span class="n">Alquileres</span><span class="o">.</span><span class="n">sumar_un_mes</span><span class="p">(</span><span class="n">fechaInicio</span><span class="p">)</span>
+
+            <span class="k">while</span> <span class="n">fechaInicio</span> <span class="o">&lt;=</span> <span class="n">nuevaFechaFin</span><span class="p">:</span>
+                <span class="n">mes</span> <span class="o">=</span> <span class="n">fechaInicio</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%B&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+                <span class="n">mes_anio</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mes</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">fechaInicio</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">registro</span> <span class="o">=</span> <span class="p">[</span><span class="n">idAlquiler</span><span class="p">,</span><span class="n">mes_anio</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">altaMensualidad</span><span class="p">(</span><span class="n">registro</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+                <span class="n">fechaInicio</span> <span class="o">=</span> <span class="n">Alquileres</span><span class="o">.</span><span class="n">sumar_un_mes</span><span class="p">(</span><span class="n">fechaInicio</span><span class="p">)</span>
+
+            <span class="n">nuevaFechaFin</span> <span class="o">=</span> <span class="n">nuevaFechaFin</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y&quot;</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">modificarFechaFinContrato</span><span class="p">(</span><span class="n">idAlquiler</span><span class="p">,</span><span class="n">nuevaFechaFin</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Las fechas no tienen el formato correcto o no son válidas.&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Se esperaba una cadena de texto para la fecha.&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+
+<div class="viewcode-block" id="Alquileres.eliminarMensualidades">
+<a class="viewcode-back" href="../src/alquileres.html#alquileres.Alquileres.eliminarMensualidades">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">eliminarMensualidades</span><span class="p">(</span><span class="n">idAlquiler</span><span class="p">,</span> <span class="n">nuevaFechaFin</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param idAlquiler: identicador de un contrato de alquiler</span>
+<span class="sd">        :type idAlquiler: int</span>
+<span class="sd">        :param nuevaFechaFin: nueva fecha de finalización de un contrato de alquiler</span>
+<span class="sd">        :type nuevaFechaFin: datetime</span>
+<span class="sd">        :return: éxito al eliminar mensualidades de un contrato de alquiler</span>
+<span class="sd">        :rtype: bool</span>
+
+<span class="sd">        Método para reducir las mensualidades de un contrato de alquiler ya registrado</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">mensualidades</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">listadoMensualidades</span><span class="p">(</span><span class="n">idAlquiler</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mensualidades</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="n">idMensualidad</span> <span class="o">=</span> <span class="n">mensualidades</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">mesStr</span> <span class="o">=</span> <span class="n">mensualidades</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">mes</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">mesStr</span><span class="p">,</span> <span class="s2">&quot;%B %Y&quot;</span><span class="p">)</span>
+                <span class="n">isPagado</span> <span class="o">=</span> <span class="n">mensualidades</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="n">nuevaFechaFin</span> <span class="o">&lt;</span> <span class="n">mes</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">isPagado</span><span class="p">:</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">eliminarMensualidad</span><span class="p">(</span><span class="n">idMensualidad</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">nuevaFechaFin</span> <span class="o">&gt;</span> <span class="n">mes</span><span class="p">:</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="k">elif</span> <span class="n">isPagado</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="n">nuevaFechaFin</span> <span class="o">=</span> <span class="n">nuevaFechaFin</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y&quot;</span><span class="p">)</span>
+            <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">modificarFechaFinContrato</span><span class="p">(</span><span class="n">idAlquiler</span><span class="p">,</span> <span class="n">nuevaFechaFin</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error eliminando mensualidades en alquileres&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="Alquileres.eliminarAlquiler">
+<a class="viewcode-back" href="../src/alquileres.html#alquileres.Alquileres.eliminarAlquiler">[documentos]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">eliminarAlquiler</span><span class="p">(</span><span class="n">idAlquiler</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param idAlquiler: identificador de contrato de alquiler</span>
+<span class="sd">        :type idAlquiler: int</span>
+
+<span class="sd">        Método para eliminar un contrato de alquiler si este no tiene mensualidades ya pagadas</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">codProp</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtcodpropalq</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="n">precio</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">txtprecioalq</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="n">hasMensualidadesPagadas</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">mensualidades</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">listadoMensualidades</span><span class="p">(</span><span class="n">idAlquiler</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">mensualidad</span> <span class="ow">in</span> <span class="n">mensualidades</span><span class="p">:</span>
+                <span class="n">isPagado</span> <span class="o">=</span> <span class="n">mensualidad</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">isPagado</span><span class="p">:</span>
+                    <span class="n">hasMensualidadesPagadas</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>
+
+            <span class="n">mbox</span> <span class="o">=</span> <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeConfirmacion</span><span class="p">(</span><span class="s1">&#39;Eliminar contrato&#39;</span><span class="p">,</span> <span class="s2">&quot;¿Desea eliminar el contrato de alquiler seleccionado? Tenga en cuenta que la acción es irreversible.&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">mbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">hasMensualidadesPagadas</span><span class="p">:</span>
+                    <span class="n">Alquileres</span><span class="o">.</span><span class="n">eliminarMensualidades</span><span class="p">(</span><span class="n">idAlquiler</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
+                    <span class="n">fecha_hoy</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y&quot;</span><span class="p">)</span>
+                    <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">finalizarContrato</span><span class="p">(</span><span class="n">idAlquiler</span><span class="p">,</span><span class="n">codProp</span><span class="p">,</span><span class="n">fecha_hoy</span><span class="p">)</span>
+                    <span class="n">Alquileres</span><span class="o">.</span><span class="n">cargarTablaMensualidades</span><span class="p">(</span><span class="n">idAlquiler</span><span class="p">,</span><span class="n">codProp</span><span class="p">,</span><span class="n">precio</span><span class="p">)</span>
+                    <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeInfo</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">,</span><span class="s2">&quot;Se han eliminado las mensualidades pendientes. El contrato no se puede eliminar, ya existen mensualidades pagadas.&quot;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="ow">not</span> <span class="n">hasMensualidadesPagadas</span> <span class="ow">and</span> <span class="n">var</span><span class="o">.</span><span class="n">claseConexion</span><span class="o">.</span><span class="n">eliminarContratoAlquiler</span><span class="p">(</span><span class="n">idAlquiler</span><span class="p">):</span>
+                    <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeInfo</span><span class="p">(</span><span class="s2">&quot;Aviso&quot;</span><span class="p">,</span><span class="s2">&quot;Se ha eliminado el contrato de alquiler.&quot;</span><span class="p">)</span>
+                    <span class="n">Alquileres</span><span class="o">.</span><span class="n">cargarTablaContratos</span><span class="p">()</span>
+                    <span class="n">Alquileres</span><span class="o">.</span><span class="n">cargarTablaMensualidades</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">eventos</span><span class="o">.</span><span class="n">Eventos</span><span class="o">.</span><span class="n">crearMensajeError</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span><span class="s2">&quot;Se ha producido un error y no se ha eliminado el contrato de alquiler.&quot;</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al eliminar un alquiler en alquileres&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2025, Yelko.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

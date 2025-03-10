@@ -45,8 +45,10 @@
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">conexion module</a><ul>
 <li><a class="reference internal" href="#conexion.Conexion"><code class="docutils literal notranslate"><span class="pre">Conexion</span></code></a><ul>
+<li><a class="reference internal" href="#conexion.Conexion.altaAlquiler"><code class="docutils literal notranslate"><span class="pre">Conexion.altaAlquiler()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.altaCliente"><code class="docutils literal notranslate"><span class="pre">Conexion.altaCliente()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.altaFactura"><code class="docutils literal notranslate"><span class="pre">Conexion.altaFactura()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.altaMensualidad"><code class="docutils literal notranslate"><span class="pre">Conexion.altaMensualidad()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.altaPropiedad"><code class="docutils literal notranslate"><span class="pre">Conexion.altaPropiedad()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.altaTipoprop"><code class="docutils literal notranslate"><span class="pre">Conexion.altaTipoprop()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.altaVendedor"><code class="docutils literal notranslate"><span class="pre">Conexion.altaVendedor()</span></code></a></li>
@@ -59,25 +61,36 @@
 <li><a class="reference internal" href="#conexion.Conexion.cargarAllVendedoresBD"><code class="docutils literal notranslate"><span class="pre">Conexion.cargarAllVendedoresBD()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.cargarMunicipios"><code class="docutils literal notranslate"><span class="pre">Conexion.cargarMunicipios()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.cargarTipoprop"><code class="docutils literal notranslate"><span class="pre">Conexion.cargarTipoprop()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.datosOneAlquiler"><code class="docutils literal notranslate"><span class="pre">Conexion.datosOneAlquiler()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.datosOneCliente"><code class="docutils literal notranslate"><span class="pre">Conexion.datosOneCliente()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.datosOneFactura"><code class="docutils literal notranslate"><span class="pre">Conexion.datosOneFactura()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.datosOneMensualidad"><code class="docutils literal notranslate"><span class="pre">Conexion.datosOneMensualidad()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.datosOnePropiedad"><code class="docutils literal notranslate"><span class="pre">Conexion.datosOnePropiedad()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.datosOneVendedor"><code class="docutils literal notranslate"><span class="pre">Conexion.datosOneVendedor()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.datosOneVenta"><code class="docutils literal notranslate"><span class="pre">Conexion.datosOneVenta()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.db_conexion"><code class="docutils literal notranslate"><span class="pre">Conexion.db_conexion()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.deleteFactura"><code class="docutils literal notranslate"><span class="pre">Conexion.deleteFactura()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.deleteVenta"><code class="docutils literal notranslate"><span class="pre">Conexion.deleteVenta()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.eliminarContratoAlquiler"><code class="docutils literal notranslate"><span class="pre">Conexion.eliminarContratoAlquiler()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.eliminarMensualidad"><code class="docutils literal notranslate"><span class="pre">Conexion.eliminarMensualidad()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.facturaHasVentas"><code class="docutils literal notranslate"><span class="pre">Conexion.facturaHasVentas()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.finalizarContrato"><code class="docutils literal notranslate"><span class="pre">Conexion.finalizarContrato()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.idOneAlquiler"><code class="docutils literal notranslate"><span class="pre">Conexion.idOneAlquiler()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.listaMunicipio"><code class="docutils literal notranslate"><span class="pre">Conexion.listaMunicipio()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.listaProv"><code class="docutils literal notranslate"><span class="pre">Conexion.listaProv()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.listadoAlquileres"><code class="docutils literal notranslate"><span class="pre">Conexion.listadoAlquileres()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.listadoClientes"><code class="docutils literal notranslate"><span class="pre">Conexion.listadoClientes()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.listadoFacturas"><code class="docutils literal notranslate"><span class="pre">Conexion.listadoFacturas()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.listadoMensualidades"><code class="docutils literal notranslate"><span class="pre">Conexion.listadoMensualidades()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.listadoPropiedades"><code class="docutils literal notranslate"><span class="pre">Conexion.listadoPropiedades()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.listadoVendedores"><code class="docutils literal notranslate"><span class="pre">Conexion.listadoVendedores()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.listadoVentas"><code class="docutils literal notranslate"><span class="pre">Conexion.listadoVentas()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.modifCliente"><code class="docutils literal notranslate"><span class="pre">Conexion.modifCliente()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.modifProp"><code class="docutils literal notranslate"><span class="pre">Conexion.modifProp()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.modifVendedor"><code class="docutils literal notranslate"><span class="pre">Conexion.modifVendedor()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.modificarFechaFinContrato"><code class="docutils literal notranslate"><span class="pre">Conexion.modificarFechaFinContrato()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.pagarMensualidad"><code class="docutils literal notranslate"><span class="pre">Conexion.pagarMensualidad()</span></code></a></li>
+<li><a class="reference internal" href="#conexion.Conexion.propiedadIsAlquilada"><code class="docutils literal notranslate"><span class="pre">Conexion.propiedadIsAlquilada()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.propiedadIsVendida"><code class="docutils literal notranslate"><span class="pre">Conexion.propiedadIsVendida()</span></code></a></li>
 <li><a class="reference internal" href="#conexion.Conexion.venderPropiedad"><code class="docutils literal notranslate"><span class="pre">Conexion.venderPropiedad()</span></code></a></li>
 </ul>
@@ -116,10 +129,21 @@
 <dt class="sig sig-object py" id="conexion.Conexion">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">conexion.</span></span><span class="sig-name descname"><span class="pre">Conexion</span></span><a class="reference internal" href="../_modules/conexion.html#Conexion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>&#64;staticmethod
-método de una clase que no depende de una instancia específica de esa clase.
-Se puede llamarlo directamente a través de la clase, sin necesidad de crear un objeto de esa clase.
-Es útil en comportamientos o funcionalidades que son más a una clase en general que a una instancia en particular.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.altaAlquiler">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">altaAlquiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">registro</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.altaAlquiler"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.altaAlquiler" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>registro</strong> (<em>list</em>) – datos de un nuevo contrato de alquiler</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>éxito al insertar un nuevo contrato de alquiler</p>
+</dd>
+</dl>
+<p>:rtype:bool</p>
+<p>Método para insertar un nuevo contrato de alquiler en la base de datos</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="conexion.Conexion.altaCliente">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">altaCliente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nuevocli</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.altaCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.altaCliente" title="Link to this definition"></a></dt>
@@ -152,6 +176,23 @@ Es útil en comportamientos o funcionalidades que son más a una clase en genera
 </dd>
 </dl>
 <p>Método que da de alta una nueva factura en la base de datos</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.altaMensualidad">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">altaMensualidad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">registro</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.altaMensualidad"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.altaMensualidad" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>registro</strong> (<em>list</em>) – datos de una mensualidad</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>éxito al insertar una nueva mensualidad</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p>Método para registrar una nueva mensualidad respecto de un contrato de alquiler</p>
 </dd></dl>
 
 <dl class="py method">
@@ -338,6 +379,23 @@ Es útil en comportamientos o funcionalidades que son más a una clase en genera
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.datosOneAlquiler">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">datosOneAlquiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idAlquiler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.datosOneAlquiler"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.datosOneAlquiler" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idAlquiler</strong> (<em>int</em>) – identificador del contrato de alquiler</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>todos los datos de un contrato de alquiler (sin mensualidades)</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p>Método para obtener los datos de un contrato de alquiler a partir de su identificador</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="conexion.Conexion.datosOneCliente">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">datosOneCliente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dni</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.datosOneCliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.datosOneCliente" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
@@ -369,6 +427,23 @@ Es útil en comportamientos o funcionalidades que son más a una clase en genera
 </dd>
 </dl>
 <p>Método que devuelve los datos de la factura seleccionada</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.datosOneMensualidad">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">datosOneMensualidad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idMensualidad</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.datosOneMensualidad"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.datosOneMensualidad" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idMensualidad</strong> (<em>int</em>) – identificador de la mensualidad</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>todos los datos de la mensualidad</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p>Método para obtener todos los datos de una mensualidad dado su identificador</p>
 </dd></dl>
 
 <dl class="py method">
@@ -478,6 +553,40 @@ Si éxito devuelve True, en caso contrario devuelve False.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.eliminarContratoAlquiler">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eliminarContratoAlquiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idAlquiler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.eliminarContratoAlquiler"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.eliminarContratoAlquiler" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idAlquiler</strong> (<em>int</em>) – identificador del contrato de alquiler</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>éxito al eliminar el contrato, eliminar sus mensualidades y restablecer la propiedad a disponible</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p>Método que elimina un contrato de alquiler de la base de datos, eliminando sus mensualidades relacionadas y restableciendo a disponible la propiedad del contrato</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.eliminarMensualidad">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eliminarMensualidad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idMensualidad</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.eliminarMensualidad"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.eliminarMensualidad" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idMensualidad</strong> (<em>int</em>) – identificador de la mensualidad</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>éxito al eliminar una mensualidad</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p>Método para eliminar una mensualidad de la base de datos</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="conexion.Conexion.facturaHasVentas">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">facturaHasVentas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idFactura</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.facturaHasVentas"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.facturaHasVentas" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
@@ -492,6 +601,46 @@ Si éxito devuelve True, en caso contrario devuelve False.</p>
 </dd>
 </dl>
 <p>Método que comprueba si una factura tiene ventas asociadas en la base de datos</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.finalizarContrato">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">finalizarContrato</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idAlquiler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codPropiedad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuevaFechaFin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.finalizarContrato"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.finalizarContrato" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>idAlquiler</strong> (<em>int</em>) – identificador de un contrato de alquiler</p></li>
+<li><p><strong>nuevaFechaFin</strong> (<em>datetime</em>) – fecha de finalización de contrato nueva</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>éxito al finalizar un contrato de alquiler</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p>Método para finalizar un contrato, liberar la propiedad y modificar la fecha de finalización de un contrato en la base de datos</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.idOneAlquiler">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">idOneAlquiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codPropiedad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dniCliente</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.idOneAlquiler"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.idOneAlquiler" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>codPropiedad</strong> (<em>int</em>) – identificador de propiedad</p></li>
+<li><p><strong>dniCliente</strong> (<em>str</em>) – el identificador de un cliente, su DNI</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>el identificador de un contrato de alquiler</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>id</p>
+</dd>
+</dl>
+<p>Método para obtener el id de un contrato de alquiler en función del id de la propiedad y el id del cliente</p>
 </dd></dl>
 
 <dl class="py method">
@@ -526,6 +675,20 @@ Si éxito devuelve True, en caso contrario devuelve False.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.listadoAlquileres">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">listadoAlquileres</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.listadoAlquileres"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.listadoAlquileres" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Devuelve<span class="colon">:</span></dt>
+<dd class="field-odd"><p>identificador y cliente de todos los contratos de alquiler</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+<p>Método que devuelve el identificador y el cliente de todos los contratos de alquiler que tengamos registrados</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="conexion.Conexion.listadoClientes">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">listadoClientes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.listadoClientes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.listadoClientes" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
@@ -551,6 +714,23 @@ Si éxito devuelve True, en caso contrario devuelve False.</p>
 </dd>
 </dl>
 <p>Método que devuelve todas las facturas de la base de datos</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.listadoMensualidades">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">listadoMensualidades</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idAlquiler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.listadoMensualidades"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.listadoMensualidades" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idAlquiler</strong> (<em>int</em>) – identificador de un contrato de alquiler</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>todos los datos las mensualidades de un contrato de alquiler</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p>Método para obtener todos los datos de las mensualidades relacionadas con un contrato de alquiler</p>
 </dd></dl>
 
 <dl class="py method">
@@ -647,6 +827,60 @@ Si éxito devuelve True, en caso contrario devuelve False.</p>
 </dd>
 </dl>
 <p>Método que modifica los datos de un vendedor en la base de datos</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.modificarFechaFinContrato">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">modificarFechaFinContrato</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idAlquiler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuevaFechaFin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.modificarFechaFinContrato"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.modificarFechaFinContrato" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>idAlquiler</strong> (<em>int</em>) – identificador de un contrato de alquiler</p></li>
+<li><p><strong>nuevaFechaFin</strong> (<em>datetime</em>) – fecha de finalización de contrato nueva</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>éxito al modificar la fecha de finalización de un contrato de alquiler</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p>Método para modificar la fecha de finalización de un contrato en la base de datos</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.pagarMensualidad">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pagarMensualidad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idMensualidad</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.pagarMensualidad"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.pagarMensualidad" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idMensualidad</strong> (<em>int</em>) – identificador de mensualidad</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>éxito al marcar como pagada una mensualidad</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p>Método para registrar en la base de datos el pago de una mensualidad</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conexion.Conexion.propiedadIsAlquilada">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">propiedadIsAlquilada</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codigo</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/conexion.html#Conexion.propiedadIsAlquilada"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#conexion.Conexion.propiedadIsAlquilada" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>codigo</strong> (<em>str</em>) – codigo identificador de propiedad</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>si la propiedad se encuentra alquilada o no</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p>Método de conexión a la base de datos para comprobar si una propiedad se encuentra alquilada o no</p>
 </dd></dl>
 
 <dl class="py method">

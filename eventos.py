@@ -35,6 +35,7 @@ class Eventos():
 
         Método que crea un mensaje de salida cuando queremos cerrar el programa, pidiendo confirmación. Si se confirma cierra el programa.
 
+
         """
         mbox = Eventos.crearMensajeConfirmacion('Salir', "¿Desea salir?")
 
